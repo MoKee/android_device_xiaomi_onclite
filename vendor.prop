@@ -1,4 +1,5 @@
 # Audio
+ro.config.media_vol_steps=25
 persist.vendor.audio.fluence.speaker=true
 persist.vendor.audio.fluence.voicecall=true
 persist.vendor.audio.fluence.voicerec=false
