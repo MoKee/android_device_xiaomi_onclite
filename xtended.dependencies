@@ -11,4 +11,10 @@
    "branch": "10.x",
    "remote": "Dhina17"
  },
+{
+   "repository": "vendor_MiuiCamera",
+   "target_path": "vendor/MiuiCamera"
+    "branch": "xq-raphael",
+    "remote": "Xtended-Devices"
+ },
 ]

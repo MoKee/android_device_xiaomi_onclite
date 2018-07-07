@@ -15,6 +15,9 @@ $(call inherit-product, device/xiaomi/onclite/device.mk)
 # Inherit some Xtended stuff.
 $(call inherit-product, vendor/xtended/config/common_full_phone.mk)
 
+# Inherit from custom vendor
+$(call inherit-product, vendor/MiuiCamera/config.mk)
+
 # Bootanimation res
 TARGET_BOOT_ANIMATION_RES := 1080
 
