@@ -292,6 +292,12 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libstagefrighthw
 
+# RCS
+PRODUCT_PACKAGES += \
+    com.android.ims.rcsmanager \
+    PresencePolling \
+    RcsService
+
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power@1.0-service \
