@@ -573,6 +573,8 @@ function enable_memory_features()
 
         #Enable Delay Service Restart
         setprop ro.vendor.qti.am.reschedule_service true
+
+	echo 100 > /sys/module/vmpressure/parameters/allocstall_threshold
     fi
 }
 
