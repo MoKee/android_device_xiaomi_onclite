@@ -1,0 +1,4 @@
+service vendor.touch-hal-1-0-onclite /vendor/bin/hw/vendor.mokee.touch@1.0-service.onclite
+    class hal
+    user system
+    group system

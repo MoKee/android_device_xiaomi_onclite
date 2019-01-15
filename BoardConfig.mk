@@ -169,6 +169,9 @@ DEVICE_FRAMEWORK_MANIFEST_FILE := $(DEVICE_PATH)/framework_manifest.xml
 TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_onclite
 TARGET_RECOVERY_DEVICE_MODULES := libinit_onclite
 
+# Keymaster
+TARGET_PROVIDES_KEYMASTER := true
+
 # Media
 TARGET_USES_MEDIA_EXTENSIONS := true
 
