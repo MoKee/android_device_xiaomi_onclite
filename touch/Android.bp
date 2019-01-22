@@ -21,7 +21,8 @@ cc_binary {
     srcs: [
         "GloveMode.cpp",
         "KeyDisabler.cpp",
-        "service.cpp"
+        "service.cpp", 
+		"TouchscreenGesture.cpp"
     ],
     shared_libs: [
         "libbase",

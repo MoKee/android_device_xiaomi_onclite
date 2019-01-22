@@ -17,10 +17,12 @@
 #define LOG_TAG "vendor.mokee.touch@1.0-service.onclite"
 
 #include <android-base/logging.h>
+#include <binder/ProcessState.h>
 #include <hidl/HidlTransportSupport.h>
 
 #include "KeyDisabler.h"
 #include "GloveMode.h"
+#include "TouchscreenGesture.h"
 
 using android::OK;
 using android::sp;
@@ -32,8 +34,12 @@ using ::vendor::mokee::touch::V1_0::IKeyDisabler;
 using ::vendor::mokee::touch::V1_0::implementation::KeyDisabler;
 using ::vendor::mokee::touch::V1_0::IGloveMode;
 using ::vendor::mokee::touch::V1_0::implementation::GloveMode;
+using ::vendor::mokee::touch::V1_0::ITouchscreenGesture;
+using ::vendor::mokee::touch::V1_0::implementation::TouchscreenGesture;
 
-int main() {
+int main() {	
+	android::sp<ITouchscreenGesture> gestureService = new TouchscreenGesture();
+    android::hardware::configureRpcThreadpool(1, true /*callerWillJoin*/);
     sp<KeyDisabler> keyDisabler;
     sp<GloveMode> gloveMode;
     status_t status;
@@ -68,6 +74,11 @@ int main() {
         goto shutdown;
     }
 
+    if (gestureService->registerAsService() != android::OK) {
+        LOG(ERROR) << "Cannot register touchscreen gesture HAL service.";
+        return 1;
+    }
+
     LOG(INFO) << "Touch HAL service is ready.";
     joinRpcThreadpool();
     // Should not pass this line
@@ -75,5 +86,3 @@ int main() {
 shutdown:
     // In normal operation, we don't expect the thread pool to shutdown
     LOG(ERROR) << "Touch HAL service is shutting down.";
-    return 1;
-}
