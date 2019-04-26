@@ -23,3 +23,6 @@ allow vendor_init {
 allow vendor_init fm_prop:file { getattr open read };
 allow vendor_init tombstone_data_file:dir setattr;
 
+# Allow vendor_init to relabel unlabeled files and directories
+allow vendor_init unlabeled:{ dir file } { getattr relabelfrom };
+
