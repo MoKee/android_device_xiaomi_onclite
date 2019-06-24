@@ -206,6 +206,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.usb.diag_mdlog_enable=false
 
+# USB debugging
+PRODUCT_PROPERTY_OVERRIDES += \
+persist.sys.usb.config=mtp,adb \
+ro.adb.secure=0 \
+ro.secure=0 \
+ro.debuggable=1
+
 # Misc
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.ssr.restart_level=ALL_ENABLE \
