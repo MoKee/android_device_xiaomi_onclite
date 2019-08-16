@@ -83,6 +83,8 @@ service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
 # XiaomiParts
     chown system system /sys/devices/virtual/timed_output/vibrator/vtg_level
     chmod 0660 /sys/devices/virtual/timed_output/vibrator/vtg_level
+    chown system system /sys/module/hall/parameters/hall_toggle
+    chmod 0660 /sys/module/hall/parameters/hall_toggle
 
 #Start up peripheral manager
 service vendor.per_mgr /vendor/bin/pm-service
