@@ -80,6 +80,10 @@ service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
     group camera system inet input graphics
     writepid /dev/cpuset/system-background/tasks
 
+# XiaomiParts
+    chown system system /sys/devices/virtual/timed_output/vibrator/vtg_level
+    chmod 0660 /sys/devices/virtual/timed_output/vibrator/vtg_level
+
 #Start up peripheral manager
 service vendor.per_mgr /vendor/bin/pm-service
     class core
