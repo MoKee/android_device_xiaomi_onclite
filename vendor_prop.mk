@@ -123,6 +123,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.qfp=false
 
+# Netflix
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.netflix.bsp_rev=Q660-13149-1
+
 # FM
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.fm.transmitter=false \
