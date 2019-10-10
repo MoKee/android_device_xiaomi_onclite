@@ -167,7 +167,13 @@ PRODUCT_PACKAGES += \
 # FM
 PRODUCT_PACKAGES += \
     FMRadio \
-    libfmjni
+    libfmjni \
+    FM2 \
+    libqcomfm_jni \
+    qcom.fmradio
+
+ PRODUCT_BOOT_JARS += \
+    qcom.fmradio
 
 # GPS
 PRODUCT_COPY_FILES += \
