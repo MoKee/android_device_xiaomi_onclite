@@ -196,6 +196,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.qti.am.reschedule_service=true\
     ro.vendor.qti.sys.fw.bservice_limit=5 \
     ro.vendor.qti.sys.fw.bservice_age=5000
+	
+# QC framework value-adds
+ro.vendor.qti.va_aosp.support=1
+
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.qti.telephony.vt_cam_interface=1 \
