@@ -455,4 +455,14 @@
     <integer name="config_lightSensorWarmupTime">200</integer>
 
 
+     <!-- The list of components which should be automatically disabled for a specific device. -->
+    <string-array name="config_deviceDisabledComponents" translatable="false">
+        <item>com.google.android.gms/com.google.android.gms.nearby.messages.service.NearbyMessagesService</item>
+        <item>com.google.android.apps.messaging/.shared analytics.securringmetrics.AnalyticsAlarmReceiver</item>
+        <item>com.google.android.gms/.fitness.cache.DataUpdatoListenerCacheService</item>
+        <item>com.google.android gms/com.google.android.contextmanagerservice.ContextManagerService</item>
+        <item>com.google.android.gms/com.google.android.location.internal.GoogleLocationManagerService</item>
+        <item>com.google.android.gms/com.google.android.location.internal.server.GoogleLocationService</item>
+        <item>com.google.android.gms.com.google.android.location.places.service.PlaceDetectionAsyncService</item>
+    </string-array>
 </resources>
