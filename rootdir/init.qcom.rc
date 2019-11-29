@@ -621,6 +621,14 @@ service vendor.move_time_data /system/bin/move_time_data.sh
     group system
     disabled
     oneshot
+    user root
+    group root
+
+service vendor.power_off_alarm /vendor/bin/power_off_alarm
+    class core
+    group system
+    disabled
+    oneshot
 
 service vendor.audio-hal-2-0 /vendor/bin/hw/android.hardware.audio@2.0-service
     override
