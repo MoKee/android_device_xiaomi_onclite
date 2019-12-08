@@ -338,7 +338,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # WiFi calling
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.dbg.wfc_avail_ovr=1
-    
+
+# Force wifi interface for wlan0
+PRODUCT_PROPERTY_OVERRIDES += \
+    wifi.interface=wlan0    
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.device_config.runtime_native.usap_pool_enabled=true    
