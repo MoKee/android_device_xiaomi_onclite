@@ -81,4 +81,6 @@ telephony.lteOnCdmaDevice=1
 # WFD
 persist.debug.wfd.enable=1
 
+# Force wifi interface for wlan0
+wifi.interface=wlan0
 
