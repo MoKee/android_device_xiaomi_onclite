@@ -102,6 +102,18 @@ service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
     chmod 660 /sys/devices/platform/kcal_ctrl.0/kcal_min
     chmod 660 /sys/devices/platform/kcal_ctrl.0/kcal
 
+service folio_daemon /system/bin/folio_daemon
+    class late_start
+    user system
+    group system uhid
+    disabled
+
+on property:vendor.persist.hall_wakeup=0
+    stop folio_daemon
+
+on property:vendor.persist.hall_wakeup=1
+    start folio_daemon
+
 #Start up peripheral manager
 service vendor.per_mgr /vendor/bin/pm-service
     class core
