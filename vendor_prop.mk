@@ -146,7 +146,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.mdpcomp.logs=0 \
     persist.hwc.enable_vds=1 \
     persist.hwc.mdpcomp.enable=true \
-    vendor.video.disable.ubwc=1
+    vendor.video.disable.ubwc=1 \
+    sys.display-size=1920x1080
 
 # Netmgrd
 PRODUCT_PROPERTY_OVERRIDES += \
