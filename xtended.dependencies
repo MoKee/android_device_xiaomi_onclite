@@ -2,11 +2,13 @@
  {
    "repository": "android_kernel_xiaomi_onclite",
    "target_path": "kernel/xiaomi/onclite",
-   "branch": "pie",
+   "branch": "Q",
    "remote": "mylove90"
  },
  {
    "repository": "android_vendor_xiaomi_onclite",
    "target_path": "vendor/xiaomi/onclite"
+   "branch": "10.x",
+   "remote": "Dhina17"
  },
 ]
