@@ -173,6 +173,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     DEVICE_PROVISIONED=1 \
     persist.radio.multisim.config=dsds \
     persist.vendor.radio.apm_sim_not_pwdn=1 \
+    persist.vendor.radio.aosp_usr_pref_sel=true \
     persist.vendor.radio.custom_ecc=1 \
     persist.vendor.radio.data_con_rprt=1 \
     persist.vendor.radio.hw_mbn_update=0 \
