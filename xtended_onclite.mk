@@ -19,7 +19,7 @@ $(call inherit-product, vendor/xtended/config/common_full_phone.mk)
 $(call inherit-product, vendor/MiuiCamera/config.mk)
 
 # Bootanimation res
-TARGET_BOOT_ANIMATION_RES := 1080
+TARGET_BOOTANIMATION_7200P := true
 
 # Device identifier. This must come after all inclusions.
 PRODUCT_NAME := xtended_onclite
