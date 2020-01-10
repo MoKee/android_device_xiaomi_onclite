@@ -16,15 +16,9 @@ on property:sys.boot_completed=1
 on property:persist.spectrum.profile=0
 # Configure governor settings for little cluster
 write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor schedutil
-write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor schedutil
-write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor schedutil
-write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor schedutil
 
  # Configure governor settings for big cluster
 write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor schedutil
-write /sys/devices/system/cpu/cpu5/cpufreq/scaling_governor schedutil
-write /sys/devices/system/cpu/cpu6/cpufreq/scaling_governor schedutil
-write /sys/devices/system/cpu/cpu7/cpufreq/scaling_governor schedutil
 
 #adreno idler
 write /sys/module/adreno_idler/parameters/adreno_idler_active 0
@@ -33,8 +27,8 @@ write /sys/module/adreno_idler/parameters/adreno_idler_active 0
 write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 1
 
 #IO Scheduler
-write /sys/block/mmcblk0/queue/scheduler bfq
-write /sys/block/mmcblk1/queue/scheduler bfq
+write /sys/block/mmcblk0/queue/scheduler cfq
+write /sys/block/mmcblk1/queue/scheduler cfq
 
 #TCP CCA
 write /proc/sys/net/ipv4/tcp_congestion_control bbr
@@ -43,15 +37,9 @@ write /proc/sys/net/ipv4/tcp_congestion_control bbr
 on property:persist.spectrum.profile=1
 # Configure governor settings for little cluster
 write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
-write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor ondemand
-write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor ondemand
-write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor ondemand
 
  # Configure governor settings for big cluster
 write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor ondemand
-write /sys/devices/system/cpu/cpu5/cpufreq/scaling_governor ondemand
-write /sys/devices/system/cpu/cpu6/cpufreq/scaling_governor ondemand
-write /sys/devices/system/cpu/cpu7/cpufreq/scaling_governor ondemand
 
 #adreno idler
 write /sys/module/adreno_idler/parameters/adreno_idler_active 0
@@ -60,8 +48,8 @@ write /sys/module/adreno_idler/parameters/adreno_idler_active 0
 write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 2
 
 #IO Scheduler
-write /sys/block/mmcblk0/queue/scheduler fiops
-write /sys/block/mmcblk1/queue/scheduler fiops
+write /sys/block/mmcblk0/queue/scheduler cfq
+write /sys/block/mmcblk1/queue/scheduler cfq
 
 #TCP CCA
 write /proc/sys/net/ipv4/tcp_congestion_control bbr
@@ -70,15 +58,9 @@ write /proc/sys/net/ipv4/tcp_congestion_control bbr
 on property:persist.spectrum.profile=2
 # Configure governor settings for little cluster
 write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor conservative
-write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor conservative
-write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor conservative
-write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor conservative
 
  # Configure governor settings for big cluster
 write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor conservative
-write /sys/devices/system/cpu/cpu5/cpufreq/scaling_governor conservative
-write /sys/devices/system/cpu/cpu6/cpufreq/scaling_governor conservative
-write /sys/devices/system/cpu/cpu7/cpufreq/scaling_governor conservative
 
 #adreno idler
 write /sys/module/adreno_idler/parameters/adreno_idler_active 1
@@ -87,8 +69,8 @@ write /sys/module/adreno_idler/parameters/adreno_idler_active 1
 write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 0
 
 #IO Scheduler
-write /sys/block/mmcblk0/queue/scheduler noop
-write /sys/block/mmcblk1/queue/scheduler noop
+write /sys/block/mmcblk0/queue/scheduler cfq
+write /sys/block/mmcblk1/queue/scheduler cfq
 
 #TCP CCA
 write /proc/sys/net/ipv4/tcp_congestion_control bbr
@@ -97,15 +79,9 @@ write /proc/sys/net/ipv4/tcp_congestion_control bbr
 on property:persist.spectrum.profile=3
 # Configure governor settings for little cluster
 write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor performance
-write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor performance
-write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor performance
-write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor performance
 
  # Configure governor settings for big cluster
 write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor performance
-write /sys/devices/system/cpu/cpu5/cpufreq/scaling_governor performance
-write /sys/devices/system/cpu/cpu6/cpufreq/scaling_governor performance
-write /sys/devices/system/cpu/cpu7/cpufreq/scaling_governor performance
 
 #adreno idler
 write /sys/module/adreno_idler/parameters/adreno_idler_active 0
@@ -114,8 +90,8 @@ write /sys/module/adreno_idler/parameters/adreno_idler_active 0
 write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 3
 
 #IO Scheduler
-write /sys/block/mmcblk0/queue/scheduler maple
-write /sys/block/mmcblk1/queue/scheduler maple
+write /sys/block/mmcblk0/queue/scheduler cfq
+write /sys/block/mmcblk1/queue/scheduler cfq
 
 #TCP CCA
 write /proc/sys/net/ipv4/tcp_congestion_control bbr
