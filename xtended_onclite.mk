@@ -20,6 +20,7 @@ $(call inherit-product, vendor/MiuiCamera/config.mk)
 
 # Bootanimation res
 TARGET_BOOTANIMATION_7200P := true
+IS_PHONE := true
 
 # Device identifier. This must come after all inclusions.
 PRODUCT_NAME := xtended_onclite
