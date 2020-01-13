@@ -212,7 +212,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	
 # QC framework value-adds
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.qti.va_aosp.support=1
+    ro.vendor.qti.va_aosp.support=1 \
+    ro.vendor.qti.sys.fw.bservice_enable=true \
+    ro.vendor.qti.am.reschedule_service=true
 
 # RCS
 PRODUCT_PROPERTY_OVERRIDES += \
