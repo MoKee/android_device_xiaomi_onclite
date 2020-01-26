@@ -509,7 +509,6 @@
     <!-- Whether device ignores the RSSNR signal implementation -->
     <bool name="config_ignoreRssnrSignalLevel">true</bool>
 
-    <!-- Whether the device supports Smart Pixels--> 
     <bool name="config_enableSmartPixels">true</bool>
 	
 	    <!-- Whether we have a multi coloured battery LED or not -->
@@ -613,4 +612,7 @@
 
     <!-- Use live display for temperature control-->
     <bool name="config_nightDisplayAvailable">false</bool>
+
+    <!-- Whether to use in-built Screen Record service -->
+    <bool name="config_showScreenRecord">true</bool>
 </resources>
