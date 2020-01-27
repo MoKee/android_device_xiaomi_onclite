@@ -148,7 +148,7 @@ PRODUCT_PACKAGES += \
     libqdMetaData.system \
     libgenlock \
     libtinyxml \
-    vendor.display.config@1.1
+    vendor.display.config@1.11
 
 # Doze mode
 PRODUCT_PACKAGES += \
