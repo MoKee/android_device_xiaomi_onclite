@@ -23,7 +23,6 @@ Display | 6.26 inches, 97.8 cm2 (~81.5% screen-to-body ratio)
 Rear Camera  | 12 MP, f/1.8, 1.25µm, PDAF
 Front Camera  |  8 MP, f/2.0, 1.12µm
 
-![Xiaomi Redmi 7 ](https://www.91-cdn.com/pricebaba-images/images/product/mobile/66422/xiaomi-redmi-7-raw-330605.jpg "Xiaomi Redmi 7")
 ![Xiaomi Redmi 7](https://i.gadgets360cdn.com/products/large/1552901002_635_redmi_7.jpg?downsize=770:*&output-quality=70&output-format=webp "Xiaomi Redmi 7")
 
 ## Compile
