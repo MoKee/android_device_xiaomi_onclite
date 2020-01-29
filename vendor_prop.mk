@@ -104,7 +104,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # DPM
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.dpm.feature=1
+    persist.dpm.feature=1 \
+    persist.hwc.enable_vds=1 \
+    debug.sdm.support_writeback=0
 
 # DRM
 PRODUCT_PROPERTY_OVERRIDES += \
