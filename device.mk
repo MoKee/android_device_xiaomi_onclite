@@ -222,7 +222,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/uinput-fpc.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/uinput-fpc.kl \
     $(LOCAL_PATH)/keylayout/uinput-goodix.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/uinput-goodix.kl
 
-<<<<<<< HEAD
 #Keymaster
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-service \
@@ -233,8 +232,6 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service \
     android.hardware.gatekeeper@1.0-impl
 
-=======
->>>>>>> parent of f256bc7... onclite: Add keymaster HIDL
 # IPA Manager
 PRODUCT_PACKAGES += \
     ipacm \
