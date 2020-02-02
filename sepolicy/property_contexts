@@ -2,8 +2,8 @@
 persist.camera.             u:object_r:vendor_camera_prop:s0
 camera.                     u:object_r:vendor_camera_prop:s0
 ro.boot.hwc                 u:object_r:vendor_camera_prop:s0
-vendor.camera.              u:object_r:vendor_camera_prop:s0
 vidhance.                   u:object_r:vendor_camera_prop:s0
+camera.dual.mode           u:object_r:camera_prop:s0
 
 # Mlipay
 persist.sys.ifaa            u:object_r:ifaa_prop:s0
@@ -31,4 +31,4 @@ persist.service.folio_daemon        u:object_r:system_prop:s0
 
 sys.listeners.registered   u:object_r:vendor_tee_listener_prop:s0
 persist.net.doxlat         u:object_r:vendor_xlat_prop:s0
-camera.dual.mode           u:object_r:camera_prop:s0
+
