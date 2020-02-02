@@ -3,7 +3,7 @@ persist.camera.             u:object_r:vendor_camera_prop:s0
 camera.                     u:object_r:vendor_camera_prop:s0
 ro.boot.hwc                 u:object_r:vendor_camera_prop:s0
 vidhance.                   u:object_r:vendor_camera_prop:s0
-camera.dual.mode           u:object_r:camera_prop:s0
+camera.dual.mode            u:object_r:camera_prop:s0
 
 # Mlipay
 persist.sys.ifaa            u:object_r:ifaa_prop:s0
