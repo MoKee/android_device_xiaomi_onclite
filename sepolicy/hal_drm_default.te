@@ -1,0 +1,2 @@
+# This fixes Widevine L1 support with SELinux enforcing.
+r_dir_file(hal_drm_default, mediadrm_vendor_data_file)
