@@ -181,6 +181,10 @@ PRODUCT_PACKAGES += \
  PRODUCT_BOOT_JARS += \
     qcom.fmradio
 
+# Vendor SPL
+VENDOR_SECURITY_PATCH = $(PLATFORM_SECURITY_PATCH)
+
+
 # GPS
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps/flp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/flp.conf \
