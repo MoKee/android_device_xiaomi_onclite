@@ -15,6 +15,9 @@ $(call inherit-product, device/xiaomi/onclite/device.mk)
 # Inherit some LineageOS stuff.
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
+# Only UNOFFICIAL build
+$(call inherit-product, vendor/MiuiCamera/config.mk)
+
 # Bootanimation res
 TARGET_BOOTANIMATION_7200P := true
 IS_PHONE := true
