@@ -32,7 +32,7 @@ Add these projects to .repo/manifest.xml:
 ```xml
   <project name="krot-melles/android_device_xiaomi_onclite" path="device/xiaomi/onclite" remote="github" />
   <project name="krot-melles/android_vendor_xiaomi_onclite" path="vendor/xiaomi/onclite" remote="github" />
-  <project name="krot-melles/android_kernel_xiaomi_onc" path="kernel/xiaomi/onclite" remote="github" />
+  <project name="krot-melles/android_kernel_xiaomi_onclite" path="kernel/xiaomi/onclite" remote="github" />
 ```
 
 Finally execute these:
