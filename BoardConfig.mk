@@ -209,6 +209,7 @@ TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
 
 # SELinux
 include device/qcom/sepolicy-legacy-um/sepolicy.mk
+BOARD_PLAT_VENDOR_SEPOLICY_DIR += $(PLATFORM_PATH)/sepolicy/vendor
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
 # Treble
