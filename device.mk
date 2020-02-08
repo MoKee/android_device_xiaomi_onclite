@@ -396,28 +396,31 @@ PRODUCT_COPY_FILES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service \
-    libcld80211 \
+    ipacm \
+    IPACM_cfg.xml \
     libqsap_sdk \
     libQWiFiSoftApCfg \
     libwpa_client \
     hostapd \
-    dhcpcd.conf \
-    wcnss_service \
+	hostapd_cli \
     wificond \
+    wifilogd \
     wpa_supplicant \
-    wpa_supplicant.conf
+    wpa_supplicant.conf \
+    android.hardware.wifi@1.0-service
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(LOCAL_PATH)/wifi/move_wifi_data.sh:system/bin/move_wifi_data.sh \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
 
-# Wi-Fi Display
-PRODUCT_BOOT_JARS += \
+# WiFi Display
+PRODUCT_PACKAGES += \
+    libaacwrapper \
+    libnl  \
     WfdCommon
 
 # XiaomiParts
