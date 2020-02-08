@@ -1,5 +1,2 @@
 # Camera
 persist.camera.HAL3.enabled=1
-
-#Wi-Fi
-ro.disableWifiApFirmwareReload=true
