@@ -1,5 +1,6 @@
-Copyright (C) 2020 The Mokee Project
- 
+Copyright (C) 2012 The LineageOS Project
+Copyright (C) 2020 The MoKee Open Source Project
+
   Device configuration for Xiaomi Redmi 7
  =========================================
  
