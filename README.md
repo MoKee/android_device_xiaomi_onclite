@@ -1,4 +1,4 @@
-Copyright (C) 2012 The LineageOS Project
+Copyright (C) 2020 The Mokee Project
  
   Device configuration for Xiaomi Redmi 7
  =========================================
@@ -39,16 +39,6 @@ Finally execute these:
 
 ```
 . build/envsetup.sh
-lunch lineage_onclite-eng
+lunch mokee_onclite-eng
 brunch onclite
 ```
-
- 
- 
-
- 
-                
-
- 
- 
-  
