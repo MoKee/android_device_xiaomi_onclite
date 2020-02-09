@@ -450,7 +450,7 @@ low_ram=`getprop ro.config.low_ram`
 if [ "$ProductName" == "msmnile" ] || [ "$ProductName" == "kona" ] ; then
       # Enable ZRAM
       configure_zram_parameters
-      configure_read_ahead_kb_values
+      # configure_read_ahead_kb_values
       echo 0 > /proc/sys/vm/page-cluster
       echo 100 > /proc/sys/vm/swappiness
 else
@@ -554,7 +554,7 @@ else
 
     configure_zram_parameters
 
-    configure_read_ahead_kb_values
+    # configure_read_ahead_kb_values
 
     enable_swap
 fi
