@@ -1,20 +1,14 @@
 [
- {
-   "repository": "android_kernel_xiaomi_onclite",
-   "target_path": "kernel/xiaomi/onclite",
-   "branch": "Q",
-   "remote": "mylove90"
- },
- {
-   "repository": "android_vendor_xiaomi_onclite",
-   "target_path": "vendor/xiaomi/onclite"
-   "branch": "10.x",
-   "remote": "Dhina17"
- },
-{
-   "repository": "vendor_MiuiCamera",
-   "target_path": "vendor/MiuiCamera"
-    "branch": "xq-raphael",
-    "remote": "Xtended-Devices"
- },
+  {
+    "repository": "android_device_xiaomi_onclite",
+    "target_path": "device/xiaomi/onclite"
+  },
+  {
+    "repository": "android_kernel_xiaomi_onclite",
+    "target_path": "kernel/xiaomi/onclite"
+  },
+  {
+    "repository": "android_vendor_xiaomi_onclite",
+    "target_path": "vendor/xiaomi/onclite"
+  }
 ]
