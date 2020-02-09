@@ -29,8 +29,6 @@ import android.provider.Settings;
 import android.util.Log;
 import androidx.preference.PreferenceManager;
 
-import android.hardware.display.AmbientDisplayConfiguration;
-
 import static android.provider.Settings.Secure.DOZE_ALWAYS_ON;
 import static android.provider.Settings.Secure.DOZE_ENABLED;
 
@@ -43,7 +41,7 @@ public final class DozeUtils {
 
     protected static final String ALWAYS_ON_DISPLAY = "always_on_display";
 
-    protected static final String CATEG_PICKUP_SENSOR = "tilt_sensor";
+    protected static final String CATEG_PICKUP_SENSOR = "pickup_sensor";
     protected static final String CATEG_PROX_SENSOR = "proximity_sensor";
 
     protected static final String GESTURE_PICK_UP_KEY = "gesture_pick_up";

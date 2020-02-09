@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017-2019 The LineageOS Project
+# Copyright (C) 2017-2020 The LineageOS Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -29,6 +29,6 @@ LOCAL_RESOURCE_DIR := \
 
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
-include $(BUILD_PACKAGE)
+include frameworks/base/packages/SettingsLib/common.mk
 
-include $(call all-makefiles-under,$(LOCAL_PATH))
+include $(BUILD_PACKAGE)
