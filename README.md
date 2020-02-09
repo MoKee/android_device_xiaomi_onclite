@@ -24,21 +24,3 @@ Rear Camera  | 12 MP, f/1.8, 1.25µm, PDAF
 Front Camera  |  8 MP, f/2.0, 1.12µm
 
 ![Xiaomi Redmi 7](https://i.gadgets360cdn.com/products/large/1552901002_635_redmi_7.jpg?downsize=770:*&output-quality=70&output-format=webp "Xiaomi Redmi 7")
-
-## Compile
-
-Add these projects to .repo/manifest.xml:
-
-```xml
-  <project name="krot-melles/android_device_xiaomi_onclite" path="device/xiaomi/onclite" remote="github" />
-  <project name="krot-melles/android_vendor_xiaomi_onclite" path="vendor/xiaomi/onclite" remote="github" />
-  <project name="krot-melles/android_kernel_xiaomi_onclite" path="kernel/xiaomi/onclite" remote="github" />
-```
-
-Finally execute these:
-
-```
-. build/envsetup.sh
-lunch mokee_onclite-eng
-brunch onclite
-```
