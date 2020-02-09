@@ -1,5 +1,6 @@
 #
-# Copyright (C) 2017 The mokee Project
+# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2020 The MoKee Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,6 +24,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
     $(LOCAL_PATH)/overlay-mokee
+	
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += \
+    $(LOCAL_PATH)/overlay-mokee/packages/apps/Snap
 
 PRODUCT_ENFORCE_RRO_TARGETS := \
     framework-res
