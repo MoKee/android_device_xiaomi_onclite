@@ -1,9 +1,5 @@
 [
   {
-    "repository": "android_device_xiaomi_onclite",
-    "target_path": "device/xiaomi/onclite"
-  },
-  {
     "repository": "android_kernel_xiaomi_onclite",
     "target_path": "kernel/xiaomi/onclite"
   },
