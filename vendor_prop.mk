@@ -160,20 +160,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #Memory optimization
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.qti.sys.fw.bservice_enable=true \
-    ro.vendor.qti.am.reschedule_service=true
-
-# Perf
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=libqti-perfd-client.so \
-    vendor.perflocks_customized_for_apps=1
-
+    ro.vendor.qti.am.reschedule_service=true\
+    ro.vendor.qti.sys.fw.bservice_limit=5 \
+    ro.vendor.qti.sys.fw.bservice_age=5000
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.qti.telephony.vt_cam_interface=1 \
     DEVICE_PROVISIONED=1 \
     persist.radio.multisim.config=dsds \
     persist.vendor.radio.apm_sim_not_pwdn=1 \
-    persist.vendor.radio.aosp_usr_pref_sel=true \
     persist.vendor.radio.custom_ecc=1 \
     persist.vendor.radio.data_con_rprt=1 \
     persist.vendor.radio.hw_mbn_update=0 \
@@ -190,8 +185,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.default_network=22,20 \
     telephony.lteOnCdmaDevice=1 \
     vendor.rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
-    persist.vendor.radio.flexmap_type=none \
-    persist.sys.fflag.override.settings_network_and_internet_v2=true
 
 # Storage
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -201,7 +194,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.surface_flinger.force_hwc_copy_for_virtual_displays = true \
     ro.surface_flinger.max_virtual_display_dimension = 4096
+    ro.surface_flinger.vsync_event_phase_offset_ns=2000000 \
+    ro.surface_flinger.vsync_sf_event_phase_offset_ns=6000000
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.sf.enable_gl_backpressure=1 \
+    debug.sf.early_phase_offset_ns=500000 \
+    debug.sf.early_app_phase_offset_ns=500000 \
+    debug.sf.early_gl_phase_offset_ns=3000000 \
+    debug.sf.early_gl_app_phase_offset_ns=15000000
 # Thermal
 PRODUCT_PROPERTY_OVERRIDES += \
     sys.thermal.data.path=/data/vendor/thermal/
@@ -246,14 +247,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	
 # UI
 PRODUCT_PROPERTY_OVERRIDES += \
-    sys.use_fifo_ui=1
+    sys.use_fifo_ui=0
 
 # Perf
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.fw.dex2oat_thread_count=8 \
     ro.vendor.extension_library=libqti-perfd-client.so \
-    ro.vendor.qti.sys.fw.bservice_enable=true
-	
+    vendor.perflocks_customized_for_apps=1 \
+    vendor.perf.gestureflingboost.enable=true
+
 # Coral System Props
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.enable_gl_backpressure=1 \
