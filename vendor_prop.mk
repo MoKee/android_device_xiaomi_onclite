@@ -59,8 +59,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.camera.aux.packagelist=org.codeaurora.snapcam \
     vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,com.qualcomm.qti.qmmi,com.longcheertel.cit \
     vendor.camera.hal1.packagelist=com.skype.raider,com.google.android.talk \
-    vendor.camera.lowpower.record.enable=1
-
+    vendor.camera.lowpower.record.enable=1 \
+    media.camera.ts.monotonic=1 \
+    persist.camera.gyro.disable=0 \
+    persist.camera.isp.clock.optmz=0 \
+    persist.camera.stats.test=5 \
+    persist.vendor.qti.telephony.vt_cam_interface=1 \
+    vidc.enc.dcvs.extra-buff-count=2
+	
 # CnE
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.cne.feature=1 \
