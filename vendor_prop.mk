@@ -104,6 +104,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     sdm.debug.disable_skip_validate=1 \
     vendor.display.disable_skip_validate=1 \
     vendor.display.enable_default_color_mode=0 \
+	vendor.display.enable_optimize_refresh=1 \
     vendor.display.svi.config=1 \
     vendor.display.svi.config_path=/system/etc/display/SVIConfig.xml \
     vendor.gralloc.enable_fb_ubwc=1
@@ -191,6 +192,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.carrier=unknown \
     ro.telephony.default_network=22,20 \
     telephony.lteOnCdmaDevice=1 \
+	persist.sys.fflag.override.settings_network_and_internet_v2=true \
     vendor.rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
 
 # Storage
@@ -204,12 +206,6 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.surface_flinger.vsync_event_phase_offset_ns=2000000 \
     ro.surface_flinger.vsync_sf_event_phase_offset_ns=6000000
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.sf.enable_gl_backpressure=1 \
-    debug.sf.early_phase_offset_ns=500000 \
-    debug.sf.early_app_phase_offset_ns=500000 \
-    debug.sf.early_gl_phase_offset_ns=3000000 \
-    debug.sf.early_gl_app_phase_offset_ns=15000000
 # Thermal
 PRODUCT_PROPERTY_OVERRIDES += \
     sys.thermal.data.path=/data/vendor/thermal/
@@ -224,10 +220,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # USB debugging
 PRODUCT_PROPERTY_OVERRIDES += \
-persist.sys.usb.config=mtp,adb \
-ro.adb.secure=0 \
-ro.secure=0 \
-ro.debuggable=1
+    persist.sys.usb.config=mtp,adb \
+    ro.adb.secure=0 \
+    ro.secure=0 \
+    ro.debuggable=1
 
 # Misc
 PRODUCT_PROPERTY_OVERRIDES += \
