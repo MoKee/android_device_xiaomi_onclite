@@ -556,4 +556,7 @@
     <!-- Should we filter any display modes which are unampped? -->
     <bool name="config_filterDisplayModes">true</bool>
 
+    <!-- Smart Charing is available for OP3 -->
+    <bool name="config_smartChargingAvailable">true</bool>
+
 </resources>
