@@ -354,15 +354,15 @@ function configure_zram_parameters() {
             echo 1 > /sys/block/zram0/use_dedup
         fi
         if [ $MemTotal -le 524288 ]; then
-            echo 402653184 > /sys/block/zram0/disksize
-        elif [ $MemTotal -le 1048576 ]; then
             echo 805306368 > /sys/block/zram0/disksize
-        elif [ $MemTotal -le 3145728 ]; then
+        elif [ $MemTotal -le 1048576 ]; then
             echo 1073741824 > /sys/block/zram0/disksize
-        elif [ $MemTotal -le 4194304 ]; then
+        elif [ $MemTotal -le 3145728 ]; then
             echo 2147483648 > /sys/block/zram0/disksize
-        else
+        elif [ $MemTotal -le 4194304 ]; then
             echo 4294967296 > /sys/block/zram0/disksize
+        else
+            echo 8589934592 > /sys/block/zram0/disksize
         fi
         mkswap /dev/block/zram0
         swapon /dev/block/zram0 -p 32758
