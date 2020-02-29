@@ -263,7 +263,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.backup.ntpServer=0.pool.ntp.org \
     ro.emmc_size=16GB \
     ro.cutoff_voltage_mv=3400
-<<<<<<< HEAD
 	
 # UI
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -296,9 +295,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.dha_th_rate=2.3 \
     ro.config.sdha_apps_bg_max=64 \
     ro.config.sdha_apps_bg_min=8
-=======
 
 # WiFi calling
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.dbg.wfc_avail_ovr=1
->>>>>>> 8df60d4... onclite: Enable WiFi calling forcibly.
