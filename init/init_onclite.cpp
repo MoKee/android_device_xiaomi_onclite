@@ -59,5 +59,10 @@ void vendor_load_properties()
 {
     // fingerprint
     property_override("ro.build.description", "onc-user 9 PKQ1.181021.001 V10.3.4.0.PFLMIXM release-keys");
+<<<<<<< HEAD
     property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "google/coral/coral:10/QQ1B.200105.004/6031802:user/release-keys");
 }
+=======
+    property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "google/coral/coral:10/QQ2A.200305.003/6156912:user/release-keys");
+}
+>>>>>>> c4401cb... onclite: Update to Coral's Mar 2020 build fingerprint
