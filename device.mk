@@ -160,6 +160,8 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     vendor.display.config@1.11
 
+PRODUCT_PROPERTY_OVERRIDES += debug.hwui.use_buffer_age=false
+
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
