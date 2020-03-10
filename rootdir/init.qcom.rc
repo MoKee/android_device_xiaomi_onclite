@@ -472,6 +472,15 @@ on property:sys.boot_completed=1
     chown media audio /sys/kernel/wdsp0/boot
     chown media audio /sys/kernel/wcd_cpe0/fw_name
 
+    # Smart Charging
+    #Huaqin add for control charge by zhangjingzhi at 20180129 start
+    on boot 
+    chown system system /sys/class/power_supply/battery/charging_enabled 
+    chmod 0666 /sys/class/power_supply/battery/charging_enabled 
+    chown system system /sys/class/power_supply/battery/input_suspend 
+    chmod 0666 /sys/class/power_supply/battery/input_suspend
+    #Huaqin add for control charge by zhangjingzhi at 20180129 end
+
 on property:persist.vendor.radio.atfwd.start=false
     stop vendor.atfwd
 
