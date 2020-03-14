@@ -29,8 +29,11 @@ PRODUCT_MANUFACTURER := Xiaomi
 
 BUILD_FINGERPRINT := "google/coral/coral:10/QQ2A.200305.003/6156912:user/release-keys"
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.build.fingerprint="google/coral/coral:10/QQ2A.200305.003/6156912:user/release-keys"
+
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="onc-user 9 PKQ1.181021.001 V10.3.4.0.PFLMIXM release-keys" \
+    PRIVATE_BUILD_DESC="onc-user 9 PKQ1.181021.001 V11.0.3.0.PFLMIXM release-keys" \
     PRODUCT_NAME="onc" \
     TARGET_DEVICE="onc"
 
