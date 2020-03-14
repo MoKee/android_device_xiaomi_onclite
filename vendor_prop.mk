@@ -96,7 +96,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.recomputecrop=0 \
     dev.pm.dyn_samplingrate=1 \
     persist.demo.hdmirotationlock=false \
-    ro.opengles.version=196610 \
     ro.qualcomm.cabl=0 \
     ro.vendor.display.cabl=0 \
     ro.vendor.display.sensortype=2 \
@@ -105,8 +104,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.disable_skip_validate=1 \
     vendor.display.enable_default_color_mode=0 \
     vendor.display.svi.config=1 \
-    vendor.display.svi.config_path=/system/etc/display/SVIConfig.xml \
-    vendor.gralloc.enable_fb_ubwc=1
+    vendor.display.svi.config_path=/system/etc/display/SVIConfig.xml
 
 # DPM
 PRODUCT_PROPERTY_OVERRIDES += \
