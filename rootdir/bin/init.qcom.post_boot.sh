@@ -450,7 +450,7 @@ low_ram=`getprop ro.config.low_ram`
 if [ "$ProductName" == "msmnile" ] || [ "$ProductName" == "kona" ] ; then
       # Enable ZRAM
       configure_zram_parameters
-      # configure_read_ahead_kb_values
+      configure_read_ahead_kb_values
       echo 0 > /proc/sys/vm/page-cluster
       echo 100 > /proc/sys/vm/swappiness
 else
@@ -554,7 +554,7 @@ else
 
     configure_zram_parameters
 
-    # configure_read_ahead_kb_values
+    configure_read_ahead_kb_values
 
     enable_swap
 fi
@@ -573,8 +573,6 @@ function enable_memory_features()
 
         #Enable Delay Service Restart
         setprop ro.vendor.qti.am.reschedule_service true
-
-	echo 100 > /sys/module/vmpressure/parameters/allocstall_threshold
     fi
 }
 
@@ -2030,8 +2028,8 @@ case "$target" in
             echo -6 > /sys/devices/system/cpu/cpu7/sched_load_boost
             echo -6 > /sys/devices/system/cpu/cpu6/sched_load_boost
 
-            echo 307200 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-            echo 307200 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
+            echo 614400 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+            echo 633600 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
 
             # cpuset settings
             echo 0-3 > /dev/cpuset/background/cpus
