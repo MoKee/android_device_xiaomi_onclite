@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2013, The Linux Foundation. All rights reserved.
+Copyright (c) 2013-2019, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -49,6 +49,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "IPACM_Filtering.h"
 #include "IPACM_Config.h"
 #include "IPACM_Conntrack_NATApp.h"
+#include "IPACM_Wan.h"
 
 #define IPA_WAN_DEFAULT_FILTER_RULE_HANDLES  1
 #define IPA_PRIV_SUBNET_FILTER_RULE_HANDLES  3
@@ -60,7 +61,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* ndc bandwidth ipatetherstats <ifaceIn> <ifaceOut> */
 /* <in->out_bytes> <in->out_pkts> <out->in_bytes> <out->in_pkts */
 
-#define PIPE_STATS "%s %s %lu %lu %lu %lu"
+#define PIPE_STATS "%s %s %llu %llu %llu %llu"
 #define IPA_PIPE_STATS_FILE_NAME "/data/misc/ipa/tether_stats"
 
 /* store each lan-iface unicast routing rule and its handler*/
@@ -72,18 +73,6 @@ struct ipa_lan_rt_rule
 	uint32_t v6_addr[4];
 	uint32_t rt_rule_hdl[0];
 };
-
-typedef enum
-{
-	SRC_WLAN,
-	SRC_LAN
-} eth_bridge_src_iface;
-
-typedef enum
-{
-	DST_WLAN,
-	DST_LAN
-} eth_bridge_dst_iface;
 
 /* Support multiple eth client */
 typedef struct _eth_client_rt_hdl
@@ -106,47 +95,11 @@ typedef struct _ipa_eth_client
 	int ipv6_set;
 	bool ipv4_header_set;
 	bool ipv6_header_set;
+	/* used for pcie-modem */
+	uint32_t v6_rt_rule_id[IPV6_NUM_ADDR];
 	eth_client_rt_hdl eth_rt_hdl[0]; /* depends on number of tx properties */
 }ipa_eth_client;
 
-struct lan2lan_flt_rule_hdl
-{
-	uint32_t rule_hdl;
-	bool valid;
-};
-
-struct lan2lan_hdr_hdl
-{
-	uint32_t hdr_hdl;
-	bool valid;
-};
-
-struct eth_bridge_client_flt_info
-{
-	uint8_t mac[IPA_MAC_ADDR_SIZE];
-	uint32_t flt_rule_hdl_v4;
-	bool flt_rule_set_v4;
-	uint32_t flt_rule_hdl_v6;
-	bool flt_rule_set_v6;
-};
-
-struct eth_bridge_client_rt_info
-{
-	uint8_t mac[IPA_MAC_ADDR_SIZE];
-	uint32_t rt_rule_hdl[0];
-};
-
-struct hdr_proc_ctx_info
-{
-	uint32_t proc_ctx_hdl;
-	bool valid;
-};
-
-struct eth_bridge_subnet_client_info
-{
-	uint8_t mac[IPA_MAC_ADDR_SIZE];
-	int ipa_if_num;
-};
 
 /* lan iface */
 class IPACM_Lan : public IPACM_Iface
@@ -160,7 +113,7 @@ public:
 	uint32_t lan_wan_fl_rule_hdl[IPA_WAN_DEFAULT_FILTER_RULE_HANDLES];
 
 	/* store private-subnet filter rule handlers */
-	uint32_t private_fl_rule_hdl[IPA_MAX_PRIVATE_SUBNET_ENTRIES];
+	uint32_t private_fl_rule_hdl[IPA_MAX_PRIVATE_SUBNET_ENTRIES + IPA_MAX_MTU_ENTRIES];
 
 	/* LAN-iface's callback function */
 	void event_callback(ipa_cm_event_id event, void *data);
@@ -171,10 +124,10 @@ public:
 	virtual int handle_wan_up_ex(ipacm_ext_prop* ext_prop, ipa_ip_type iptype, uint8_t xlat_mux_id);
 
 	/* delete filter rule for wan_down event*/
-	virtual int handle_wan_down(bool is_sta_mode);
+	virtual int handle_wan_down(ipacm_wan_iface_type backhaul_mode);
 
 	/* delete filter rule for wan_down event*/
-	virtual int handle_wan_down_v6(bool is_sta_mode);
+	virtual int handle_wan_down_v6(ipacm_wan_iface_type backhaul_mode);
 
 	/* configure private subnet filter rules*/
 	virtual int handle_private_subnet(ipa_ip_type iptype);
@@ -191,119 +144,91 @@ public:
 	/* install UL filter rule from Q6 */
 	virtual int handle_uplink_filter_rule(ipacm_ext_prop* prop, ipa_ip_type iptype, uint8_t xlat_mux_id);
 
-	int add_lan2lan_flt_rule(ipa_ip_type iptype, uint32_t src_v4_addr, uint32_t dst_v4_addr, uint32_t* src_v6_addr, uint32_t* dst_v6_addr, uint32_t* rule_hdl);
-
-	int del_lan2lan_flt_rule(ipa_ip_type iptype, uint32_t rule_hdl);
-
-	virtual int add_lan2lan_hdr(ipa_ip_type iptype, uint8_t* src_mac, uint8_t* dst_mac, uint32_t* hdr_hdl);
-
-	int add_lan2lan_rt_rule(ipa_ip_type iptype, uint32_t src_v4_addr, uint32_t dst_v4_addr,
-								uint32_t* src_v6_addr, uint32_t* dst_v6_addr, uint32_t hdr_hdl, lan_to_lan_rt_rule_hdl* rule_hdl);
-
-	int del_lan2lan_rt_rule(ipa_ip_type iptype, lan_to_lan_rt_rule_hdl);
-
-	int del_lan2lan_hdr(ipa_ip_type iptype, uint32_t hdr_hdl);
-
 	int handle_cradle_wan_mode_switch(bool is_wan_bridge_mode);
 
 	int install_ipv4_icmp_flt_rule();
 
-	static ipa_hdr_l2_type lan_hdr_type;
-	static ipa_hdr_l2_type wlan_hdr_type;
 
-	static uint32_t usb_hdr_template_hdl;
-	static uint32_t wlan_hdr_template_hdl;
-	static uint32_t cpe_hdr_template_hdl;
+	/* add header processing context and return handle to lan2lan controller */
+	int eth_bridge_add_hdr_proc_ctx(ipa_hdr_l2_type peer_l2_hdr_type, uint32_t *hdl);
 
-	static hdr_proc_ctx_info lan_to_wlan_hdr_proc_ctx, wlan_to_usb_hdr_proc_ctx, wlan_to_cpe_hdr_proc_ctx;
-	static hdr_proc_ctx_info wlan_to_wlan_hdr_proc_ctx;
-	static hdr_proc_ctx_info cpe_to_usb_hdr_proc_ctx, usb_to_cpe_hdr_proc_ctx;
+	/* add routing rule and return handle to lan2lan controller */
+	int eth_bridge_add_rt_rule(uint8_t *mac, char *rt_tbl_name, uint32_t hdr_proc_ctx_hdl,
+		ipa_hdr_l2_type peer_l2_hdr_type, ipa_ip_type iptype, uint32_t *rt_rule_hdl, int *rt_rule_count, int ep);
 
-	static eth_bridge_subnet_client_info eth_bridge_wlan_client[IPA_LAN_TO_LAN_MAX_WLAN_CLIENT];
-	static eth_bridge_subnet_client_info eth_bridge_lan_client[IPA_LAN_TO_LAN_MAX_LAN_CLIENT];
+	/* modify routing rule*/
+	int eth_bridge_modify_rt_rule(uint8_t *mac, uint32_t hdr_proc_ctx_hdl,
+		ipa_hdr_l2_type peer_l2_hdr_type, ipa_ip_type iptype, uint32_t *rt_rule_hdl, int rt_rule_count);
 
-	static int num_wlan_client;
-	static int num_lan_client;
+	/* add filtering rule and return handle to lan2lan controller */
+	int eth_bridge_add_flt_rule(uint8_t *mac, uint32_t rt_tbl_hdl, ipa_ip_type iptype, uint32_t *flt_rule_hdl);
 
-	static bool is_usb_up;
-	static bool is_cpe_up;
+	/* delete filtering rule */
+	int eth_bridge_del_flt_rule(uint32_t flt_rule_hdl, ipa_ip_type iptype);
+
+	/* delete routing rule */
+	int eth_bridge_del_rt_rule(uint32_t rt_rule_hdl, ipa_ip_type iptype);
+
+	/* delete header processing context */
+	int eth_bridge_del_hdr_proc_ctx(uint32_t hdr_proc_ctx_hdl);
+
+#ifdef FEATURE_L2TP
+	/* add l2tp rt rule for l2tp client */
+	int add_l2tp_rt_rule(ipa_ip_type iptype, uint8_t *dst_mac, ipa_hdr_l2_type peer_l2_hdr_type,
+		uint32_t l2tp_session_id, uint32_t vlan_id, uint8_t *vlan_client_mac, uint32_t *vlan_iface_ipv6_addr,
+		uint32_t *vlan_client_ipv6_addr, uint32_t *first_pass_hdr_hdl, uint32_t *first_pass_hdr_proc_ctx_hdl,
+		uint32_t *second_pass_hdr_hdl, int *num_rt_hdl, uint32_t *first_pass_rt_rule_hdl, uint32_t *second_pass_rt_rule_hdl);
+
+	/* delete l2tp rt rule for l2tp client */
+	int del_l2tp_rt_rule(ipa_ip_type iptype, uint32_t first_pass_hdr_hdl, uint32_t first_pass_hdr_proc_ctx_hdl,
+		uint32_t second_pass_hdr_hdl, int num_rt_hdl, uint32_t *first_pass_rt_rule_hdl, uint32_t *second_pass_rt_rule_hdl);
+
+	/* add l2tp rt rule for non l2tp client */
+	int add_l2tp_rt_rule(ipa_ip_type iptype, uint8_t *dst_mac, uint32_t *hdr_proc_ctx_hdl,
+		int *num_rt_hdl, uint32_t *rt_rule_hdl);
+
+	/* delete l2tp rt rule for non l2tp client */
+	int del_l2tp_rt_rule(ipa_ip_type iptype, int num_rt_hdl, uint32_t *rt_rule_hdl);
+
+	/* add l2tp flt rule on l2tp interface */
+	int add_l2tp_flt_rule(uint8_t *dst_mac, uint32_t *flt_rule_hdl);
+
+	/* delete l2tp flt rule on l2tp interface */
+	int del_l2tp_flt_rule(uint32_t flt_rule_hdl);
+
+	/* add l2tp flt rule on non l2tp interface */
+	int add_l2tp_flt_rule(ipa_ip_type iptype, uint8_t *dst_mac, uint32_t *vlan_client_ipv6_addr,
+		uint32_t *first_pass_flt_rule_hdl, uint32_t *second_pass_flt_rule_hdl);
+
+	/* delete l2tp flt rule on non l2tp interface */
+	int del_l2tp_flt_rule(ipa_ip_type iptype, uint32_t first_pass_flt_rule_hdl, uint32_t second_pass_flt_rule_hdl);
+#endif
 
 protected:
 
-	lan2lan_flt_rule_hdl wlan_client_flt_rule_hdl_v4[IPA_LAN_TO_LAN_MAX_WLAN_CLIENT];
-	lan2lan_flt_rule_hdl wlan_client_flt_rule_hdl_v6[IPA_LAN_TO_LAN_MAX_WLAN_CLIENT];
-	lan2lan_flt_rule_hdl lan_client_flt_rule_hdl_v4[IPA_LAN_TO_LAN_MAX_LAN_CLIENT];
-	lan2lan_flt_rule_hdl lan_client_flt_rule_hdl_v6[IPA_LAN_TO_LAN_MAX_LAN_CLIENT];
+	int each_client_rt_rule_count[IPA_IP_MAX];
 
-	eth_bridge_client_flt_info eth_bridge_wlan_client_flt_info[IPA_LAN_TO_LAN_MAX_WLAN_CLIENT];
-	eth_bridge_client_flt_info eth_bridge_lan_client_flt_info[IPA_LAN_TO_LAN_MAX_LAN_CLIENT];
+	uint32_t eth_bridge_flt_rule_offset[IPA_IP_MAX];
 
-	int wlan_client_flt_info_count;
-	int lan_client_flt_info_count;
+	/* mac address has to be provided for client related events */
+	void eth_bridge_post_event(ipa_cm_event_id evt, ipa_ip_type iptype, uint8_t *mac,
+		uint32_t *ipv6_addr, char *iface_name, int ep);
 
-	int client_rt_info_size_v4;
-	int client_rt_info_size_v6;
+#ifdef FEATURE_L2TP
+	/* check if the event is associated with vlan interface */
+	bool is_vlan_event(char *event_iface_name);
+	/* check if the event is associated with l2tp interface */
+	bool is_l2tp_event(char *event_iface_name);
 
-	eth_bridge_client_rt_info* eth_bridge_lan_client_rt_from_lan_info_v4;
-	int lan_client_rt_from_lan_info_count_v4;
-	eth_bridge_client_rt_info* eth_bridge_lan_client_rt_from_lan_info_v6;
-	int lan_client_rt_from_lan_info_count_v6;
-	eth_bridge_client_rt_info* eth_bridge_lan_client_rt_from_wlan_info_v4;
-	int lan_client_rt_from_wlan_info_count_v4;
-	eth_bridge_client_rt_info* eth_bridge_lan_client_rt_from_wlan_info_v6;
-	int lan_client_rt_from_wlan_info_count_v6;
+	/* check if the IPv6 address is unique local address */
+	bool is_unique_local_ipv6_addr(uint32_t *ipv6_addr);
 
-	int each_client_rt_rule_count_v4;
-	int each_client_rt_rule_count_v6;
-
-	virtual int eth_bridge_handle_dummy_wlan_client_flt_rule(ipa_ip_type iptype);
-
-	virtual int eth_bridge_handle_dummy_lan_client_flt_rule(ipa_ip_type iptype);
-
-	int eth_bridge_add_lan_client_flt_rule(uint8_t* mac, ipa_ip_type iptype);
-
-	int eth_bridge_del_lan_client_flt_rule(uint8_t* mac);
-
-	int eth_bridge_add_wlan_client_flt_rule(uint8_t* mac, ipa_ip_type iptype);
-
-	int eth_bridge_del_wlan_client_flt_rule(uint8_t* mac);
-
-	int eth_bridge_post_lan_client_event(uint8_t* mac_addr, ipa_cm_event_id evt);
-
-	int add_hdr_proc_ctx();
-
-	int del_hdr_proc_ctx();
-
-	ipa_hdr_proc_type get_hdr_proc_type(ipa_hdr_l2_type t1, ipa_hdr_l2_type t2);
-
-	virtual int eth_bridge_install_cache_wlan_client_flt_rule(ipa_ip_type iptype);
-
-	virtual int eth_bridge_install_cache_lan_client_flt_rule(ipa_ip_type iptype);
-
-	int eth_bridge_add_lan_client_rt_rule(uint8_t* mac, eth_bridge_src_iface src, ipa_ip_type iptype);
-
-	int eth_bridge_del_lan_client_rt_rule(uint8_t* mac, eth_bridge_src_iface src);
-
-	eth_bridge_client_rt_info* eth_bridge_get_client_rt_info_ptr(uint8_t index, eth_bridge_src_iface src, ipa_ip_type iptype);
-
-	void eth_bridge_add_lan_client(uint8_t* mac);
-
-	void eth_bridge_del_lan_client(uint8_t* mac);
-
-	int eth_bridge_get_hdr_template_hdl(uint32_t* hdr_hdl);
-
-
-
-	virtual int add_dummy_lan2lan_flt_rule(ipa_ip_type iptype);
-
+#endif
 	virtual int add_dummy_private_subnet_flt_rule(ipa_ip_type iptype);
 
 	int handle_private_subnet_android(ipa_ip_type iptype);
 
 	int reset_to_dummy_flt_rule(ipa_ip_type iptype, uint32_t rule_hdl);
-
-	/*handle lan2lan client active*/
-	int handle_lan2lan_client_active(ipacm_event_data_all *data, ipa_cm_event_id event);
 
 	virtual int install_ipv6_prefix_flt_rule(uint32_t* prefix);
 
@@ -319,14 +244,11 @@ protected:
 	/* handle tethering client */
 	int handle_tethering_client(bool reset, ipacm_client_enum ipa_client);
 
-	lan2lan_flt_rule_hdl lan2lan_flt_rule_hdl_v4[MAX_OFFLOAD_PAIR];
-	lan2lan_flt_rule_hdl lan2lan_flt_rule_hdl_v6[MAX_OFFLOAD_PAIR];
+	/* add tcp syn flt rule */
+	int add_tcp_syn_flt_rule(ipa_ip_type iptype);
 
-	uint8_t num_lan2lan_flt_rule_v4;
-	uint8_t num_lan2lan_flt_rule_v6;
-
-	lan2lan_hdr_hdl lan2lan_hdr_hdl_v4[MAX_OFFLOAD_PAIR];
-	lan2lan_hdr_hdl lan2lan_hdr_hdl_v6[MAX_OFFLOAD_PAIR];
+	/* add tcp syn flt rule for l2tp interface*/
+	int add_tcp_syn_flt_rule_l2tp(ipa_ip_type inner_ip_type);
 
 	/* store ipv4 UL filter rule handlers from Q6*/
 	uint32_t wan_ul_fl_rule_hdl_v4[MAX_WAN_UL_FILTER_RULES];
@@ -334,13 +256,9 @@ protected:
 	/* store ipv6 UL filter rule handlers from Q6*/
 	uint32_t wan_ul_fl_rule_hdl_v6[MAX_WAN_UL_FILTER_RULES];
 
-	virtual void install_tcp_ctl_flt_rule(ipa_ip_type iptype);
-
 	uint32_t ipv4_icmp_flt_rule_hdl[NUM_IPV4_ICMP_FLT_RULE];
-	uint32_t tcp_ctl_flt_rule_hdl_v4[NUM_TCP_CTL_FLT_RULE];
-	uint32_t tcp_ctl_flt_rule_hdl_v6[NUM_TCP_CTL_FLT_RULE];
 
-	uint32_t ipv6_prefix_flt_rule_hdl[NUM_IPV6_PREFIX_FLT_RULE];
+	uint32_t ipv6_prefix_flt_rule_hdl[NUM_IPV6_PREFIX_FLT_RULE + NUM_IPV6_PREFIX_MTU_RULE];
 	uint32_t ipv6_icmp_flt_rule_hdl[NUM_IPV6_ICMP_FLT_RULE];
 
 	int num_wan_ul_fl_rule_v4;
@@ -348,15 +266,35 @@ protected:
 
 	bool is_active;
 	bool modem_ul_v4_set;
+	uint8_t v4_mux_id;
 	bool modem_ul_v6_set;
+	uint8_t v6_mux_id;
+
+	bool sta_ul_v4_set;
+	bool sta_ul_v6_set;
 
 	uint32_t if_ipv4_subnet;
 
-	/* expected modem UL rules starting index */
-	int exp_index_v4;
-	int exp_index_v6;
+	uint32_t ipv6_prefix[2];
+
+	bool is_upstream_set[IPA_IP_MAX];
+	bool is_downstream_set[IPA_IP_MAX];
+	_ipacm_offload_prefix prefix[IPA_IP_MAX];
+
+	uint32_t tcp_syn_flt_rule_hdl[IPA_IP_MAX];
 
 private:
+
+	int set_client_pipe(enum ipa_client_type client, uint32_t *pipe);
+	int set_tether_client(wan_ioctl_set_tether_client_pipe *tether_client);
+	int set_tether_client_wigig(wan_ioctl_set_tether_client_pipe *tether_client);
+
+	/* get hdr proc ctx type given source and destination l2 hdr type */
+	ipa_hdr_proc_type eth_bridge_get_hdr_proc_type(ipa_hdr_l2_type t1, ipa_hdr_l2_type t2);
+
+	/* get partial header (header template of hdr proc ctx) */
+	int eth_bridge_get_hdr_template_hdl(uint32_t* hdr_hdl);
+
 
 	/* dynamically allocate lan iface's unicast routing rule structure */
 
@@ -368,7 +306,7 @@ private:
 
 	int header_name_count;
 
-	int num_eth_client;
+	uint32_t num_eth_client;
 
 	NatApp *Nat_App;
 
@@ -458,6 +396,18 @@ private:
 				{
 					for(num_v6 =0;num_v6 < get_client_memptr(eth_client, clt_indx)->route_rule_set_v6;num_v6++)
 					{
+						/* send client-v6 delete to pcie modem only with global ipv6 with tx_index = 1 one time*/
+						if(is_global_ipv6_addr(get_client_memptr(eth_client, clt_indx)->v6_addr[num_v6]) && (IPACM_Wan::backhaul_mode == Q6_MHI_WAN)
+							&& (get_client_memptr(eth_client, clt_indx)->v6_rt_rule_id[num_v6] > 0))
+						{
+							IPACMDBG_H("Delete client index %d ipv6 RT-rules for %d-st ipv6 for rule-id:%d\n", clt_indx,num_v6,
+								get_client_memptr(eth_client, clt_indx)->v6_rt_rule_id[num_v6]);
+							if (del_connection(clt_indx, num_v6))
+							{
+								IPACMERR("PCIE filter rule deletion failed! (%d-client) %d v6-entry\n",clt_indx, num_v6);
+							}
+						}
+
 						IPACMDBG_H("Delete client index %d ipv6 RT-rules for %d-st ipv6 for tx:%d\n", clt_indx,num_v6,tx_index);
 						rt_hdl = get_client_memptr(eth_client, clt_indx)->eth_rt_hdl[tx_index].eth_rt_rule_hdl_v6[num_v6];
 						if(m_routing.DeleteRoutingHdl(rt_hdl, IPA_IP_v6) == false)
@@ -508,11 +458,14 @@ private:
 	/*handle lan iface down event*/
 	int handle_down_evt();
 
-	/*handle lan2lan internal mesg posting*/
-	int post_lan2lan_client_disconnect_msg(ipa_ip_type iptype);
-
 	/*handle reset usb-client rt-rules */
 	int handle_lan_client_reset_rt(ipa_ip_type iptype);
+
+	/* for pcie modem */
+	virtual int add_connection(int client_index, int v6_num);
+	virtual int del_connection(int client_index, int v6_num);
+
+	int construct_mtu_rule(struct ipa_flt_rule *rule, enum ipa_ip_type iptype, uint16_t mtu);
 };
 
 #endif /* IPACM_LAN_H */

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2013, The Linux Foundation. All rights reserved.
+Copyright (c) 2013-2019, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -47,6 +47,8 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 typedef struct
 {
   char iface_name[IPA_IFACE_NAME_LEN];
+  bool v4_up;
+  bool v6_up;
 }NatIfaces;
 
 /* for IPACM rm dependency use*/
@@ -62,7 +64,7 @@ typedef struct _ipa_rm_client
     bool rx_bypass_ipa;          /* support WLAN may not register RX-property, should not add dependency */
 }ipa_rm_client;
 
-#define MAX_NUM_EXT_PROPS 15
+#define MAX_NUM_EXT_PROPS 25
 
 /* used to hold extended properties */
 typedef struct
@@ -92,12 +94,12 @@ public:
 	ipacm_alg *alg_table;
 
 	/* Store private subnet configuration from XML file */
-	ipa_private_subnet private_subnet_table[IPA_MAX_PRIVATE_SUBNET_ENTRIES];
+	ipa_private_subnet private_subnet_table[IPA_MAX_PRIVATE_SUBNET_ENTRIES + IPA_MAX_MTU_ENTRIES];
 
 	/* Store the non nat iface names */
 	NatIfaces *pNatIfaces;
 
-	/* Store the bridge iface names */
+	/* Store the bridge iface name */
 	char ipa_virtual_iface_name[IPA_IFACE_NAME_LEN];
 
 	/* Store the number of interface IPACM read from XML file */
@@ -114,6 +116,8 @@ public:
 	bool ipacm_odu_enable;
 
 	bool ipacm_odu_embms_enable;
+
+	bool ipacm_ip_passthrough_mode;
 
 	int ipa_nat_iface_entries;
 
@@ -133,25 +137,29 @@ public:
 	uint8_t bridge_mac[IPA_MAC_ADDR_SIZE];
 
 	/* Store the flt rule count for each producer client*/
-	int flt_rule_count_v4[IPA_CLIENT_CONS - IPA_CLIENT_PROD];
-	int flt_rule_count_v6[IPA_CLIENT_CONS - IPA_CLIENT_PROD];
+	int flt_rule_count_v4[IPA_CLIENT_MAX];
+	int flt_rule_count_v6[IPA_CLIENT_MAX];
 
 	/* IPACM routing table name for v4/v6 */
 	struct ipa_ioc_get_rt_tbl rt_tbl_lan_v4, rt_tbl_wan_v4, rt_tbl_default_v4, rt_tbl_v6, rt_tbl_wan_v6;
 	struct ipa_ioc_get_rt_tbl rt_tbl_wan_dl;
-	struct ipa_ioc_get_rt_tbl rt_tbl_lan2lan_v4, rt_tbl_lan2lan_v6;
 	struct ipa_ioc_get_rt_tbl rt_tbl_odu_v4, rt_tbl_odu_v6;
-	struct ipa_ioc_get_rt_tbl rt_tbl_eth_bridge_lan_lan_v4, rt_tbl_eth_bridge_lan_wlan_v4, rt_tbl_eth_bridge_wlan_wlan_v4;
-	struct ipa_ioc_get_rt_tbl rt_tbl_eth_bridge_lan_lan_v6, rt_tbl_eth_bridge_lan_wlan_v6, rt_tbl_eth_bridge_wlan_wlan_v6;
 
 	bool isMCC_Mode;
+
+	/* IPA_HW_FNR_STATS */
+	bool hw_fnr_stats_support;
+	int hw_counter_offset;
+	int sw_counter_offset;
 
 	/* To return the instance */
 	static IPACM_Config* GetInstance();
 
+	const char* getEventName(ipa_cm_event_id event_id);
+
 	inline void increaseFltRuleCount(int index, ipa_ip_type iptype, int increment)
 	{
-		if((index >= IPA_CLIENT_CONS - IPA_CLIENT_PROD) || (index < 0))
+		if((index >= IPA_CLIENT_MAX) || (index < 0))
 		{
 			IPACMERR("Index is out of range: %d.\n", index);
 			return;
@@ -171,7 +179,7 @@ public:
 
 	inline void decreaseFltRuleCount(int index, ipa_ip_type iptype, int decrement)
 	{
-		if((index >= IPA_CLIENT_CONS - IPA_CLIENT_PROD) || (index < 0))
+		if((index >= IPA_CLIENT_MAX) || (index < 0))
 		{
 			IPACMERR("Index is out of range: %d.\n", index);
 			return;
@@ -191,7 +199,7 @@ public:
 
 	inline int getFltRuleCount(int index, ipa_ip_type iptype)
 	{
-		if((index >= IPA_CLIENT_CONS - IPA_CLIENT_PROD) || (index < 0))
+		if((index >= IPA_CLIENT_MAX) || (index < 0))
 		{
 			IPACMERR("Index is out of range: %d.\n", index);
 			return -1;
@@ -229,9 +237,11 @@ public:
 
 	void DelRmDepend(ipa_rm_resource_name rm1);
 
-	int AddNatIfaces(char *dev_name);
+	int AddNatIfaces(char *dev_name, ipa_ip_type ip_type);
 
 	int DelNatIfaces(char *dev_name);
+
+	int CheckNatIfaces(const char *dev_name, ipa_ip_type ip_type);
 
 	inline void SetQmapId(uint8_t id)
 	{
@@ -248,6 +258,8 @@ public:
 	ipacm_ext_prop* GetExtProp(ipa_ip_type ip_type);
 
 	int DelExtProp(ipa_ip_type ip_type);
+
+	enum ipa_hw_type GetIPAVer(bool get = false);
 
 	int Init(void);
 
@@ -344,6 +356,7 @@ public:
 	static const char *DEVICE_NAME_ODU;
 
 private:
+	enum ipa_hw_type ver;
 	static IPACM_Config *pInstance;
 	static const char *DEVICE_NAME;
 	IPACM_Config(void);

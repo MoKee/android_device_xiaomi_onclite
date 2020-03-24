@@ -55,13 +55,16 @@ public:
 	~IPACM_Routing();
 
 	bool AddRoutingRule(struct ipa_ioc_add_rt_rule *ruleTable);
+
+#ifdef IPA_IOCTL_SET_FNR_COUNTER_INFO
+	bool AddRoutingRule_hw_index(struct ipa_ioc_add_rt_rule *ruleTable, int hw_counter_index);
+#endif //IPA_IOCTL_SET_FNR_COUNTER_INFO
 	bool DeleteRoutingRule(struct ipa_ioc_del_rt_rule *ruleTable);
 
 	bool Commit(enum ipa_ip_type ip);
 	bool Reset(enum ipa_ip_type ip);
 
 	bool GetRoutingTable(struct ipa_ioc_get_rt_tbl *routingTable);
-	bool PutRoutingTable(uint32_t routingTableHandle);
 
 	bool DeviceNodeIsOpened();
 	bool DeleteRoutingHdl(uint32_t rt_rule_hdl, ipa_ip_type ip);
@@ -71,6 +74,8 @@ public:
 private:
 	static const char *DEVICE_NAME;
 	int m_fd; /* File descriptor of the IPA device node /dev/ipa */
+
+	bool PutRoutingTable(uint32_t routingTableHandle);
 };
 
 #endif //IPACM_ROUTING_H

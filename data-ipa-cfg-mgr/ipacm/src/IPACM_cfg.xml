@@ -49,6 +49,16 @@
 			   <Category>WAN</Category>
 			</Iface>
 			<Iface>
+			   <Name>softap0</Name>
+			   <Category>UNKNOWN</Category>
+			   <WlanMode>full</WlanMode>
+			</Iface>
+			<Iface>
+			   <Name>wigig0</Name>
+			   <Category>UNKNOWN</Category>
+			   <WlanMode>full</WlanMode>
+			</Iface>
+			<Iface>
 			   <Name>wlan0</Name>
 			   <Category>UNKNOWN</Category>
 			   <WlanMode>full</WlanMode>
@@ -59,14 +69,27 @@
 			   <WlanMode>full</WlanMode>
 			</Iface>
 			<Iface>
+			   <Name>wlan2</Name>
+			   <Category>UNKNOWN</Category>
+			   <WlanMode>full</WlanMode>
+			</Iface>
+			<Iface>
+			   <Name>wlan3</Name>
+			   <Category>UNKNOWN</Category>
+			   <WlanMode>full</WlanMode>
+			</Iface>
+			<Iface>
 			   <Name>eth0</Name>
 			   <Category>ODU</Category>
 			</Iface>
 			<Iface>
 			   <Name>bridge0</Name>
 			   <Category>VIRTUAL</Category>
-		    </Iface>
+			</Iface>
 		</IPACMIface>
+		<IPPassthroughFlag>
+			<IPPassthroughMode>0</IPPassthroughMode>
+		</IPPassthroughFlag>
 		<IPACMPrivateSubnet>
 			<Subnet>
   			   <SubnetAddress>192.168.225.0</SubnetAddress>

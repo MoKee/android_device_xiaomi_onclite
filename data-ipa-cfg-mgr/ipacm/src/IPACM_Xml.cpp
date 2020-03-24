@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2013, The Linux Foundation. All rights reserved.
+Copyright (c) 2013, 2019, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -75,6 +75,7 @@ static char* IPACM_read_content_element
 )
 {
 	xmlNode* child_ptr;
+	uint32_t str_len;
 
 	for (child_ptr  = element->children;
 			 child_ptr != NULL;
@@ -82,7 +83,15 @@ static char* IPACM_read_content_element
 	{
 		if (child_ptr->type == XML_TEXT_NODE)
 		{
-			return (char*)child_ptr->content;
+			str_len = strlen((char*)child_ptr->content);
+
+			if(str_len < MAX_XML_STR_LEN)
+				return (char*)child_ptr->content;
+			else
+			{
+				IPACMERR("Invalid string size\n");
+				break;
+			}
 		}
 	}
 	return NULL;
@@ -174,7 +183,8 @@ static int ipacm_cfg_xml_parse_tree
 						IPACM_util_icmp_string((char*)xml_node->name, SUBNET_TAG) == 0 ||
 						IPACM_util_icmp_string((char*)xml_node->name, IPACMALG_TAG) == 0 ||
 						IPACM_util_icmp_string((char*)xml_node->name, ALG_TAG) == 0 ||
-						IPACM_util_icmp_string((char*)xml_node->name, IPACMNat_TAG) == 0)
+						IPACM_util_icmp_string((char*)xml_node->name, IPACMNat_TAG) == 0 ||
+						IPACM_util_icmp_string((char*)xml_node->name, IP_PassthroughFlag_TAG) == 0)
 				{
 					if (0 == IPACM_util_icmp_string((char*)xml_node->name, IFACE_TAG))
 					{
@@ -195,6 +205,27 @@ static int ipacm_cfg_xml_parse_tree
 					}
 					/* go to child */
 					ret_val = ipacm_cfg_xml_parse_tree(xml_node->children, config);
+				}
+				else if (IPACM_util_icmp_string((char*)xml_node->name, IP_PassthroughMode_TAG) == 0)
+				{
+					IPACMDBG_H("inside IP Passthrough\n");
+					content = IPACM_read_content_element(xml_node);
+					if (content)
+					{
+						str_size = strlen(content);
+						memset(content_buf, 0, sizeof(content_buf));
+						memcpy(content_buf, (void *)content, str_size);
+						if (atoi(content_buf))
+						{
+							config->ip_passthrough_mode = true;
+							IPACMDBG_H("Passthrough enable %d buf(%d)\n", config->ip_passthrough_mode, atoi(content_buf));
+						}
+						else
+						{
+							config->ip_passthrough_mode = false;
+							IPACMDBG_H("Passthrough enable %d buf(%d)\n", config->ip_passthrough_mode, atoi(content_buf));
+						}
+					}
 				}
 				else if (IPACM_util_icmp_string((char*)xml_node->name, ODUMODE_TAG) == 0)
 				{
@@ -245,8 +276,8 @@ static int ipacm_cfg_xml_parse_tree
 					{
 						str_size = strlen(content);
 						memset(content_buf, 0, sizeof(content_buf));
-						memcpy(content_buf, (void *)content, str_size);
-						strncpy(config->iface_config.iface_entries[config->iface_config.num_iface_entries - 1].iface_name, content_buf, str_size);
+						strlcpy(content_buf, content, MAX_XML_STR_LEN);
+						strlcpy(config->iface_config.iface_entries[config->iface_config.num_iface_entries - 1].iface_name, content_buf, IPA_IFACE_NAME_LEN);
 						IPACMDBG_H("Name %s\n", config->iface_config.iface_entries[config->iface_config.num_iface_entries - 1].iface_name);
 					}
 				}
@@ -622,14 +653,11 @@ static int IPACM_firewall_xml_parse_tree
 						memset(content_buf, 0, sizeof(content_buf));
 						memcpy(content_buf, (void *)content, str_size);
 						content_buf[MAX_XML_STR_LEN-1] = '\0';
-						if (content_buf > 0)
-						{
-							config->extd_firewall_entries[config->num_extd_firewall_entries - 1].attrib.u.v4.dst_addr_mask
-								 = ntohl(inet_addr(content_buf));
-							IPACMDBG_H("IPv4 destination subnet mask is: %s \n", content_buf);
+						config->extd_firewall_entries[config->num_extd_firewall_entries - 1].attrib.u.v4.dst_addr_mask
+							= ntohl(inet_addr(content_buf));
+						IPACMDBG_H("IPv4 destination subnet mask is: %s \n", content_buf);
 						}
 					}
-				}
 				else if (0 == IPACM_util_icmp_string((char*)xml_node->name, IPV4TypeOfService_TAG))
 				{
 					config->extd_firewall_entries[config->num_extd_firewall_entries - 1].attrib.attrib_mask |= IPA_FLT_TOS;
@@ -646,6 +674,9 @@ static int IPACM_firewall_xml_parse_tree
 						memcpy(content_buf, (void *)content, str_size);
 						config->extd_firewall_entries[config->num_extd_firewall_entries - 1].attrib.u.v4.tos
 							 = atoi(content_buf);
+						// Here we do not know if it is TOS with mask or not, so we put at both places
+						config->extd_firewall_entries[config->num_extd_firewall_entries - 1].attrib.tos_value
+							= atoi(content_buf);
 						IPACMDBG_H("\n IPV4 TOS val is %d \n",
 										 config->extd_firewall_entries[config->num_extd_firewall_entries - 1].attrib.u.v4.tos);
 					}
@@ -655,13 +686,25 @@ static int IPACM_firewall_xml_parse_tree
 					content = IPACM_read_content_element(xml_node);
 					if (content)
 					{
+						uint8_t mask;
+
 						str_size = strlen(content);
 						memset(content_buf, 0, sizeof(content_buf));
 						memcpy(content_buf, (void *)content, str_size);
-						config->extd_firewall_entries[config->num_extd_firewall_entries - 1].attrib.u.v4.tos
-							 &= atoi(content_buf);
-						IPACMDBG_H("\n IPv4 TOS mask is %d \n",
-								config->extd_firewall_entries[config->num_extd_firewall_entries - 1].attrib.u.v4.tos);
+						mask = atoi(content_buf);
+						IPACMDBG_H("\n IPv4 TOS mask is %u \n", mask);
+						if (mask != 0xFF) {
+							// TOS attribute cannot be used
+							config->extd_firewall_entries[config->num_extd_firewall_entries - 1].attrib.u.v4.tos = 0;
+							config->extd_firewall_entries[config->num_extd_firewall_entries - 1].attrib.tos_mask = mask;
+
+							config->extd_firewall_entries[config->num_extd_firewall_entries - 1].attrib.attrib_mask |=
+								IPA_FLT_TOS_MASKED;
+							config->extd_firewall_entries[config->num_extd_firewall_entries - 1].attrib.attrib_mask &=
+								~IPA_FLT_TOS;
+						} else {
+							config->extd_firewall_entries[config->num_extd_firewall_entries - 1].attrib.tos_value = 0;
+						}
 					}
 				}
 				else if (0 == IPACM_util_icmp_string((char*)xml_node->name, IPV4NextHeaderProtocol_TAG))

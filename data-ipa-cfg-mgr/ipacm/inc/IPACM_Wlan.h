@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2013, The Linux Foundation. All rights reserved.
+Copyright (c) 2013-2019, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -54,6 +54,7 @@ typedef struct _wlan_client_rt_hdl
 	uint32_t wifi_rt_rule_hdl_v4;
 	uint32_t wifi_rt_rule_hdl_v6[IPV6_NUM_ADDR];
 	uint32_t wifi_rt_rule_hdl_v6_wan[IPV6_NUM_ADDR];
+
 }wlan_client_rt_hdl;
 
 typedef struct _ipa_wlan_client
@@ -71,6 +72,9 @@ typedef struct _ipa_wlan_client
 	bool ipv4_header_set;
 	bool ipv6_header_set;
 	bool power_save_set;
+	enum ipa_client_type wigig_ipa_client;
+	/* used for pcie-modem */
+	uint32_t v6_rt_rule_id[IPV6_NUM_ADDR];
 	wlan_client_rt_hdl wifi_rt_hdl[0]; /* depends on number of tx properties */
 }ipa_wlan_client;
 
@@ -85,73 +89,25 @@ public:
 
 	static int total_num_wifi_clients;
 
-	void event_callback(ipa_cm_event_id event,
-											void *data);
+	void event_callback(ipa_cm_event_id event, void *data);
 
-	virtual int add_lan2lan_hdr(ipa_ip_type iptype, uint8_t* src_mac, uint8_t* dst_mac, uint32_t* hdr_hdl);
+	bool is_guest_ap();
 
 private:
 
-	eth_bridge_client_flt_info eth_bridge_lan_client_flt_info[IPA_LAN_TO_LAN_MAX_LAN_CLIENT];
-	int lan_client_flt_info_count;
+	bool m_is_guest_ap;
 
-	static lan2lan_flt_rule_hdl self_client_flt_rule_hdl_v4[IPA_LAN_TO_LAN_MAX_WLAN_CLIENT];
-	static lan2lan_flt_rule_hdl self_client_flt_rule_hdl_v6[IPA_LAN_TO_LAN_MAX_WLAN_CLIENT];
-
-	static lan2lan_flt_rule_hdl lan_client_flt_rule_hdl_v4[IPA_LAN_TO_LAN_MAX_LAN_CLIENT];
-	static lan2lan_flt_rule_hdl lan_client_flt_rule_hdl_v6[IPA_LAN_TO_LAN_MAX_LAN_CLIENT];
-
-	bool is_guest_ap;
-
-	eth_bridge_client_rt_info* eth_bridge_wlan_client_rt_from_lan_info_v4;
-	int wlan_client_rt_from_lan_info_count_v4;
-	eth_bridge_client_rt_info* eth_bridge_wlan_client_rt_from_lan_info_v6;
-	int wlan_client_rt_from_lan_info_count_v6;
-
-	eth_bridge_client_rt_info* eth_bridge_wlan_client_rt_from_wlan_info_v4;
-	int wlan_client_rt_from_wlan_info_count_v4;
-	eth_bridge_client_rt_info* eth_bridge_wlan_client_rt_from_wlan_info_v6;
-	int wlan_client_rt_from_wlan_info_count_v6;
-
-	int eth_bridge_install_wlan_guest_ap_ipv6_flt_rule();
-
-	virtual int eth_bridge_handle_dummy_wlan_client_flt_rule(ipa_ip_type iptype);
-
-	virtual int eth_bridge_handle_dummy_lan_client_flt_rule(ipa_ip_type iptype);
-
-	int eth_bridge_add_lan_client_flt_rule(uint8_t* mac, ipa_ip_type iptype);
-
-	int eth_bridge_del_lan_client_flt_rule(uint8_t* mac);
-
-	int eth_bridge_add_self_client_flt_rule(uint8_t* mac, ipa_ip_type iptype);
-
-	int eth_bridge_del_self_client_flt_rule(uint8_t* mac);
-
-	virtual int eth_bridge_install_cache_wlan_client_flt_rule(ipa_ip_type iptype);
-
-	virtual int eth_bridge_install_cache_lan_client_flt_rule(ipa_ip_type iptype);
-
-	int eth_bridge_add_wlan_client_rt_rule(uint8_t* mac, eth_bridge_src_iface src, ipa_ip_type iptype);
-
-	int eth_bridge_del_wlan_client_rt_rule(uint8_t* mac, eth_bridge_src_iface src);
-
-	eth_bridge_client_rt_info* eth_bridge_get_client_rt_info_ptr(uint8_t index, eth_bridge_src_iface src, ipa_ip_type iptype);
-
-	void eth_bridge_add_wlan_client(uint8_t* mac, int if_num);
-
-	void eth_bridge_del_wlan_client(uint8_t* mac);
+	/* handle wlan access mode switch in ethernet bridging*/
+	void eth_bridge_handle_wlan_mode_switch();
 
 
 	int wlan_client_len;
 	ipa_wlan_client *wlan_client;
 
 	int header_name_count;
-	int num_wifi_client;
+	uint32_t num_wifi_client;
 
 	int wlan_ap_index;
-
-	static uint32_t* dummy_flt_rule_hdl_v4;
-	static uint32_t* dummy_flt_rule_hdl_v6;
 
 	static int num_wlan_ap_iface;
 
@@ -232,6 +188,18 @@ private:
 				{
 					for(num_v6 =0;num_v6 < get_client_memptr(wlan_client, clt_indx)->route_rule_set_v6;num_v6++)
 					{
+						/* send client-v6 delete to pcie modem only with global ipv6 with tx_index = 0 one time*/
+						if(is_global_ipv6_addr(get_client_memptr(wlan_client, clt_indx)->v6_addr[num_v6]) && (IPACM_Wan::backhaul_mode == Q6_MHI_WAN)
+							&& (get_client_memptr(wlan_client, clt_indx)->v6_rt_rule_id[num_v6] > 0))
+						{
+							IPACMDBG_H("Delete client index %d ipv6 RT-rules for %d-st ipv6 for rule-id:%d\n", clt_indx,num_v6,
+								get_client_memptr(wlan_client, clt_indx)->v6_rt_rule_id[num_v6]);
+							if (del_connection(clt_indx, num_v6))
+							{
+								IPACMERR("PCIE filter rule deletion failed! (%d-client) %d v6-entry\n",clt_indx, num_v6);
+							}
+						}
+
 						IPACMDBG_H("Delete client index %d ipv6 Qos rules for %d-st ipv6 for tx:%d\n", clt_indx,num_v6,tx_index);
 						rt_hdl = get_client_memptr(wlan_client, clt_indx)->wifi_rt_hdl[tx_index].wifi_rt_rule_hdl_v6[num_v6];
 						if(m_routing.DeleteRoutingHdl(rt_hdl, IPA_IP_v6) == false)
@@ -259,11 +227,10 @@ private:
 		return IPACM_SUCCESS;
 	}
 
+	int handle_wigig_client_add(ipacm_event_data_mac_ep *data);
+
 	/* for handle wifi client initial,copy all partial headers (tx property) */
 	int handle_wlan_client_init_ex(ipacm_event_data_wlan_ex *data);
-
-	/*handle lan2lan internal mesg posting*/
-	int handle_lan2lan_msg_post(uint8_t *mac_addr, ipa_cm_event_id event, ipa_ip_type iptype);
 
 	/*handle wifi client */
 	int handle_wlan_client_ipaddr(ipacm_event_data_all *data);
@@ -280,48 +247,20 @@ private:
 	/*handle wlan iface down event*/
 	int handle_down_evt();
 
-	/* add dummy filtering rules for WLAN AP-AP mode support */
-	void add_dummy_flt_rule();
-
-	/* install dummy filtering rules for WLAN AP-AP mode support */
-	int install_dummy_flt_rule(ipa_ip_type iptype, int num_rule);
-
-	/* delete dummy flt rule for WLAN AP-AP mode support*/
-	void del_dummy_flt_rule();
-
-	/*Configure the initial filter rules */
-	virtual int init_fl_rule(ipa_ip_type iptype);
-
-	virtual int add_dummy_lan2lan_flt_rule(ipa_ip_type iptype);
-
-	virtual int add_dummy_private_subnet_flt_rule(ipa_ip_type iptype);
-
-	/*configure private subnet filter rules*/
-	virtual int handle_private_subnet(ipa_ip_type iptype);
-
-	/* install UL filter rule from Q6 */
-	virtual int handle_uplink_filter_rule(ipacm_ext_prop* prop, ipa_ip_type iptype, uint8_t xlat_mux_id);
-
-	/* install TCP control filter rules */
-	virtual void install_tcp_ctl_flt_rule(ipa_ip_type iptype);
-
 	/*handle reset wifi-client rt-rules */
 	int handle_wlan_client_reset_rt(ipa_ip_type iptype);
 
 	void handle_SCC_MCC_switch(ipa_ip_type);
 
-	void eth_bridge_handle_wlan_SCC_MCC_switch(ipa_ip_type iptype);
+	/* for pcie modem */
+	int add_connection(int client_index, int v6_num);
 
-	int eth_bridge_modify_wlan_client_flt_rule(uint8_t* mac, eth_bridge_dst_iface dst_iface, ipa_ip_type iptype);
+	int del_connection(int client_index, int v6_num);
 
-	int eth_bridge_modify_wlan_rt_rule(uint8_t* mac, eth_bridge_src_iface src_iface, ipa_ip_type iptyp);
-
-	/*handle wlan access mode switch */
-	void eth_bridge_handle_wlan_mode_switch();
-
-	virtual int install_ipv6_prefix_flt_rule(uint32_t* prefix);
-
-	virtual void delete_ipv6_prefix_flt_rule();
+#ifdef FEATURE_IPACM_RESTART
+	/*query wlan-clients */
+	int ipa_query_wlan_client();
+#endif
 
 };
 
