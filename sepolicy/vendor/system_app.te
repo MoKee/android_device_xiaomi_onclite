@@ -17,4 +17,6 @@ get_prop(system_app, spectrum_prop);
 allow system_app sysfs_zram:dir search;
 allow system_app sysfs_zram:file { getattr open read };
 
+allow system_app system_data_file:dir { write } ;
+
 set_prop(system_app, system_prop);
