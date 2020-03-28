@@ -1,2 +1,17 @@
 allow untrusted_app_27 proc:file { read } ;
+allow untrusted_app_27 proc:file { getattr } ;
+allow untrusted_app_27 proc:file { open } ;
+
 allow untrusted_app_27 proc_zoneinfo:file { read } ;
+allow untrusted_app_27 proc_zoneinfo:file { getattr } ;
+
+allow untrusted_app_27 proc_qtaguid_stat:file { read } ;
+allow untrusted_app_27 proc_qtaguid_stat:file { open } ;
+
+allow untrusted_app_27 proc_zoneinfo:file { open } ;
+
+allow untrusted_app_27 proc_net:file { read } ;
+allow untrusted_app_27 proc_net_tcp_udp:file { read } ;
+
+allow untrusted_app_27 proc_tty_drivers:file { read } ;
+allow untrusted_app_27 serialno_prop:file { read } ;
