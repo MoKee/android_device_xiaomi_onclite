@@ -15,6 +15,7 @@ $(call inherit-product, device/xiaomi/onclite/device.mk)
 
 # Inherit some MoKee stuff.
 $(call inherit-product, vendor/mokee/config/common_full_phone.mk)
+TARGET_FACE_UNLOCK_SUPPORTED := true
 
 # Bootanimation res
 TARGET_BOOTANIMATION_7200P := true
