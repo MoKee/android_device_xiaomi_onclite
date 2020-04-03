@@ -1,3 +1,0 @@
-allow qti_init_shell default_prop:file { read } ;
-allow qti_init_shell default_prop:file { open } ;
-allow qti_init_shell qti_init_shell:capability { dac_override } ;

@@ -1,2 +1,0 @@
-allow vold vendor_file:file read;
-allow vold vendor_file:file { getattr } ;

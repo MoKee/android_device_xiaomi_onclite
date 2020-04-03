@@ -10,5 +10,8 @@ allow init_fingerprint vendor_toolbox_exec:file rx_file_perms;
 
 # Allow to delete file
 allow init_fingerprint persist_file:dir search;
+allow hal_fingerprint_default rootfs:dir { read search open } ;
 allow init_fingerprint persist_drm_file:dir { read search open write remove_name };
 allow init_fingerprint persist_drm_file:file { getattr unlink };
+
+

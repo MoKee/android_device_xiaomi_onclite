@@ -2,7 +2,7 @@
 /sys/module/hall/parameters(/.*)?               u:object_r:hall_dev:s0
 
 # IR
-/dev/spidev7\.1  u:object_r:ir_dev_file:s0
+/dev/spidev6\.1  u:object_r:ir_dev_file:s0
 
 # Fingerprint
 /data/misc/goodix(/.*)?                             u:object_r:fingerprintd_data_file:s0
@@ -12,7 +12,7 @@
 /data/vendor/goodix(/.*)?                           u:object_r:fingerprint_vendor_data_file:s0
 /dev/goodix_fp                                      u:object_r:fingerprintd_device:s0
 /(mnt/vendor)/persist/fpc(/.*)?                     u:object_r:persist_fingerprint_file:s0
-/sys/devices/soc/soc:fpc1020(/.*)?                  u:object_r:sysfs_fingerprint:s0
+/sys/devices/platform/soc/soc:fpc1020(/.*)?         u:object_r:sysfs_fingerprint:s0
 
 # Firmware
 /firmware                                                     u:object_r:firmware_file:s0

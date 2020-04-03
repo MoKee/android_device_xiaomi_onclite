@@ -1,0 +1,2 @@
+allow mediaprovider hal_perf_default:binder { call } ;
+

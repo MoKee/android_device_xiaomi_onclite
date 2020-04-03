@@ -1,9 +1,12 @@
+typeattribute ueventd data_between_core_and_vendor_violators;
+
+allow ueventd ir_dev_file:chr_file { create setattr };
 allow ueventd kcal_dev:dir r_dir_perms;
 allow ueventd kcal_dev:file rw_file_perms;
 allow ueventd kcal_dev:lnk_file r_file_perms;
 allow ueventd hall_dev:dir r_dir_perms;
 allow ueventd hall_dev:file rw_file_perms;
 allow ueventd hall_dev:lnk_file r_file_perms;
-allow ueventd wifi_vendor_data_file:dir r_dir_perms;
-allow ueventd wifi_vendor_data_file:file r_file_perms;
 allow ueventd debugfs:dir { read } ;
+allow ueventd wifi_vendor_data_file:dir { search open read };
+allow ueventd wifi_vendor_data_file:file { getattr open read };
