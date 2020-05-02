@@ -101,7 +101,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.enable_default_color_mode=0 \
     vendor.display.svi.config=1 \
     vendor.display.svi.config_path=/system/etc/display/SVIConfig.xml \
-    vendor.gralloc.enable_fb_ubwc=1
+    vendor.gralloc.enable_fb_ubwc=1 \
     debug.hwui.renderer=skiavk
 
 # DPM
