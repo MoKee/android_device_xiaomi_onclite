@@ -102,6 +102,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.svi.config=1 \
     vendor.display.svi.config_path=/system/etc/display/SVIConfig.xml \
     vendor.gralloc.enable_fb_ubwc=1
+    debug.hwui.renderer=skiavk
 
 # DPM
 PRODUCT_PROPERTY_OVERRIDES += \
