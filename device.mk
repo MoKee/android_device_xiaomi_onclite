@@ -274,7 +274,6 @@ PRODUCT_COPY_FILES += \
 
 # Properties
 -include device/xiaomi/onclite/vendor_prop.mk
--include device/xiaomi/onclite/product/tweaks.mk
 
 # QMI
 PRODUCT_PACKAGES += \
