@@ -1251,13 +1251,13 @@ vendor/lib64/libqtikeymaster4.so|821ba3d3f7d15ca5d4c1db5b853acf0d91876c41
 vendor/lib/hw/keystore.msm8953.so|9be4c88926ebed98b2b23725f8118ff9d0bbb2d6
 vendor/lib64/hw/keystore.msm8953.so|9f4d991dfa359299739bd443b63731528d9cb5d0
 
-# Latency - from LA.UM.8.6.2.r1-06600-89xx.0
+# Latency - from daisy-user-10-QKQ1.191002.002-V11.0.2.0.QDLMIXM-release-keys
 product/framework/vendor.qti.hardware.data.latency-V1.0-java.jar|c6c5d5bbf50b068df0184aef8551b95daa5f4791
 product/framework/vendor.qti.latency-V2.0-java.jar|d345e24271b83faecdb1abe1361db812fae0646f
-product/lib64/vendor.qti.hardware.data.latency@1.0.so|02d67f05706fafe49e9cff78f9eb8f4a5a5ff4a0
-product/lib64/vendor.qti.latency@2.0.so|0adf01cc3d3bfe34438b0d755619e3efbd1c63a5
-vendor/lib64/vendor.qti.hardware.data.latency@1.0.so|cb930c66271392a7e0139fb9d1a72ab57996430c
-vendor/lib64/vendor.qti.latency@2.0.so|72645a214e8675680862af236420d8195651f29d
+product/lib64/vendor.qti.hardware.data.latency@1.0.so|53794a8d4dfeb0fbd233a4b128749a06d515c3f7
+product/lib64/vendor.qti.latency@2.0.so|0144eec541989f450695ec8cbdd595df4009fe1a
+vendor/lib64/vendor.qti.hardware.data.latency@1.0.so|53794a8d4dfeb0fbd233a4b128749a06d515c3f7
+vendor/lib64/vendor.qti.latency@2.0.so|0144eec541989f450695ec8cbdd595df4009fe1a
 
 # Listen - from LA.UM.8.6.2.r1-06600-89xx.0
 vendor/lib/hw/sound_trigger.primary.msm8953.so|d3b9a3e539f08c8fefd10d32597f307fc1252df7
