@@ -953,13 +953,32 @@ vendor/bin/consumerird
 vendor/lib/hw/consumerir.default.so
 vendor/lib64/hw/consumerir.default.so
 
-# DPM - from LA.UM.8.6.2.r1-03700-89xx.0
-vendor/bin/dpmQmiMgr|fd59518b55d5cc9ec677a7da9f0d4aad3f03d98a
+# DPM - from daisy-user-10-QKQ1.191002.002-V11.0.2.0.QDLMIXM-release-keys
+framework/tcmclient.jar|6ef9ca98f67c144fc8ae941bb3a47f99cbd93098
+product/bin/dpmd|cac8f3eadeeec202f56d5b5f7a8c75e82e376d9f
+product/etc/dpm/dpm.conf|95e27da8c989e96c6faea6f0697bce11955b62a5
+product/etc/init/dpmd.rc|7f95195a89fddce06b93006a737701270e91f669
+product/etc/permissions/com.qti.dpmframework.xml|4613f8b8629d0b823e6aaab45d399ac30da06c09
+product/etc/permissions/dpmapi.xml|0991b3069308620cfcad53873e9f09af181b981d
+product/framework/com.qti.dpmframework.jar|e39a7e06af2d1e95a3724c19c36b8716277f53a1
+product/framework/dpmapi.jar|4696df9793ad676b305d53b5d7ce65ecf74771ad
+product/lib/com.qualcomm.qti.dpm.api@1.0.so|50a6e8edcad48708d0b0cac98e7f9be98bdea225
+product/lib/libdpmctmgr.so|7ac017c1861d2b715074083daef2aa1a6cd6021b
+product/lib/libdpmfdmgr.so|2be3f4e034af1399a8aef1012708591bc3a001f9
+product/lib/libdpmframework.so|3def0c2c741d9092197d499bef6d245b8430a4c7
+product/lib/libdpmtcm.so|b9bc8c5e52b609d97a7e0fe79f3189bdd5bc80a2
+product/lib64/com.qualcomm.qti.dpm.api@1.0.so|a70cfc1be3e06cde6318d6969e114429fe1950bb
+product/lib64/libdpmctmgr.so|7ee0d1d40a8fc7fea924602db13717235ed2c2aa
+product/lib64/libdpmfdmgr.so|cb0157da0ffe6827471662a5b7881e85165cb5aa
+product/lib64/libdpmframework.so|8b2183e4b50a033b10c640cbc0b14a39ed5dca16
+product/lib64/libdpmtcm.so|a98ab3c419ebe49c6f3351ef4fa64ebda65d0e7d
+-product/priv-app/dpmserviceapp/dpmserviceapp.apk|9fd873c5330c03c62dfdeb6540b5984588295319
+vendor/bin/dpmQmiMgr|a43829d478ebc243b5f7307b44aa501a7a3c8211
 vendor/etc/init/dpmQmiMgr.rc|67569302d3a8828a9118c835e5b69c51b0c8ac68
-vendor/lib64/com.qualcomm.qti.dpm.api@1.0.so|a7d6305b0b9a3b80e8006b90990cd9112090fa05
-vendor/lib64/libdpmqmihal.so|903e732361dddd2dffdd3e9facf76180096710c8
-vendor/lib/com.qualcomm.qti.dpm.api@1.0.so|09906c68dc0b5bf896766336079cd1e1a87559a6
-vendor/lib/libdpmqmihal.so|e68d0fa8c0de8b031b475c31080c607460d60719
+vendor/lib/com.qualcomm.qti.dpm.api@1.0.so|50a6e8edcad48708d0b0cac98e7f9be98bdea225
+vendor/lib/libdpmqmihal.so|f618b7d9387d35b757377f47452f503d8b405ed9
+vendor/lib64/com.qualcomm.qti.dpm.api@1.0.so|a70cfc1be3e06cde6318d6969e114429fe1950bb
+vendor/lib64/libdpmqmihal.so|25d74c0e867f023b71a7c599ab6d213c7de2725d
 
 # DRM - from LA.UM.8.6.2.r1-03700-89xx.0
 vendor/bin/qseecomd|d79a4cb59568c96051538d34bce08030ff74460e
