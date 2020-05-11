@@ -60,8 +60,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.camera.aux.packagelist=org.codeaurora.snapcam \
     vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,com.qualcomm.qti.qmmi,com.longcheertel.cit \
     vendor.camera.hal1.packagelist=com.skype.raider,com.google.android.talk \
-    vendor.camera.lowpower.record.enable=1
-
+    vendor.camera.lowpower.record.enable=1 \
+    media.camera.ts.monotonic=1 \
+    persist.camera.gyro.disable=0 \
+    persist.camera.isp.clock.optmz=0 \
+    persist.camera.stats.test=5 \
+    persist.vendor.qti.telephony.vt_cam_interface=1 \
+    vidc.enc.dcvs.extra-buff-count=2
+	
 # CnE
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.cne.feature=1 \
@@ -71,22 +77,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.coresight.config=stm-events
 
-# Dalvik
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapgrowthlimit=192m \
-    dalvik.vm.heapmaxfree=8m \
-    dalvik.vm.heapminfree=4m \
-    dalvik.vm.heapsize=512m \
-    dalvik.vm.heapstartsize=16m \
-    dalvik.vm.heaptargetutilization=0.75 \
-    ro.dalvik.vm.native.bridge=0
-
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.egl.hw=0 \
     debug.gralloc.enable_fb_ubwc=1 \
-    debug.sf.enable_hwc_vds=1 \
     debug.sf.hw=0 \
+    debug.cpurend.vsync=false \
     debug.sf.latch_unsignaled=0 \
     debug.sf.recomputecrop=0 \
     dev.pm.dyn_samplingrate=1 \
@@ -101,12 +97,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.enable_default_color_mode=0 \
     vendor.display.svi.config=1 \
     vendor.display.svi.config_path=/system/etc/display/SVIConfig.xml \
-    vendor.gralloc.enable_fb_ubwc=1 \
-    debug.hwui.renderer=skiavk
+    vendor.gralloc.enable_fb_ubwc=1
 
 # DPM
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.dpm.feature=1
+    persist.dpm.feature=1 \
+    persist.hwc.enable_vds=1 \
+    debug.sdm.support_writeback=0
 
 # DRM
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -163,7 +160,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vidc.enc.dcvs.extra-buff-count=2 \
     debug.enable.sglscale=1 \
     debug.mdpcomp.logs=0 \
-    keyguard.no_require_sim=true \
     persist.hwc.enable_vds=1 \
     persist.hwc.mdpcomp.enable=true \
     vendor.video.disable.ubwc=1 \
@@ -178,17 +174,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #Memory optimization
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.qti.sys.fw.bservice_enable=true \
-    ro.vendor.qti.am.reschedule_service=true
-
-# Perf
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=libqti-perfd-client.so \
-    vendor.perflocks_customized_for_apps=1
-
+    ro.vendor.qti.am.reschedule_service=true\
+    ro.vendor.qti.sys.fw.bservice_limit=5 \
+    ro.vendor.qti.sys.fw.bservice_age=5000
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.qti.telephony.vt_cam_interface=1 \
     DEVICE_PROVISIONED=1 \
+    persist.vendor.radio.add_power_save=1 \
     persist.radio.multisim.config=dsds \
     persist.vendor.radio.apm_sim_not_pwdn=1 \
     persist.vendor.radio.custom_ecc=1 \
@@ -204,7 +197,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     rild.libargs=-d /dev/smd0 \
     rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
     ro.carrier=unknown \
-    ro.com.android.dataroaming=true \
     ro.telephony.default_network=22,20 \
     telephony.lteOnCdmaDevice=1 \
 	persist.sys.fflag.override.settings_network_and_internet_v2=true \
@@ -218,6 +210,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.surface_flinger.force_hwc_copy_for_virtual_displays = true \
     ro.surface_flinger.max_virtual_display_dimension = 4096
+    ro.surface_flinger.vsync_event_phase_offset_ns=2000000 \
+    ro.surface_flinger.vsync_sf_event_phase_offset_ns=6000000
 
 # Thermal
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -237,10 +231,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.adb.secure=0 \
     ro.secure=0 \
     ro.debuggable=1
-
-# Wifi-display
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.debug.wfd.enable=1
 
 # Misc
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -265,6 +255,38 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.emmc_size=16GB \
     ro.cutoff_voltage_mv=3400
 	
+# UI
+PRODUCT_PROPERTY_OVERRIDES += \
+    sys.use_fifo_ui=0
+
+# Perf
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.sys.fw.dex2oat_thread_count=8 \
+    ro.vendor.extension_library=libqti-perfd-client.so \
+    ro.vendor.qti.sys.fw.bservice_enable=true \
+    vendor.perflocks_customized_for_apps=1 \
+    vendor.perf.gestureflingboost.enable=true
+
+# Coral System Props
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.sf.enable_gl_backpressure=1 \
+    debug.sf.early_phase_offset_ns=500000 \
+    debug.sf.early_app_phase_offset_ns=500000 \
+    debug.sf.early_gl_phase_offset_ns=3000000 \
+    debug.sf.early_gl_app_phase_offset_ns=15000000
+
+# Ram Tweaks
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.config.fha_enable=true \
+    ro.sys.fw.bg_apps_limit=32 \
+    ro.config.dha_cached_max=16 \
+    ro.config.dha_empty_max=42 \
+    ro.config.dha_empty_init=32 \
+    ro.config.dha_lmk_scale=0.545 \
+    ro.config.dha_th_rate=2.3 \
+    ro.config.sdha_apps_bg_max=64 \
+    ro.config.sdha_apps_bg_min=8
+
 # WiFi calling
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.dbg.wfc_avail_ovr=1
