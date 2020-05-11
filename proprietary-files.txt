@@ -1626,12 +1626,12 @@ vendor/lib/libthermalfeature.so
 -vendor/lib64/libthermalclient.so
 vendor/lib64/libthermalfeature.so
 
-# Time services - from LA.UM.8.6.2.r1-03700-89xx.0
--vendor/app/TimeService/TimeService.apk|c935b678fdaed033513f044f6492361c3370f9f0
-vendor/bin/time_daemon|1a65b0cb7d6953b07820bb012550f73f16898796
-vendor/etc/init/init.time_daemon.rc|edb18291351eb7efcb597d33c2c7f2d9bb7328a9
--vendor/lib/libtime_genoff.so|d140c8f7772f5218557193058eee8c34a7d0e19a
--vendor/lib64/libtime_genoff.so|253aca0fe9ca844886b0ae80d9816f80017a1880
+# Time services - from daisy-user-10-QKQ1.191002.002-V11.0.2.0.QDLMIXM-release-keys
+-vendor/app/TimeService/TimeService.apk|27f9b81621c446baa8c37581d9bfbca2fd67b496
+vendor/bin/time_daemon|75b8a6a14cfb4424499ccb2bf1cad011df295d0e
+vendor/etc/init/init.time_daemon.rc|b253ca2a498757e14e1d7a051bf504ae09218f51
+vendor/lib/libtime_genoff.so|a574d287e7e73649685b702f4fe497eb7c6ba727
+vendor/lib64/libtime_genoff.so|06df52867790cdbbcc674a3a28d7ad7c8cc161ac
 
 # Voice
 vendor/lib/vendor.qti.voiceprint@1.0.so
