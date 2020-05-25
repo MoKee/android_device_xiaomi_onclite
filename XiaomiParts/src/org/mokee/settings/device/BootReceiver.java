@@ -20,7 +20,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
-
+import android.text.TextUtils;
+import org.mokee.settings.device.preferences.VibratorStrengthPreference;
+import org.mokee.settings.device.preferences.VibratorCallStrengthPreference;
+import org.mokee.settings.device.preferences.VibratorNotifStrengthPreference;
 import org.mokee.settings.device.kcal.Utils;
 
 public class BootReceiver extends BroadcastReceiver implements Utils {
@@ -51,11 +54,13 @@ public class BootReceiver extends BroadcastReceiver implements Utils {
                     PREF_CONTRAST, CONTRAST_DEFAULT) + CONTRAST_OFFSET);
             FileUtils.setValue(KCAL_HUE, Settings.Secure.getInt(context.getContentResolver(),
                     PREF_HUE, HUE_DEFAULT));
-        }
+	    VibratorStrengthPreference.restore(context);
+	    VibratorCallStrengthPreference.restore(context);
+	    VibratorNotifStrengthPreference.restore(context);
+		
+		    FileUtils.setValue(DeviceSettings.USB_FASTCHARGE_PATH, Settings.Secure.getInt(context.getContentResolver(),
+                DeviceSettings.PREF_USB_FASTCHARGE, 0));
+                DeviceSettings.PREF_USB_FASTCHARGE, 1));
 
-        FileUtils.setValue(DeviceSettings.THERMAL_PATH, Settings.Secure.getString(
-                context.getContentResolver(), DeviceSettings.PREF_THERMAL));
-        FileUtils.setValue(DeviceSettings.HALL_WAKEUP_PATH, Settings.Secure.getInt(
-                context.getContentResolver(), DeviceSettings.PREF_HALL_WAKEUP, 1) == 1 ? "Y" : "N");
-    }
+        }
 }

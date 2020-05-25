@@ -23,10 +23,15 @@ import android.os.Handler;
 import androidx.preference.PreferenceFragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
-
+import org.mokee.settings.device.preferences.VibratorStrengthPreference;
+import org.mokee.settings.device.preferences.VibratorCallStrengthPreference;
+import org.mokee.settings.device.preferences.VibratorNotifStrengthPreference;
 import org.mokee.settings.device.kcal.KCalSettingsActivity;
 import org.mokee.settings.device.preferences.SecureSettingListPreference;
 import org.mokee.settings.device.preferences.SecureSettingSwitchPreference;
+import org.mokee.settings.device.preferences.CustomSeekBarPreference;
+
+import org.mokee.settings.device.R;
 
 public class DeviceSettings extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -50,6 +55,16 @@ public class DeviceSettings extends PreferenceFragment implements
 
     private static final String DEVICE_DOZE_PACKAGE_NAME = "org.mokee.settings.doze";
 
+    public static final String PREF_USB_FASTCHARGE = "fastcharge";
+    public static final String USB_FASTCHARGE_PATH = "/sys/kernel/fast_charge/force_fast_charge";
+
+    public static final String KEY_VIBSTRENGTH = "vib_strength";
+    private VibratorStrengthPreference mVibratorStrength;
+    public static final String KEY_CALL_VIBSTRENGTH = "vib_call_strength";
+    private VibratorCallStrengthPreference mVibratorCallStrength;
+    public static final String KEY_NOTIF_VIBSTRENGTH = "vib_notif_strength";
+    private VibratorNotifStrengthPreference mVibratorNotifStrength;
+
     private SecureSettingListPreference mTHERMAL;
     private SecureSettingListPreference mSPECTRUM;
 
@@ -58,6 +73,22 @@ public class DeviceSettings extends PreferenceFragment implements
         setPreferencesFromResource(R.xml.preferences_xiaomi_parts, rootKey);
 
         PreferenceCategory displayCategory = (PreferenceCategory) findPreference(CATEGORY_DISPLAY);
+        
+		SwitchPreference usbfastCharger = (SwitchPreference) findPreference(PREF_USB_FASTCHARGE);
+        usbfastCharger.setEnabled(FileUtils.fileWritable(USB_FASTCHARGE_PATH));
+        usbfastCharger.setChecked(FileUtils.getFileValueAsBoolean(USB_FASTCHARGE_PATH, true));
+        usbfastCharger.setOnPreferenceChangeListener(this);
+
+	mVibratorStrength = (VibratorStrengthPreference) findPreference(KEY_VIBSTRENGTH);
+        if (mVibratorStrength != null)
+            mVibratorStrength.setEnabled(VibratorStrengthPreference.isSupported());
+        mVibratorCallStrength = (VibratorCallStrengthPreference) findPreference(KEY_CALL_VIBSTRENGTH);
+        if (mVibratorCallStrength != null)
+            mVibratorCallStrength.setEnabled(VibratorCallStrengthPreference.isSupported());
+        mVibratorNotifStrength = (VibratorNotifStrengthPreference) findPreference(KEY_NOTIF_VIBSTRENGTH);
+        if (mVibratorNotifStrength != null)
+            mVibratorNotifStrength.setEnabled(VibratorNotifStrengthPreference.isSupported());
+
 
         Preference kcal = findPreference(PREF_DEVICE_KCAL);
 

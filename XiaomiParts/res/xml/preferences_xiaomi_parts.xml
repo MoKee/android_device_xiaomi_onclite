@@ -58,7 +58,37 @@
             android:title="@string/thermal_title"
             android:icon="@drawable/ic_thermal" />
     </PreferenceCategory>
+	
+    <PreferenceCategory
+        android:key="vibration"
+        android:title="@string/vibration_title">
 
+        <org.mokee.settings.device.preferences.VibratorStrengthPreference
+            android:key="vib_strength"
+            android:icon="@drawable/ic_vibrate"
+            android:title="@string/vibration_strength_title" />
+
+        <org.mokee.settings.device.preferences.VibratorNotifStrengthPreference
+             android:key="vib_notif_strength"
+             android:icon="@drawable/ic_vibrate_notif"
+             android:title="@string/vibration_notif_strength_title" />
+
+	    <org.mokee.settings.device.preferences.VibratorCallStrengthPreference
+            android:key="vib_call_strength"
+            android:icon="@drawable/ic_vibrate_call"
+            android:title="@string/vibration_call_strength_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/other_category" >
+        <SwitchPreference
+            android:key="fastcharge"
+            android:defaultValue="1"
+            android:title="@string/fastcharge_title"
+            android:icon="@drawable/ic_fastcharge"
+            android:summary="@string/fastcharge_summary" />
+    </PreferenceCategory>
 
     <PreferenceCategory
         android:key="hall_wakeup"
