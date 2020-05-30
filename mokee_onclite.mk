@@ -16,6 +16,10 @@ $(call inherit-product, device/xiaomi/onclite/device.mk)
 # Inherit some MoKee stuff.
 $(call inherit-product, vendor/mokee/config/common_full_phone.mk)
 
+# Bootanimation res
+TARGET_BOOTANIMATION_7200P := true
+IS_PHONE := true
+
 # Device identifier. This must come after all inclusions.
 PRODUCT_NAME := mokee_onclite
 PRODUCT_DEVICE := onclite
