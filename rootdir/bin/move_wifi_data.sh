@@ -32,16 +32,9 @@
 DEST_PATH="/data/vendor/wifi"
 FILES_MOVED="/data/vendor/wifi/moved"
 SRC_PATH="/data/misc/wifi"
-#//ifdef VENDOR_EDITOR
-SRC_FILE="/data/misc/wifi/p2p_supplicant.conf"
-#//endif /* VENDOR_EDIT */
 
 if [ ! -f "$FILES_MOVED" ]; then
-    #//ifdef VENDOR_EDITOR
-    i="$SRC_FILE";
-    #//else
-    #for i in "$SRC_PATH/"*; do
-    #//endif /* VENDOR_EDIT */
+    for i in "$SRC_PATH/"*; do
         dest_path=$DEST_PATH/"${i#$SRC_PATH/}"
         echo $dest_path
         if [ -d "$i" ]; then
@@ -55,10 +48,7 @@ if [ ! -f "$FILES_MOVED" ]; then
                  chgrp wifi "$file"
              done
         echo $i
-    #//ifdef VENDOR_EDITOR
-    #//else
-    #done
-    #//endif /* VENDOR_EDIT */
+    done
     restorecon -R "$DEST_PATH"
     echo 1 > "$FILES_MOVED"
 fi

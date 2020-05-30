@@ -18,31 +18,10 @@
 <!-- Camera app resources that may need to be customized
      for different hardware or product builds. -->
 <resources>
-	
-	<!-- A list of scenemodes where Longshot should be enabled. Comma separated.
-    An empty list will use the default restrictions. If defined, longshot
-    will be enabled ONLY for these scenemodes and disabled for others.
-    Here's a hack to disable longshot. -->
-    <string-array name="longshot_scenemodes">
-        <item>placeholder</item>
-    </string-array>
-
     <!-- Opens back camera using openLegacy() and forces api v1 -->
-    <bool name="back_camera_open_legacy">false</bool>
+    <bool name="back_camera_open_legacy">true</bool>
 
     <!-- Opens front camera using openLegacy() and forces api v1 -->
-    <bool name="front_camera_open_legacy">false</bool>
-
-    <!-- Restart preview for back camera onPictureTaken -->
-    <bool name="back_camera_restart_preview_onPictureTaken">true</bool>
-
-    <!-- Restart preview for front camera onPictureTaken -->
-    <bool name="front_camera_restart_preview_onPictureTaken">true</bool>
-
-    <!-- Enable support for camera api v2 -->
-    <bool name="support_camera_api_v2">true</bool>
-	
-	<!-- Enable support for bokeh mode -->
-    <bool name="support_bokeh_mode">true</bool>
+    <bool name="front_camera_open_legacy">true</bool>
 </resources>
 

@@ -1,6 +1,5 @@
-Copyright (C) 2012 The LineageOS Project
-Copyright (C) 2020 The MoKee Open Source Project
-
+Copyright (C) 2019-2020 The LineageOS Project
+ 
   Device configuration for Xiaomi Redmi 7
  =========================================
  
@@ -11,17 +10,30 @@ budget smartphone from Xiaomi.
  
   ## Device specifications
  
-  Basic   | Spec Sheet
--------:|:-------------------------
-CPU     | Octa-core (4x1.8 GHz Kryo 250 Gold & 4x1.8 GHz Kryo 250 Silver)
-Chipset | Qualcomm SDM632 Snapdragon 632 (14 nm)
-GPU     | Adreno 506
-Shipped Android Version | 9.0
-Memory | 64 GB, 4 GB RAM or 32 GB, 3 GB RAM
-MicroSD | microSD, up to 512 GB (dedicated slot)
-Battery | Non-removable Li-Ion 4000 mAh battery
-Display | 6.26 inches, 97.8 cm2 (~81.5% screen-to-body ratio)
-Rear Camera  | 12 MP, f/1.8, 1.25µm, PDAF
-Front Camera  |  8 MP, f/2.0, 1.12µm
+  Basic | Spec Sheet
+ -------:|:-------------------------
+ SoC | Qualcomm MSM8953 Snapdragon 632
+ CPU | Octa core (1.8 GHz, Quad core, Kryo 250 + 1.8 GHz Quad core, Kryo 250)
+ GPU | Adreno 506
+ Memory | 2/3 GB RAM
+ Shipped Android Version | 9.0
+ Storage | 32 GB
+ MicroSD | Up to 512 GB (dedicated slot)
+ Battery | Non-removable Li-Polymer 4000 mAh battery
+ Dimensions | 158.6 x 76.4 x 8.4 mm
+ Display | 720 x 1520 pixels, 19:9 ratio, 6.26 inches (~269 ppi density)
+ Rear camera | 12 MP, f/2.2, 1.25 μm , PDAF , 2 MP, f/2.2, depth sensor
+ Front camera | 8 MP, f/2.0      
+ 
+ 
+  ## Device picture
+ 
+  ![Xiaomi Redmi 7 ](https://i.imgur.com/PjaQrqr.png "Xiaomi Redmi 7")
 
-![Xiaomi Redmi 7](https://i.gadgets360cdn.com/products/large/1552901002_635_redmi_7.jpg?downsize=770:*&output-quality=70&output-format=webp "Xiaomi Redmi 7")
+
+ 
+                
+
+ 
+ 
+  

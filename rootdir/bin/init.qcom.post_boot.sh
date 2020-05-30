@@ -354,15 +354,15 @@ function configure_zram_parameters() {
             echo 1 > /sys/block/zram0/use_dedup
         fi
         if [ $MemTotal -le 524288 ]; then
-            echo 805306368 > /sys/block/zram0/disksize
+            echo 402653184 > /sys/block/zram0/disksize
         elif [ $MemTotal -le 1048576 ]; then
-            echo 1073741824 > /sys/block/zram0/disksize
+            echo 805306368 > /sys/block/zram0/disksize
         elif [ $MemTotal -le 3145728 ]; then
-            echo 2147483648 > /sys/block/zram0/disksize
+            echo 1073741824 > /sys/block/zram0/disksize
         elif [ $MemTotal -le 4194304 ]; then
-            echo 4294967296 > /sys/block/zram0/disksize
+            echo 2147483648 > /sys/block/zram0/disksize
         else
-            echo 8589934592 > /sys/block/zram0/disksize
+            echo 4294967296 > /sys/block/zram0/disksize
         fi
         mkswap /dev/block/zram0
         swapon /dev/block/zram0 -p 32758
@@ -1063,7 +1063,6 @@ case "$target" in
         # HMP scheduler settings for 8916, 8936, 8939, 8929
         echo 3 > /proc/sys/kernel/sched_window_stats_policy
         echo 3 > /proc/sys/kernel/sched_ravg_hist_size
-	echo 9 > /proc/sys/kernel/sched_upmigrate_min_nice
 
         # Apply governor settings for 8916
         case "$soc_id" in
@@ -2585,6 +2584,8 @@ case "$target" in
             echo N > /sys/module/lpm_levels/system/perf/perf-l2-dynret/idle_enabled
             echo N > /sys/module/lpm_levels/system/pwr/pwr-l2-ret/idle_enabled
             echo N > /sys/module/lpm_levels/system/perf/perf-l2-ret/idle_enabled
+            # enable LPM
+            echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
 
             # re-enable thermal and BCL hotplug
             echo 1 > /sys/module/msm_thermal/core_control/enabled
@@ -2739,6 +2740,8 @@ case "$target" in
             echo N > /sys/module/lpm_levels/system/pwr/cpu7/ret/idle_enabled
             echo N > /sys/module/lpm_levels/system/pwr/pwr-l2-dynret/idle_enabled
             echo N > /sys/module/lpm_levels/system/perf/perf-l2-dynret/idle_enabled
+            # enable LPM
+            echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
 
             # re-enable thermal and BCL hotplug
             echo 1 > /sys/module/msm_thermal/core_control/enabled

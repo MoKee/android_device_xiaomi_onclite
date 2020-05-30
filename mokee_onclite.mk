@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2019 The lineageOS Project
+# Copyright (C) 2019-2020 The LineageOS Project
 # Copyright (C) 2020 The MoKee Open Source Project
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -16,10 +16,6 @@ $(call inherit-product, device/xiaomi/onclite/device.mk)
 # Inherit some MoKee stuff.
 $(call inherit-product, vendor/mokee/config/common_full_phone.mk)
 
-# Bootanimation res
-TARGET_BOOTANIMATION_7200P := true
-IS_PHONE := true
-
 # Device identifier. This must come after all inclusions.
 PRODUCT_NAME := mokee_onclite
 PRODUCT_DEVICE := onclite
@@ -30,8 +26,6 @@ PRODUCT_MANUFACTURER := Xiaomi
 BUILD_FINGERPRINT := "google/coral/coral:10/QQ2A.200501.001.B2/6352890:user/release-keys"
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="onc-user 9 PKQ1.181021.001 V11.0.3.0.PFLMIXM release-keys" \
-    PRODUCT_NAME="onc" \
-    TARGET_DEVICE="onc"
+    PRIVATE_BUILD_DESC="onc-user 9 PKQ1.181021.001 V11.0.3.0.PFLMIXM release-keys"
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
