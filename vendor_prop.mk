@@ -62,8 +62,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.camera.display.umax=1920x1080 \
     persist.vendor.camera.expose.aux=1 \
     persist.vendor.camera.imglib.usefdlite=1 \
-    vendor.camera.aux.packagelist=org.codeaurora.snapcam \
-    vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,com.qualcomm.qti.qmmi,com.longcheertel.cit \
+    vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,com.google.android.GoogleCamera \
+    camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,com.google.android.GoogleCamera \
     vendor.camera.hal1.packagelist=com.skype.raider,com.google.android.talk \
     vendor.camera.lowpower.record.enable=1
 
