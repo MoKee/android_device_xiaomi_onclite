@@ -213,6 +213,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.android.dataroaming=true \
     ro.telephony.default_network=22,22 \
     telephony.lteOnCdmaDevice=1 \
+	persist.sys.fflag.override.settings_network_and_internet_v2=true \
     vendor.rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
 
 # Storage
