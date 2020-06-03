@@ -1,3 +1,4 @@
+
 Copyright (C) 2019-2020 The LineageOS Project
 Copyright (C) 2020 The MoKee Open Source Project
  
