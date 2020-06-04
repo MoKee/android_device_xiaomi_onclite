@@ -139,6 +139,10 @@ PRODUCT_PACKAGES += \
     libgui_vendor \
     Snap
 
+# Configstore
+PRODUCT_PACKAGES += \
+    android.hardware.configstore@1.1-service
+
 # Display
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
@@ -157,7 +161,7 @@ PRODUCT_PACKAGES += \
     libqdMetaData.system \
     libgenlock \
     libtinyxml \
-    vendor.display.config@1.9
+    vendor.display.config@1.11
 
 # Doze mode
 PRODUCT_PACKAGES += \
