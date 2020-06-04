@@ -76,16 +76,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.coresight.config=stm-events
 
-# Dalvik
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapgrowthlimit=192m \
-    dalvik.vm.heapmaxfree=8m \
-    dalvik.vm.heapminfree=4m \
-    dalvik.vm.heapsize=512m \
-    dalvik.vm.heapstartsize=16m \
-    dalvik.vm.heaptargetutilization=0.75 \
-    ro.dalvik.vm.native.bridge=0
-
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.egl.hw=0 \
@@ -139,10 +129,26 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.qfp=false
 
+# Netflix
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.netflix.bsp_rev=Q660-13149-1
+
 # FM
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.fm.transmitter=false \
     vendor.hw.fm.init=0
+
+# LMKD
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.lmk.low=1001 \
+    ro.lmk.medium=800 \
+    ro.lmk.critical=0 \
+    ro.lmk.critical_upgrade=false \
+    ro.lmk.upgrade_pressure=100 \
+    ro.lmk.downgrade_pressure=100 \
+    ro.lmk.kill_heaviest_task=true \
+    ro.lmk.kill_timeout_ms=100 \
+    ro.lmk.use_minfree_levels=true
 
 # FRP
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -178,13 +184,19 @@ PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true \
     persist.hwc.enable_vds=1 \
     persist.hwc.mdpcomp.enable=true \
-    vendor.video.disable.ubwc=1
+    vendor.video.disable.ubwc=1 \
+    sys.display-size=1920x1080
 
 # Netmgrd
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.netmgrd.qos.enable=true \
     persist.vendor.data.mode=concurrent \
     ro.vendor.use_data_netmgrd=true
+
+#Memory optimization
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.qti.sys.fw.bservice_enable=true \
+    ro.vendor.qti.am.reschedule_service=true
 
 # Perf
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -213,7 +225,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.android.dataroaming=true \
     ro.telephony.default_network=22,22 \
     telephony.lteOnCdmaDevice=1 \
-	persist.sys.fflag.override.settings_network_and_internet_v2=true \
+    persist.sys.fflag.override.settings_network_and_internet_v2=true \
     vendor.rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
 
 # Storage
@@ -248,3 +260,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.emmc_size=16GB \
     ro.cutoff_voltage_mv=3400
+
+# WiFi calling
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.dbg.wfc_avail_ovr=1
