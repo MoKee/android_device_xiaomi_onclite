@@ -424,6 +424,10 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PACKAGES += \
     charger_res_images \
     product_charger_res_images   
+
+# XiaomiParts
+PRODUCT_PACKAGES += \
+    XiaomiParts
 	
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
