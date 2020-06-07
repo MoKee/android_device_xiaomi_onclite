@@ -2028,8 +2028,8 @@ case "$target" in
             echo -6 > /sys/devices/system/cpu/cpu7/sched_load_boost
             echo -6 > /sys/devices/system/cpu/cpu6/sched_load_boost
 
-            echo 307200 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-            echo 307200 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
+            echo 614400 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+            echo 633600 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
 
             # cpuset settings
             echo 0-3 > /dev/cpuset/background/cpus

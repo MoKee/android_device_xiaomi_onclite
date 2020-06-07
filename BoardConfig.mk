@@ -127,6 +127,7 @@ ifeq ($(HOST_OS),linux)
 endif
 
 # Display
+TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 TARGET_USES_ION := true
 TARGET_USES_GRALLOC1 := true
 TARGET_USES_HWC2 := true
@@ -162,9 +163,8 @@ DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE   := $(DEVICE_PATH)/compatibility_matrix.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := $(DEVICE_PATH)/framework_manifest.xml
 
-# Init
-TARGET_INIT_VENDOR_LIB := libinit_onclite
-TARGET_RECOVERY_DEVICE_MODULES := libinit_onclite
+# Keymaster
+TARGET_PROVIDES_KEYMASTER := true
 
 # Media
 TARGET_USES_MEDIA_EXTENSIONS := true
@@ -201,6 +201,9 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
 
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
+
+# Properties
+TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
 
 # SELinux
 include device/qcom/sepolicy-legacy-um/sepolicy.mk

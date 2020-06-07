@@ -112,7 +112,7 @@ PRODUCT_COPY_FILES += \
 
 # XML Audio configuration files
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
+$(LOCAL_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
         $(LOCAL_PATH)/audio/audio_policy_configuration_a2dp_offload_disabled.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration_a2dp_offload_disabled.xml \
         $(LOCAL_PATH)/audio/audio_policy_configuration_bluetooth_legacy_hal.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration_bluetooth_legacy_hal.xml \
         $(LOCAL_PATH)/audio/bluetooth_hearing_aid_audio_policy_configuration.xml:/$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_hearing_aid_audio_policy_configuration.xml \
@@ -127,9 +127,11 @@ PRODUCT_COPY_FILES += \
 
 # Bluetooth
 PRODUCT_PACKAGES += \
+
     audio.bluetooth.default \
     android.hardware.bluetooth.audio@2.0-impl \
-    libbthost_if
+    libbthost_if \
+    vendor.qti.hardware.bluetooth_audio@2.0.vendor
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -165,6 +167,8 @@ PRODUCT_PACKAGES += \
 # Doze mode
 PRODUCT_PACKAGES += \
     XiaomiDoze
+
+PRODUCT_PROPERTY_OVERRIDES += debug.hwui.use_buffer_age=false
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -263,6 +267,11 @@ PRODUCT_PACKAGES += \
     android.system.net.netd@1.0 \
     libandroid_net
 
+# Offline charger
+PRODUCT_PACKAGES += \
+    charger_res_images \
+    product_charger_res_images
+
 # OMX
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
@@ -295,6 +304,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libjson
 
+# QTI
+PRODUCT_PACKAGES += \
+    libqti_vndfwk_detect.vendor
+
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
@@ -304,6 +317,7 @@ PRODUCT_PACKAGES += \
     init.qcom.rc \
     init.qcom.sh \
     init.qcom.usb.rc \
+    init.recovery.qcom.rc \
     init.target.rc \
     ueventd.qcom.rc
 
@@ -368,7 +382,7 @@ PRODUCT_PACKAGES += \
     android.hardware.thermal@1.0-impl \
     android.hardware.thermal@1.0-service \
     thermal.msm8953
-
+	
 # Trust HAL
 PRODUCT_PACKAGES += \
     vendor.mokee.trust@1.0-service
@@ -421,15 +435,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += \
     WfdCommon
 
-# Offline charger
-PRODUCT_PACKAGES += \
-    charger_res_images \
-    product_charger_res_images   
-
 # XiaomiParts
 PRODUCT_PACKAGES += \
     XiaomiParts
-	
+
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH)    
+    $(LOCAL_PATH)
