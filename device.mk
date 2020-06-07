@@ -127,7 +127,6 @@ $(LOCAL_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc
 
 # Bluetooth
 PRODUCT_PACKAGES += \
-
     audio.bluetooth.default \
     android.hardware.bluetooth.audio@2.0-impl \
     libbthost_if \
