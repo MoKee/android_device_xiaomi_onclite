@@ -240,7 +240,7 @@ PRODUCT_COPY_FILES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service.onclite
+    android.hardware.light@2.0-service.msm8953
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
@@ -298,6 +298,7 @@ PRODUCT_PACKAGES += \
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
+    init.goodix.sh \
     init.msm.usb.configfs.rc \
     init.onclite.rc \
     init.qcom.rc \
