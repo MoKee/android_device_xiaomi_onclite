@@ -23,7 +23,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import org.mokee.settings.device.R;
+import org.mokee.settings.R;
 
 public class KCalSettingsActivity extends Activity implements Utils {
 
