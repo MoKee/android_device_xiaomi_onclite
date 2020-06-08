@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package org.mokee.device;
+package org.mokee.settings.device;
 
 import android.app.Activity;
 import android.app.Fragment;

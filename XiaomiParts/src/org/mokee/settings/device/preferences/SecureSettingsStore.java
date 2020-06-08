@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.mokee.device.preferences;
+package org.mokee.settings.device.preferences;
 
 import android.content.ContentResolver;
 import android.preference.PreferenceDataStore;
