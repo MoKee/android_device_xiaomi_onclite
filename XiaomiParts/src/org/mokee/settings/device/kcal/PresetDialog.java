@@ -7,7 +7,7 @@ import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import org.mokee.settings.R;
+import org.mokee.settings.device.R;
 
 public class PresetDialog extends DialogFragment {
     private CharSequence[] mEntries;

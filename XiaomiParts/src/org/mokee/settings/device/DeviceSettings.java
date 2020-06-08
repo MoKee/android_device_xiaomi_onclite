@@ -27,7 +27,6 @@ import androidx.preference.PreferenceCategory;
 import org.mokee.settings.device.kcal.KCalSettingsActivity;
 import org.mokee.settings.device.preferences.SecureSettingListPreference;
 import org.mokee.settings.device.preferences.SecureSettingSwitchPreference;
-import org.mokee.settings.R;
 
 public class DeviceSettings extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener {

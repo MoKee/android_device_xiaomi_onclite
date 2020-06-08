@@ -22,7 +22,7 @@ import androidx.preference.PreferenceFragment;
 import androidx.preference.Preference;
 
 import org.mokee.settings.device.FileUtils;
-import org.mokee.settings.R;
+import org.mokee.settings.device.R;
 import org.mokee.settings.device.preferences.CustomSeekBarPreference;
 import org.mokee.settings.device.preferences.SecureSettingSwitchPreference;
 
