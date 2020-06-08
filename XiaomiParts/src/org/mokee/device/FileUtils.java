@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package org.mokee.settings.device;
+package org.mokee.device;
 
 import java.io.BufferedReader;
 import java.io.File;

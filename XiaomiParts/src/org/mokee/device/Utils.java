@@ -15,7 +15,7 @@
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 *
 */
-package org.mokee.settings.device;
+package org.mokee.device;
 
 import java.io.File;
 import java.io.FileNotFoundException;
