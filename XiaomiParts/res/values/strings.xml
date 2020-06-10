@@ -23,10 +23,10 @@
     <string name="device_kcal_title">Display Color Calibration</string>
 
     <!-- Spectrum Profiles -->
-    <string name="spectrum_profile_title">Spectrum</string>
+    <string name="performance_profile_title">Performance</string>
     <string name="spectrum_title">Spectrum Profiles</string>
-    <string name="spectrum_summary">Choose your Spectrum Profiles</string>
-    <string name="spectrum_dialogTitle">Choose your Spectrum Profiles</string>
+    <string name="spectrum_summary">Choose Spectrum Profiles</string>
+    <string name="spectrum_dialogTitle">Choose Spectrum Profiles</string>
 
     <!-- Values for Spectrum Presets -->
     <string name="spectrum_performance">Performance</string>
@@ -35,10 +35,9 @@
     <string name="spectrum_balance">Balance</string>
 
     <!-- Thermal Profiles -->
-    <string name="thermal_profile_title">Thermal</string>
     <string name="thermal_title">Thermal Settings</string>
-    <string name="thermal_summary">Choose your Thermal Profile</string>
-    <string name="thermal_dialogTitle">Choose your Thermal Profile</string>
+    <string name="thermal_summary">Choose Thermal Profile</string>
+    <string name="thermal_dialogTitle">Choose Thermal Profile</string>
 
     <!-- Values for Thermal Presets -->
     <string name="thermal_extreme_battery">Extreme Battery</string>
