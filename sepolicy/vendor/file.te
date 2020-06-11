@@ -14,3 +14,8 @@ type hall_dev, sysfs_type, fs_type;
 
 # Kcal
 type kcal_dev, sysfs_type, fs_type;
+
+# Socket
+type pps_socket, file_type;
+type sysfs_battery_supply, sysfs_type, fs_type;
+type sysfs_usb_supply, sysfs_type, fs_type;
