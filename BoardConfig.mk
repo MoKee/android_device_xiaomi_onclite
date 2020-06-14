@@ -220,7 +220,6 @@ BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 
 # Treble
 BOARD_VNDK_VERSION := current
-BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
 # Vendor security patch level
 VENDOR_SECURITY_PATCH := 2020-08-05
