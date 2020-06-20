@@ -285,6 +285,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.perflocks_customized_for_apps=1 \
     vendor.perf.gestureflingboost.enable=true
 
+# ART
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat-filter=speed \
+    dalvik.vm.image-dex2oat-filter=speed \
+    dalvik.vm.boot-dex2oat-threads=8 \
+    dalvik.vm.dex2oat-threads=8
+
 # Coral System Props
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.enable_gl_backpressure=1 \
