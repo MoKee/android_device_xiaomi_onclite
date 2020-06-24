@@ -485,4 +485,8 @@
 
     <!-- Use LiveDisplay for temperature control-->
     <bool name="config_nightDisplayAvailable">false</bool>
+
+    <!-- Smart Charing is available for OP3 -->
+    <bool name="config_smartChargingAvailable">true</bool>
+
 </resources>
