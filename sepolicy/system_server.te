@@ -6,3 +6,6 @@ r_dir_file(system_server, keylayout_file);
 
 # Fingerprint
 get_prop(system_server, fp_prop);
+
+# Smart charging
+allow system_server sysfs_battery_supply:file { getattr open read write };
