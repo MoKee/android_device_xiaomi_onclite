@@ -28,12 +28,6 @@
     <string name="spectrum_summary">Выберите профиль</string>
     <string name="spectrum_dialogTitle">Выберите профиль</string>
 
-    <!-- Values for Spectrum Presets -->
-    <string name="spectrum_performance">Производительность</string>
-    <string name="spectrum_battery">Энергосбережение</string>
-    <string name="spectrum_gaming">Игровой</string>
-    <string name="spectrum_balance">Баланс</string>
-
     <!-- Thermal Profiles -->
     <string name="thermal_title">Настройки теплового режима</string>
     <string name="thermal_summary">Выберите профиль</string>
