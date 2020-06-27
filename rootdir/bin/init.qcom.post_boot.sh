@@ -2202,6 +2202,9 @@ case "$target" in
                 # Set rps mask
                 echo 2 > /sys/class/net/rmnet0/queues/rx-0/rps_cpus
 
+		# ZRAM
+		echo lz4 > /sys/block/zram0/comp_algorithm
+
                 # Enable dynamic clock gating
                 echo 1 > /sys/module/lpm_levels/lpm_workarounds/dynamic_clock_gating
                 # Enable timer migration to little cluster
