@@ -96,6 +96,8 @@ vendor/lib/libtinycompress_vendor.so|6915dd6681263ac674a578078f61311d2f938b25
 vendor/lib64/libtinycompress_vendor.so|41950751bc43c4bdff3d172a6d6f48857499fe3b
 
 # Bluetooth - from LA.UM.8.6.2.r1-06600-89xx.0
+-lib/libbtconfigstore.so|b631dd3c97fc138807ba872242087a910b13e565
+-lib64/libbtconfigstore.so|88d584d582a8822af6c0f4a6e00446e6dbae06d1
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti|8429b451d671b1b5d55e171bf824952f4f67c381
 vendor/etc/init/android.hardware.bluetooth@1.0-service-qti.rc|a979981c55f3dcaf6cf2212e71b901ca4d58b959
 vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-qti.so|8ba6df5e05762bd0529bbfb6e108af419dc94a47
