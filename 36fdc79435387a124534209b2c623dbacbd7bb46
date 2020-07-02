@@ -1,0 +1,4 @@
+{
+  "pushCert": "certificate version 0.1\npusher 2ECD2531 1593730135 +0800\npushee ssh://mokeedev.review:29418/MoKee/android_device_xiaomi_onclite\nnonce 1593730135-CA7312365A311925F72466C1EBA1152B4CE51FB7\n\n0000000000000000000000000000000000000000 36fdc79435387a124534209b2c623dbacbd7bb46 refs/for/mkq-mr1\n-----BEGIN PGP SIGNATURE-----\n\niQEzBAABCgAdFiEE/Y8fKHw84zhHjhP78iL05i7NJTEFAl7+ZFcACgkQ8iL05i7N\nJTGJagf+P823TxbhLMkdYkFQYiVd0P3deTGtXYURiCeeoCWH81kmFmg6zjqj2t92\nDyXmNXjpPg8UnwTpIardXatlr4dtheywOIkJLxSa2GhQ9LD6calDm7ENc/Z+MvrE\nMVLepHsPgFXJtP+ruiWijL/b5/oD4DuceVzwhLrZxkqrfTgzIx7NsjvOqdzPnRvd\nUA2TXWZECugPhInpQwFmOgT8YS6KB70ukWcU5D0prLoEInPoVlsqYQxGhA84e8xa\njClGBwMvjfSV/wMjRcY1Fgui1HCIl4JafVi8EjCkBgkG3vrQf2r03hO5IezsPdMQ\nwfWE+u9aTX/eArAACH2EUZG87N6Etg\u003d\u003d\n\u003djgcO\n-----END PGP SIGNATURE-----\n",
+  "comments": []
+}
