@@ -2,3 +2,4 @@ allow untrusted_app rootfs:dir { read } ;
 allow untrusted_app rootfs:dir { open } ;
 allow untrusted_app sysfs_kgsl:dir { search } ;
 allow untrusted_app proc_net:file { read } ;
+allow untrusted_app app_data_file:file { execute };

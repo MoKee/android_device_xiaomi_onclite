@@ -38,7 +38,7 @@ allow hal_fingerprint_default media_rw_data_file:dir { search read open };
 
 allow hal_fingerprint_default system_data_file:file r_file_perms;
 allow hal_fingerprint_default system_data_file:dir { getattr } ;
-allow hal_fingerprint_default system_data_file:dir { read } ;
+allow hal_fingerprint_default system_data_file:dir { open };
 
 set_prop(hal_fingerprint_default, vendor_fp_prop);
 
