@@ -33,7 +33,7 @@ on property:sys.boot_completed=1
    # Enable Spectrum support
    setprop spectrum.support 1
    # Add kernel name
-   setprop persist.spectrum.kernel Genom-Magic
+   setprop persist.spectrum.kernel MoKee-perf
 
 # Balance (default profile)
 on property:persist.spectrum.profile=0
@@ -78,7 +78,7 @@ write /sys/module/adreno_idler/parameters/adreno_idler_active 0
 write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 2
 
 #GPU
-write /sys/devices/platform/soc/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/max_clock_mhz 650
+write /sys/devices/platform/soc/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/max_clock_mhz 725
 
 #IO Scheduler
 write /sys/block/mmcblk0/queue/scheduler cfq
@@ -130,7 +130,7 @@ write /sys/module/adreno_idler/parameters/adreno_idler_active 0
 write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 3
 
 #GPU
-write /sys/devices/platform/soc/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/max_clock_mhz 825
+write /sys/devices/platform/soc/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/max_clock_mhz 725
 
 #IO Scheduler
 write /sys/block/mmcblk0/queue/scheduler zen
