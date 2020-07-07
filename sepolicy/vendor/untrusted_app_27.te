@@ -1,5 +1,4 @@
 allow untrusted_app_27 proc:file { getattr } ;
-allow untrusted_app_27 proc:file { read };
 
 allow untrusted_app_27 proc_zoneinfo:file { read } ;
 allow untrusted_app_27 proc_zoneinfo:file { getattr } ;
@@ -14,7 +13,5 @@ allow untrusted_app_27 proc_net:file { read } ;
 allow untrusted_app_27 sysfs_net:dir { search } ;
 
 allow untrusted_app_27 app_data_file:file { execute };
-
-allow untrusted_app_27 hal_memtrack_hwservice:hwservice_manager { find };
 
 
