@@ -139,6 +139,9 @@
 
     <!-- Whether device has a physical display cutout -->
     <bool name="config_physicalDisplayCutout">true</bool>
+    
+       <!-- Whether device has a notch -->
+    <bool name="config_haveNotch">true</bool>
 
     <!-- Wifi driver supports batched scan -->
     <bool translatable="false" name="config_wifi_batched_scan_supported">true</bool>
