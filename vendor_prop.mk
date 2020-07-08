@@ -204,7 +204,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.qti.sys.fw.bservice_age=5000
 	
 # QC framework value-adds
-ro.vendor.qti.va_aosp.support=1
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.qti.va_aosp.support=1
 
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
