@@ -27,7 +27,7 @@ granted to privileged applications on QTI devices.
 It allows additional grants on top of privapp-permissions-platform.xml
 -->
 <permissions>
-    <privapp-permissions package="org.lineageos.settings.device">
+    <privapp-permissions package="org.mokee.settings.device">
       <permission name="android.permission.WRITE_SECURE_SETTINGS" />
       <permission name="android.permission.INTERACT_ACROSS_USERS" />
       <permission name="android.permission.READ_FRAME_BUFFER"/>
