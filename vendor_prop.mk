@@ -76,6 +76,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.coresight.config=stm-events
 
+# Dalvik
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.dalvik.vm.native.bridge=0
+
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.egl.hw=0 \
