@@ -53,7 +53,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.qcom.bluetooth.a2dp_offload_cap=sbc-aptx-aptxtws-aptxhd-aac-ldac \
     ro.bluetooth.a2dp_offload.supported=true \
     vendor.qcom.bluetooth.soc=pronto \
-    vendor.bluetooth.soc=pronto
+    vendor.bluetooth.soc=pronto \
+    ro.bluetooth.library_name=libbluetooth_qti.so
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
