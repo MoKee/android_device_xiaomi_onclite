@@ -340,3 +340,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.device_config.runtime_native.usap_pool_enabled=true    
+
+# Framework boost
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.iop.enable_iop=1 \
+    ro.vendor.at_library=true \
+    vendor.iop.enable_uxe=1 \
+    vendor.perf.iop_v3.enable=true \
+    vendor.perf.iop_v3.enable.debug=false \
+    vendor.enable.prefetch=false \
+    vendor.iop.enable_prefetch_ofr=false \
+    vendor.perf.gestureflingboost.enable=true \
+    vendor.perf.workloadclassifier.enable=true
