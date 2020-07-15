@@ -18,6 +18,10 @@
 /firmware                                                     u:object_r:firmware_file:s0
 /bt_firmware                                                  u:object_r:bt_firmware_file:s0
 
+# Input files
+/vendor/usr/idc(/.*)?                               u:object_r:idc_file:s0
+/vendor/usr/keylayout(/.*)?                         u:object_r:keylayout_file:s0
+
 # Kcal
 /sys/devices/platform/kcal_ctrl.0(/.*)?         u:object_r:kcal_dev:s0
 /sys/bus/platform/drivers/kcal_ctrl(/.*)?       u:object_r:kcal_dev:s0
