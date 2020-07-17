@@ -10,7 +10,3 @@ allow system_server default_android_service:service_manager { find } ;
 # Smart charger
 allow system_server sysfs_battery_supply:file rw_file_perms;
 
-# Input devices
-allow system_server idc_file:dir { search } ;
-allow system_server keylayout_file:dir { search } ;
-
