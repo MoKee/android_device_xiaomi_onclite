@@ -15,8 +15,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.mokee.settings.device"
-    android:versionCode="1"
-    android:versionName="1.0"
+    android:versionCode="10"
+    android:versionName="10.0"
     android:sharedUserId="android.uid.system">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -30,9 +30,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver
-            android:name=".BootReceiver">
-            <intent-filter android:priority="100" >
+            android:name=".BootReceiver"
+            android:defaultToDeviceProtectedStorage="true"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <action android:name="com.android.settings.action.EXTRA_SETTINGS" />
             </intent-filter>
