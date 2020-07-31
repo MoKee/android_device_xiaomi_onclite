@@ -16,7 +16,7 @@
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 *
 */
-package com.xiaomi.parts.preferences;
+package org.mokee.settings.device.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,9 +24,9 @@ import android.os.Vibrator;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
-import com.xiaomi.parts.Utils;
-import com.xiaomi.parts.DeviceSettings;
-import com.xiaomi.parts.BootReceiver;
+import org.mokee.settings.device.Utils;
+import org.mokee.settings.device.DeviceSettings;
+import org.mokee.settings.device.BootReceiver;
 
 import java.util.List;
 

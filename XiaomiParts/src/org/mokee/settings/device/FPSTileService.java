@@ -14,7 +14,7 @@
  * limitations under the License.	
  */	
 
- package com.xiaomi.parts;	
+ package org.mokee.settings.device;	
 
 import android.app.ActivityManager;	
 import android.content.Intent;	
@@ -22,7 +22,7 @@ import android.os.Handler;
 import android.service.quicksettings.Tile;	
 import android.service.quicksettings.TileService;	
 
- import com.xiaomi.parts.R;	
+ import org.mokee.settings.device.R;	
 
  // TODO: Add FPS drawables	
 public class FPSTileService extends TileService {	

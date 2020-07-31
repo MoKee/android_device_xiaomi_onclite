@@ -14,9 +14,9 @@
  * limitations under the License.	
  */	
 
- package com.xiaomi.parts;	
+ package org.mokee.settings.device;	
 
- import android.app.Service;	
+import android.app.Service;	
 import android.content.BroadcastReceiver;	
 import android.content.Context;	
 import android.content.Intent;	
@@ -39,7 +39,7 @@ import android.view.View;
 import android.view.WindowManager;	
 import android.util.Log;	
 
- import java.io.BufferedReader;	
+import java.io.BufferedReader;	
 import java.io.File;	
 import java.io.FileNotFoundException;	
 import java.io.FileReader;	
