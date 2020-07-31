@@ -34,11 +34,11 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
+   <PreferenceCategory
         android:key="spectrum_profile"
-        android:title="@string/performance_profile_title">
+        android:title="@string/spectrum_profile_title">
 
-        <org.mokee.settings.device.preferences.SecureSettingListPreference
+        <org.lineageos.settings.device.preferences.SecureSettingListPreference
             android:defaultValue="0"
             android:dialogTitle="@string/spectrum_dialogTitle"
             android:entries="@array/spectrum_profiles"
@@ -48,7 +48,13 @@
             android:icon="@drawable/ic_spectrum" 
             android:title="@string/spectrum_title" />
 
-        <org.mokee.settings.device.preferences.SecureSettingListPreference
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="thermal_profile"
+        android:title="@string/thermal_profile_title">
+
+        <org.lineageos.settings.device.preferences.SecureSettingListPreference
             android:defaultValue="0"
             android:dialogTitle="@string/thermal_dialogTitle"
             android:entries="@array/thermal_profiles"
@@ -58,6 +64,7 @@
             android:title="@string/thermal_title"
             android:icon="@drawable/ic_thermal" />
     </PreferenceCategory>
+
 	
     <PreferenceCategory
         android:key="vibration"
