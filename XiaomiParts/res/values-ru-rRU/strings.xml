@@ -33,12 +33,6 @@
     <string name="thermal_summary">Выберите профиль</string>
     <string name="thermal_dialogTitle">Выберите профиль</string>
 
-    <!-- Vibrator -->
-    <string name="vibration_title">Сила вибрации</string>
-    <string name="vibration_strength_title">При нажатие</string>
-    <string name="vibration_call_strength_title">В вызове</string>
-    <string name="vibration_notif_strength_title">Уведомлений</string>
-
     <!-- kcal -->
     <string name="advanced_settings_kcal">Калибровка цвета экрана</string>
     <string name="cat_colormanagement">Настройки цвета</string>
