@@ -214,6 +214,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.qti.va_aosp.support=1
 
+# RCS
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.rcs.supported=1
+
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.qti.telephony.vt_cam_interface=1 \
