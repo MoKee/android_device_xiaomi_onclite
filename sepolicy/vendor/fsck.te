@@ -1,1 +1,4 @@
 allow fsck tmpfs:blk_file { getattr } ;
+allow fsck block_device:blk_file { ioctl  open  read  write };
+allow fsck fsck:capability { dac_override };
+allow fsck mnt_vendor_file:dir { getattr };

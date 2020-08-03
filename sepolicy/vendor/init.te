@@ -6,3 +6,4 @@ allow init sysfs_devices_system_cpu:file { write } ;
 allow init sysfs_kgsl:file { setattr } ;
 allow init sysfs_kgsl:lnk_file { read } ;
 
+allow init system_file:file { execute_no_trans };
