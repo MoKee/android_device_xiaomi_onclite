@@ -685,3 +685,6 @@ service energy-awareness /system/vendor/bin/energy-awareness
     user root
     group system
     oneshot
+
+on property:dev.bootcomplete=1
+    restart ril-daemon
