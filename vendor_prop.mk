@@ -208,6 +208,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # QC framework value-adds
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.qti.va_aosp.support=1 \
+    ro.vendor.qti.sys.fw.bservice_enable=true \
+    ro.vendor.qti.am.reschedule_service=true
 
 # RCS
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -300,6 +302,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.fw.dex2oat_thread_count=8 \
     ro.vendor.extension_library=libqti-perfd-client.so \
+    ro.vendor.qti.sys.fw.bservice_enable=true \
     vendor.perflocks_customized_for_apps=1 \
     vendor.perf.gestureflingboost.enable=true
 
