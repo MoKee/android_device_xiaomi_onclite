@@ -356,3 +356,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.iop.enable_prefetch_ofr=false \
     vendor.perf.gestureflingboost.enable=true \
     vendor.perf.workloadclassifier.enable=true
+
+# Face Unlock service
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.face.moto_unlock_service.cam_id=1
