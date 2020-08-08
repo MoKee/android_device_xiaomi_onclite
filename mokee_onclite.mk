@@ -17,6 +17,7 @@ $(call inherit-product, device/xiaomi/onclite/device.mk)
 $(call inherit-product, vendor/mokee/config/common_full_phone.mk)
 TARGET_FACE_UNLOCK_SUPPORTED := true
 TARGET_FACE_UNLOCK_CAMERA_ID := 1
+TARGET_SUPPORTS_GOOGLE_RECORDER := true
 
 # Bootanimation res
 TARGET_BOOTANIMATION_7200P := true
