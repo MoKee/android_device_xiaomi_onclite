@@ -230,7 +230,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.start_ota_daemon=1 \
     persist.vendor.radio.sw_mbn_update=0 \
 	persist.vendor.radio.procedure_bytes=SKIP \
-    ril.subscription.types=NV,RUIM \	
+    ril.subscription.types=NV,RUIM \
 	rild.libargs=-d /dev/smd0 \
     rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
     ro.carrier=unknown \
@@ -333,6 +333,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.sdha_apps_bg_min=8
 
 # Wifi-display
+PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.wfd.enable=1
 	
 # WiFi calling
