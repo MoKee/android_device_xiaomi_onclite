@@ -47,6 +47,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
+    persist.bluetooth.a2dp_offload.disabled=true \
+    persist.bluetooth.a2dp_offload.cap=sbc-aac-aptx-aptxhd-ldac \
+    persist.vendor.qcom.bluetooth.enable.splita2dp=true \
+    persist.vendor.qcom.bluetooth.a2dp_offload_cap=sbc-aptx-aptxtws-aptxhd-aac-ldac \
+    ro.bluetooth.a2dp_offload.supported=true \
     vendor.qcom.bluetooth.soc=pronto \
     vendor.bluetooth.soc=pronto \
     ro.bluetooth.library_name=libbluetooth_qti.so
@@ -229,9 +234,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.sib16_support=1 \
     persist.vendor.radio.start_ota_daemon=1 \
     persist.vendor.radio.sw_mbn_update=0 \
-	persist.vendor.radio.procedure_bytes=SKIP \
     ril.subscription.types=NV,RUIM \
-	rild.libargs=-d /dev/smd0 \
+    rild.libargs=-d /dev/smd0 \
     rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
     ro.carrier=unknown \
     ro.telephony.default_network=22,20 \
@@ -333,7 +337,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.sdha_apps_bg_min=8
 
 # Wifi-display
-PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.wfd.enable=1
 	
 # WiFi calling
