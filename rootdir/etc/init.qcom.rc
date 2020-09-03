@@ -1,4 +1,4 @@
-# Copyright (c) 2009-2012, 2014-2019, The Linux Foundation. All rights reserved.
+# Copyright (c) 2009-2012, 2014-2017, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -28,8 +28,6 @@
 import /vendor/etc/init/hw/init.qcom.usb.rc
 import /vendor/etc/init/hw/init.msm.usb.configfs.rc
 import /vendor/etc/init/hw/init.target.rc
-import /vendor/etc/init/hw/init.safailnet.rc
-import /init.spectrum.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
@@ -49,12 +47,6 @@ on init
     write /sys/fs/cgroup/memory/bg/memory.move_charge_at_immigrate 1
     chown root system /sys/fs/cgroup/memory/bg/tasks
     chmod 0660 /sys/fs/cgroup/memory/bg/tasks
-	
-   # This is used by Bionic to select optimized routines.
-    write /dev/cpu_variant:${ro.bionic.arch} ${ro.bionic.cpu_variant}
-    chmod 0444 /dev/cpu_variant:${ro.bionic.arch}
-    write /dev/cpu_variant:${ro.bionic.2nd_arch} ${ro.bionic.2nd_cpu_variant}
-    chmod 0444 /dev/cpu_variant:${ro.bionic.2nd_arch}
 
     # ZRAM setup
     write /sys/block/zram0/comp_algorithm lz4
@@ -67,7 +59,6 @@ on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
     # Allow subsystem (modem etc) debugging
-    write /sys/kernel/debug/bootkpi/kpi_values "M - Start adsp"
     write /sys/kernel/boot_adsp/boot 1
     write /sys/kernel/boot_cdsp/boot 1
     write /sys/devices/virtual/npu/msm_npu/boot 1
@@ -96,26 +87,6 @@ on early-boot
     chown system system /mnt/vendor/persist/sensors/registry/sns_reg_version
     chown system system /mnt/vendor/persist/sensors/registry/config
     chmod 0664 /mnt/vendor/persist/sensors/sensors_settings
-
-    # XiaomiParts
-    chown system system /sys/module/hall/parameters/hall_toggle
-    chmod 0660 /sys/module/hall/parameters/hall_toggle
-    chown system system /sys/devices/virtual/thermal/thermal_message/sconfig
-    chmod 0660 /sys/devices/virtual/thermal/thermal_message/sconfig
-
-    # Kcal permissions
-    chown root system /sys/devices/platform/kcal_ctrl.0/kcal
-    chmod 0660 /sys/devices/platform/kcal_ctrl.0/kcal
-    chown root system /sys/devices/platform/kcal_ctrl.0/kcal_min
-    chmod 0660 /sys/devices/platform/kcal_ctrl.0/kcal_min
-    chown root system /sys/devices/platform/kcal_ctrl.0/kcal_sat
-    chmod 0660 /sys/devices/platform/kcal_ctrl.0/kcal_sat
-    chown root system /sys/devices/platform/kcal_ctrl.0/kcal_hue
-    chmod 0660 /sys/devices/platform/kcal_ctrl.0/kcal_hue
-    chown root system /sys/devices/platform/kcal_ctrl.0/kcal_val
-    chmod 0660 /sys/devices/platform/kcal_ctrl.0/kcal_val
-    chown root system /sys/devices/platform/kcal_ctrl.0/kcal_cont
-    chmod 0660 /sys/devices/platform/kcal_ctrl.0/kcal_cont
 
     # Graphics
     chown system graphics /sys/class/graphics/fb0/idle_time
@@ -170,18 +141,11 @@ on boot
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/device/extldo
     chmod 0660 /sys/class/rfkill/rfkill0/device/extldo
 
-    chmod 0660 /sys/class/power_supply/battery/charging_enabled
-    chown system system /sys/class/power_supply/battery/charging_enabled
-
-    #Create QMUX deamon socket area
+    # This location is used by QCRIL to host UNIX domain
+    # socket files used for internal IPC within QCRIL
+    # modules
     mkdir /dev/socket/qmux_radio 0770 radio radio
     chmod 2770 /dev/socket/qmux_radio
-    mkdir /dev/socket/qmux_audio 0770 media audio
-    chmod 2770 /dev/socket/qmux_audio
-    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
-    chmod 2770 /dev/socket/qmux_bluetooth
-    mkdir /dev/socket/qmux_gps 0770 gps gps
-    chmod 2770 /dev/socket/qmux_gps
 
     mkdir /persist/drm 0770 system system
     mkdir /mnt/vendor/persist/bluetooth 0770 bluetooth bluetooth
@@ -193,19 +157,11 @@ on boot
     mkdir /mnt/vendor/spunvm 0770 system system
     restorecon_recursive /mnt/vendor/persist
 
-    #Create NETMGR daemon socket area
-    mkdir /dev/socket/netmgr 0750 radio radio
-
     #Remove SUID bit for iproute2 ip tool
     chmod 0755 /system/bin/ip
 
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
-
-#   Assign TCP buffer thresholds to be ceiling value of technology maximums
-#   Increased technology maximums should be reflected here.
-    write /proc/sys/net/core/rmem_max  8388608
-    write /proc/sys/net/core/wmem_max  8388608
 
     # To prevent out of order acknowledgements from making
     # connection tracking to treat them as not belonging to
@@ -277,6 +233,12 @@ on post-fs-data
     # Create directory used for camera
     mkdir /data/vendor/camera 0770 camera camera
 
+    # create QDMA dropbox
+    mkdir /data/vendor/qdmastats 0700 system system
+    mkdir /data/vendor/qdma 0770 system system
+    mkdir /dev/socket/qdma 0770 system system
+    chmod 2770 /dev/socket/qdma
+
     # Create /data/vendor/tzstorage directory for SFS listener
     mkdir /data/vendor/tzstorage 0770 system system
 
@@ -306,14 +268,6 @@ on post-fs-data
     mkdir /data/vendor/wifi/hostapd 0770 wifi wifi
     mkdir /data/vendor/wifi/hostapd/ctrl 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa_supplicant 0770 wifi wifi
-
-    #create netmgr log dir
-    mkdir /data/vendor/netmgr 0770 radio radio
-    chmod 0770 /data/vendor/netmgr
-
-    #create ipacm log dir
-    mkdir /data/vendor/ipa 0770 radio radio
-    chmod 0770 /data/vendor/ipa
 
     # Create the directories used by CnE subsystem
     mkdir /data/vendor/connectivity 0771 radio radio
@@ -348,9 +302,6 @@ on post-fs-data
     chown system system /sys/devices/platform/msm_sdcc.2/polling
     chown system system /sys/devices/platform/msm_sdcc.3/polling
     chown system system /sys/devices/platform/msm_sdcc.4/polling
-
-    #Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
-    #symlink /data/misc/wifi/wpa_supplicant /data/system/wpa_supplicant
 
     #Create directories for Location services
     mkdir /data/vendor/location 0770 gps gps
@@ -446,7 +397,7 @@ on post-fs-data
 on property:hw.fm.init=*
     write /sys/module/radio_iris_transport/parameters/fmsmd_set ${hw.fm.init}
 
-service iop /vendor/bin/iop
+service iop /system/vendor/bin/iop
     class main
     user root
     group root
@@ -469,13 +420,6 @@ on property:sys.boot_completed=1
     #WDSP FW boot sysfs node used by STHAL
     chown media audio /sys/kernel/wdsp0/boot
     chown media audio /sys/kernel/wcd_cpe0/fw_name
-
-    # Smart Charging
-    #Huaqin add for control charge by zhangjingzhi at 20180129 start
-    on boot 
-    chown system system /sys/class/power_supply/battery/input_suspend 
-    chmod 0666 /sys/class/power_supply/battery/input_suspend
-    #Huaqin add for control charge by zhangjingzhi at 20180129 end
 
 on property:persist.vendor.radio.atfwd.start=false
     stop vendor.atfwd
@@ -525,6 +469,18 @@ service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
     user root
     oneshot
 
+service vendor.rmt_storage /vendor/bin/rmt_storage
+    class core
+    user root
+    shutdown critical
+    ioprio rt 0
+    writepid /dev/cpuset/system-background/tasks
+
+service vendor.tftp_server /vendor/bin/tftp_server
+   class core
+   user root
+   writepid /dev/cpuset/system-background/tasks
+
 on property:vendor.bluetooth.hciattach=true
     setprop vendor.bluetooth.status on
 
@@ -550,10 +506,6 @@ service vendor.sensors.qti /vendor/bin/sensors.qti
     group system
     writepid /dev/cpuset/system-background/tasks
 
-on property:ro.vendor.use_data_netmgrd=false
-    # netmgr not supported on specific target
-    stop vendor.netmgrd
-
 # Adjust socket buffer to enlarge TCP receive window for high bandwidth
 # but only if ro.data.large_tcp_window_size property is set.
 on property:ro.data.large_tcp_window_size=true
@@ -573,7 +525,6 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     disabled
     oneshot
 
-
 # Data Migration
 service vendor.move_wifi_data /system/bin/move_wifi_data.sh
     class main
@@ -582,7 +533,7 @@ service vendor.move_wifi_data /system/bin/move_wifi_data.sh
     disabled
     oneshot
 
-service loc_launcher /vendor/bin/loc_launcher
+service loc_launcher /system/vendor/bin/loc_launcher
     class late_start
     user gps
     group gps
@@ -622,13 +573,13 @@ service charger /system/bin/charger
     group system graphics
     seclabel u:r:charger:s0
 
-service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.conf
+service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
     class core
     user root
     group root
     disabled
 
-service vendor.msm_irqbal_lb /vendor/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance_little_big.conf
+service vendor.msm_irqbal_lb /vendor/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance_little_big.conf
     class core
     user root
     group root
@@ -679,9 +630,3 @@ service vendor.contexthub-hal-1-0 /vendor/bin/hw/android.hardware.contexthub@1.0
     user system
     group system
     disabled
-
-service energy-awareness /system/vendor/bin/energy-awareness
-    class main
-    user root
-    group system
-    oneshot

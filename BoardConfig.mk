@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017-2019 The LineageOS Project
+# Copyright (C) 2017-2020 The LineageOS Project
 # Copyright (C) 2020 The MoKee Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,22 +22,17 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := cortex-a73
-TARGET_CPU_SMP := true
+TARGET_CPU_VARIANT := generic
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := kryo
-ARCH_ARM_HAVE_TLS_REGISTER := true
-
+TARGET_2ND_CPU_VARIANT := cortex-a53
 
 TARGET_BOARD_PLATFORM := msm8953
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno506
 
-ENABLE_CPUSETS := true
-ENABLE_SCHEDBOOST := true
 TARGET_BOARD_SUFFIX := _64
 
 BUILD_BROKEN_DUP_RULES := true
@@ -48,28 +43,17 @@ BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --set_hashtree_disabled_flag
 
 # Kernel
 BOARD_KERNEL_BASE := 0x80000000
-BOARD_KERNEL_CMDLINE := \
-    console=ttyMSM0,115200,n8 \
-    androidboot.console=ttyMSM0 \
-    androidboot.hardware=qcom \
-    msm_rtb.filter=0x237 \
-    ehci-hcd.park=3 \
-    lpm_levels.sleep_disabled=1 \
-    androidboot.bootdevice=7824900.sdhci \
-    earlycon=msm_serial_dm,0x78af000 \
-    firmware_class.path=/vendor/firmware_mnt/image \
-    androidboot.usbconfigfs=true \
-    loop.max_part=7
+BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_serial_dm,0x78af000 firmware_class.path=/vendor/firmware_mnt/image androidboot.usbconfigfs=true loop.max_part=7
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE :=  2048
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
+BOARD_BOOTIMG_HEADER_VERSION := 1
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 TARGET_KERNEL_SOURCE := kernel/xiaomi/onclite
 TARGET_KERNEL_CONFIG := onc-perf_defconfig
 BOARD_KERNEL_SEPARATED_DTBO := true
 BOARD_DTBOIMG_PARTITION_SIZE := 8388608
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_CLANG_COMPILE := true
-TARGET_KERNEL_CLANG_VERSION := r353983d
 TARGET_KERNEL_VERSION := 4.9
 
 # ANT
@@ -82,7 +66,6 @@ DEXPREOPT_GENERATE_APEX_IMAGE := true
 TARGET_OTA_ASSERT_DEVICE := onclite,onc
 
 # Audio
-AUDIO_FEATURE_ENABLED_A2DP_OFFLOAD := true
 AUDIO_FEATURE_ENABLED_ANC_HEADSET := true
 AUDIO_FEATURE_ENABLED_ALAC_OFFLOAD := true
 AUDIO_FEATURE_ENABLED_AUDIOSPHERE := true
@@ -102,7 +85,6 @@ AUDIO_FEATURE_ENABLED_SOURCE_TRACKING := true
 AUDIO_FEATURE_ENABLED_EXT_AMPLIFIER := false
 AUDIO_USE_LL_AS_PRIMARY_OUTPUT := true
 BOARD_SUPPORTS_SOUND_TRIGGER := true
-AUDIO_FEATURE_ENABLED_EXTENDED_COMPRESS_FORMAT := true
 BOARD_USES_ALSA_AUDIO := true
 USE_CUSTOM_AUDIO_POLICY := 1
 USE_XML_AUDIO_POLICY_CONF := 1
@@ -120,7 +102,6 @@ TARGET_USE_QTI_BT_STACK := true
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
 TARGET_USES_QTI_CAMERA_DEVICE := true
-TARGET_USES_PREBUILT_CAMERA_SERVICE := true
 BOARD_QTI_CAMERA_32BIT_ONLY := true
 TARGET_TS_MAKEUP := true
 
@@ -131,19 +112,20 @@ BOARD_CHARGER_DISABLE_INIT_BLANK := true
 # CNE / DPM
 BOARD_USES_QCNE := true
 
-# Enable dexpreopt to speed boot time
+# Crypto
+TARGET_HW_DISK_ENCRYPTION := true
+
+# Dexpreopt
 ifeq ($(HOST_OS),linux)
   ifneq ($(TARGET_BUILD_VARIANT),eng)
     ifeq ($(WITH_DEXPREOPT),)
-			DONT_DEXPREOPT_PREBUILTS := true
+      WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := false
       WITH_DEXPREOPT := true
-      WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := true
     endif
   endif
 endif
 
 # Display
-TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 TARGET_USES_ION := true
 TARGET_USES_GRALLOC1 := true
 TARGET_USES_HWC2 := true
@@ -179,9 +161,6 @@ DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE   := $(DEVICE_PATH)/compatibility_matrix.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := $(DEVICE_PATH)/framework_manifest.xml
 
-# Keymaster
-TARGET_PROVIDES_KEYMASTER := true
-
 # Init
 TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_onclite
 TARGET_RECOVERY_DEVICE_MODULES := libinit_onclite
@@ -208,6 +187,10 @@ TARGET_PER_MGR_ENABLED := true
 # Power
 TARGET_TAP_TO_WAKE_NODE := "/dev/input/event2"
 TARGET_USES_INTERACTION_BOOST := true
+
+# Properties
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
 # Qualcomm
 BOARD_USES_QCOM_HARDWARE := true

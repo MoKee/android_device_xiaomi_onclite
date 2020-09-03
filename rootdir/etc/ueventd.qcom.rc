@@ -142,6 +142,7 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/sec_nvm_*            0660   system     system
 /dev/cryptoapp            0660   system     system
 /dev/spdaemon_ssr         0660   system     system
+/dev/spu_hal_ssr          0660   system     system
 /dev/iuicc*               0660   system     system
 /dev/gemini0              0660   system     camera
 /dev/jpeg0                0660   system     camera
@@ -152,13 +153,6 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/adsprpc-smd-secure   0644   system     system
 /dev/system_health_monitor 0644  radio      system
 /dev/mdss_rotator         0664   system     system
-
-# fpc fingerprint
-/sys/devices/platform/soc/soc:fpc1020*	hw_reset 0660 system system
-/sys/devices/platform/soc/soc:fpc1020*	irq 0660 system system
-/sys/devices/platform/soc/soc:fpc1020*	wakeup_enable 0660 system system
-/sys/devices/platform/soc/soc:fpc1020*    fingerdown_wait 0220 system system
-
 #for ir
 /dev/spidev6.1            0660   system    system
 
@@ -190,7 +184,6 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/msm_vidc_dec_sec     0660   system     audio
 /dev/msm_vidc_enc         0660   system     audio
 /dev/msm_rotator          0660   system     system
-/dev/hw_random            0600   root       root
 /dev/sdsprpc-smd          0660   system     system
 
 #permissions for audio
@@ -430,3 +423,4 @@ firmware_directories /vendor/firmware_mnt/image/
 # lirc
 /dev/lirc0                0660   system     system
 /dev/peel_ir              0660   system     system
+
