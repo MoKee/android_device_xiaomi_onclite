@@ -1,0 +1,1 @@
+allow proc_modules proc_modules:file { open };

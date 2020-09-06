@@ -1,0 +1,1 @@
+allow sysfs_android_usb sysfs_android_usb:file { open };

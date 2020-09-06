@@ -1,0 +1,1 @@
+allow net_dns_prop net_dns_prop:file { read };

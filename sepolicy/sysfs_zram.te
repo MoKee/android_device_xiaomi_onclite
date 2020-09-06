@@ -1,0 +1,2 @@
+allow sysfs_zram sysfs_zram:dir { search };
+allow sysfs_zram sysfs_zram:file { getattr  open  read };

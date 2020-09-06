@@ -1,0 +1,1 @@
+allow gsi_metadata_file gsi_metadata_file:dir { search };

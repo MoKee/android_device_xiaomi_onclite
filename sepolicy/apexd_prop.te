@@ -1,0 +1,1 @@
+allow apexd_prop apexd_prop:file { open };

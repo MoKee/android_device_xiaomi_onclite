@@ -1,0 +1,1 @@
+allow metadata_file metadata_file:dir { search };

@@ -1,0 +1,2 @@
+allow default_prop default_prop:file { getattr  open  read };
+allow default_prop default_prop:file { read };

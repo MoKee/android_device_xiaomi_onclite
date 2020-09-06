@@ -1,0 +1,4 @@
+allow rootfs rootfs:dir { open };
+allow rootfs rootfs:dir { read };
+allow rootfs rootfs:dir { write };
+allow rootfs rootfs:dir { search };

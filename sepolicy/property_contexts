@@ -1,0 +1,21 @@
+sys.listeners.registered   u:object_r:vendor_tee_listener_prop:s0
+sys.post_boot.parsed       u:object_r:vendor_mpctl_prop:s0
+persist.net.doxlat         u:object_r:vendor_xlat_prop:s0
+camera.dual.mode           u:object_r:camera_prop:s0
+persist.camera.            u:object_r:camera_prop:s0
+
+# Fingerprint
+sys.fp.goodix		   u:object_r:fp_prop:s0
+sys.fp.vendor	           u:object_r:fp_prop:s0
+persist.sys.fp.            u:object_r:fp_prop:s0
+persist.vendor.sys.fp.     u:object_r:fp_prop:s0
+
+# vendor_default_prop
+fpc_kpi                             u:object_r:vendor_default_prop:s0
+gpu.stats.debug.level               u:object_r:vendor_default_prop:s0
+
+# Dirac
+persist.audio.dirac.                u:object_r:dirac_prop:s0
+
+# Hall wakeup
+persist.service.folio_daemon        u:object_r:system_prop:s0

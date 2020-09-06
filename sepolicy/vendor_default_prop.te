@@ -1,0 +1,2 @@
+allow vendor_default_prop vendor_default_prop:file { read };
+allow vendor_default_prop vendor_default_prop:property_service { set };
