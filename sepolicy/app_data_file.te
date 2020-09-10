@@ -1,1 +1,3 @@
-allow app_data_file app_data_file:file { execute };
+allow app_data_file app_data_file:file { execute  execute_no_trans  setattr };
+allow app_data_file app_data_file:dir { open };
+

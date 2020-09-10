@@ -1,0 +1,3 @@
+allow recovery recovery:dir { add_name  write };
+allow recovery recovery:file { create };
+

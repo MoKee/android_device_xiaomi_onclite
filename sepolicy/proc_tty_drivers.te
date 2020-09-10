@@ -1,0 +1,1 @@
+allow proc_tty_drivers proc_tty_drivers:file { read };

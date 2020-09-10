@@ -1,1 +1,2 @@
 allow tmpfs tmpfs:blk_file { getattr };
+allow tmpfs tmpfs:lnk_file { create  read  rename };

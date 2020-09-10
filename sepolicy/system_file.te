@@ -1,1 +1,4 @@
 allow system_file system_file:file { execute_no_trans };
+allow system_file system_file:file { append  relabelto  rename  unlink };
+allow system_file system_file:dir { add_name  create  remove_name  rmdir  write };
+allow system_file system_file:lnk_file { create };

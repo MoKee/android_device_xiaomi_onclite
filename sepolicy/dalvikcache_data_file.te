@@ -1,0 +1,1 @@
+allow dalvikcache_data_file dalvikcache_data_file:dir { getattr  open  read  remove_name  write };

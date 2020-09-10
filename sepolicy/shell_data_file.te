@@ -1,0 +1,1 @@
+allow shell_data_file shell_data_file:dir { read };

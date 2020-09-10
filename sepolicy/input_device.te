@@ -1,0 +1,1 @@
+allow input_device input_device:dir { search };

@@ -1,0 +1,1 @@
+allow apk_data_file apk_data_file:dir { getattr  open  read };

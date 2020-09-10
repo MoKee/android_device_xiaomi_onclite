@@ -4,3 +4,6 @@ type lirc_device, dev_type;
 type goodix_fp_device, dev_type;
 
 type fingerprintd_device, dev_type;
+
+allow device device:file { unlink  write };
+allow device device:dir { remove_name  rmdir };

@@ -1,0 +1,1 @@
+allow proc_net_tcp_udp proc_net_tcp_udp:file { read };
