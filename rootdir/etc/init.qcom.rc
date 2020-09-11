@@ -207,14 +207,6 @@ on boot
     chown system system /proc/touchpanel/enable_dt2w
     chmod 0660 /proc/touchpanel/enable_dt2w
 
-    # DT2W
-    chown system system /proc/touchpanel/enable_dt2w
-    chmod 0660 /proc/touchpanel/enable_dt2w
-
-    # DT2W
-    chown system system /proc/touchpanel/enable_dt2w
-    chmod 0660 /proc/touchpanel/enable_dt2w
-
     # Create directory used for display
     # for backward compatibilit
     mkdir /persist/display 0770 system graphics
