@@ -1,1 +1,1 @@
-allow tombstone_data_file tombstone_data_file:dir { read };
+allow tombstone_data_file tombstone_data_file:dir { open  read };

@@ -1,0 +1,2 @@
+allow sysfs_switch sysfs_switch:dir { search };
+

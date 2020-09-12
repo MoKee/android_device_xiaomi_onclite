@@ -1,1 +1,2 @@
-allow system_prop system_prop:file { read };
+allow system_prop system_prop:file { getattr  open  read };
+allow system_prop system_prop:property_service { set };

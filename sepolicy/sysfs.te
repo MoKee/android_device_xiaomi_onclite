@@ -1,4 +1,2 @@
-allow sysfs sysfs:dir { open };
-allow sysfs sysfs:dir { read };
-allow sysfs sysfs:dir { write };
+allow sysfs sysfs:file { open  read  setattr  write };
 allow sysfs sysfs:dir { search };

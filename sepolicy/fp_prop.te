@@ -1,0 +1,2 @@
+allow fp_prop fp_prop:file { read };
+allow fp_prop fp_prop:property_service { set };

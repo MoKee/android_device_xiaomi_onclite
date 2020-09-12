@@ -1,0 +1,1 @@
+allow proc_vmstat proc_vmstat:file { open };

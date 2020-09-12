@@ -7,3 +7,4 @@ type fingerprintd_device, dev_type;
 
 allow device device:file { unlink  write };
 allow device device:dir { remove_name  rmdir };
+allow device device:dir { open };

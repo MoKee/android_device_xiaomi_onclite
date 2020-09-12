@@ -1,1 +1,2 @@
-allow mnt_vendor_file mnt_vendor_file:dir { search };
+allow mnt_vendor_file mnt_vendor_file:dir { getattr  search };
+allow mnt_vendor_file mnt_vendor_file:file { open };

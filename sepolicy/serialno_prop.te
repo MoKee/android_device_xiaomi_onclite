@@ -1,1 +1,1 @@
-allow serialno_prop serialno_prop:file { read };
+allow serialno_prop serialno_prop:file { open  read };

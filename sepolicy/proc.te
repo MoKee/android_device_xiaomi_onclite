@@ -1,2 +1,2 @@
+allow proc proc:file { getattr  open  read };
 allow proc proc:filesystem { associate };
-allow proc proc:file { read };

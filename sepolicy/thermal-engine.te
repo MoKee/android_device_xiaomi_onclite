@@ -2,3 +2,4 @@
 allow thermal-engine sysfs:dir { open read };
 allow thermal-engine property_socket:sock_file { write };
 allow thermal-engine init:unix_stream_socket {connectto };
+allow thermal-engine thermal-engine:capability { kill };
