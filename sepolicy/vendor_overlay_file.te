@@ -1,3 +1,0 @@
-allow vendor_overlay_file vendor_overlay_file:dir { add_name  write };
-allow vendor_overlay_file vendor_overlay_file:file { create };
-

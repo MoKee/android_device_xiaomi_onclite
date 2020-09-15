@@ -1,1 +1,0 @@
-allow sysfs_zram_uevent sysfs_zram_uevent:file { getattr  open  read };

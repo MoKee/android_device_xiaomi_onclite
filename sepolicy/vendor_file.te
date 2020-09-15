@@ -1,2 +1,0 @@
-allow vendor_file vendor_file:file { execute_no_trans };
-allow vendor_file vendor_file:dir { read };

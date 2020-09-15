@@ -1,1 +1,0 @@
-allow ota_data_file ota_data_file:dir { open };

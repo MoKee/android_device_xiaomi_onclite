@@ -1,8 +1,0 @@
-allow rootfs rootfs:dir { open };
-allow rootfs rootfs:dir { read };
-allow rootfs rootfs:dir { write };
-allow rootfs rootfs:dir { search };
-allow rootfs rootfs:dir { rmdir  setattr };
-allow rootfs rootfs:fifo_file { create  open  read };
-allow rootfs rootfs:file { rename  setattr  unlink };
-allow rootfs rootfs:lnk_file { unlink };

@@ -1,2 +1,0 @@
-allow sysfs sysfs:file { open  read  setattr  write };
-allow sysfs sysfs:dir { search };

@@ -1,13 +1,3 @@
-#============= vendor_init ==============
-allow vendor_init rootfs:dir { add_name create setattr write };
-allow vendor_init persist_debug_prop:property_service set;
-allow vendor_init persist_dpm_prop:property_service set;
-allow vendor_init qcom_ims_prop:property_service set;
-allow vendor_init rootfs:lnk_file setattr;
-allow vendor_init fm_prop:property_service { set } ;
-allow vendor_init bservice_prop:property_service { set } ;
-set_prop(vendor_init, camera_prop)
-
 typeattribute vendor_init data_between_core_and_vendor_violators;
 
 allow vendor_init {
@@ -21,8 +11,3 @@ allow vendor_init {
 }:dir { create search getattr open read setattr ioctl write add_name remove_name rmdir relabelfrom };
 
 allow vendor_init fm_prop:file { getattr open read };
-allow vendor_init tombstone_data_file:dir setattr;
-
-# Allow vendor_init to relabel unlabeled files and directories
-allow vendor_init unlabeled:{ dir file } { getattr relabelfrom };
-

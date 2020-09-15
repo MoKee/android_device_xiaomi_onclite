@@ -1,1 +1,0 @@
-allow proc_cmdline proc_cmdline:file { getattr };

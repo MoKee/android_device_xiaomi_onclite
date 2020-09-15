@@ -1,4 +1,0 @@
-userdebug_or_eng(`
-  allow msm_irqbalanced mnt_vendor_file:dir rw_dir_perms;
-')
-dontaudit msm_irqbalanced mnt_vendor_file:dir rw_dir_perms;

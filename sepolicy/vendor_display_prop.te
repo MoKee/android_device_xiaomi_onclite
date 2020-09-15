@@ -1,1 +1,0 @@
-allow vendor_display_prop vendor_display_prop:file { getattr  open };

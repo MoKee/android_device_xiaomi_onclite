@@ -1,1 +1,0 @@
-allow adsprpc_prop adsprpc_prop:file { getattr  open  read };

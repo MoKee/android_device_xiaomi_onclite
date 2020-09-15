@@ -1,2 +1,0 @@
-allow vfat vfat:dir { remove_name  write };
-allow vfat vfat:file { open  read  unlink };

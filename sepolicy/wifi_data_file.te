@@ -1,1 +1,0 @@
-allow wifi_data_file wifi_data_file:dir { getattr };

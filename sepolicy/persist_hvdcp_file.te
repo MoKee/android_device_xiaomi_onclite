@@ -1,1 +1,0 @@
-allow persist_hvdcp_file persist_hvdcp_file:file { getattr };

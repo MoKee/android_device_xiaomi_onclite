@@ -1,1 +1,0 @@
-allow proc_zoneinfo proc_zoneinfo:file { getattr  open  read };
