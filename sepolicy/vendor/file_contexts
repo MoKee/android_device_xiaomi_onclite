@@ -1,5 +1,6 @@
-# Executables
-/system/bin/chargeonlymode			u:object_r:charger_exec:s0
+# Binaries
+/system/bin/chargeonlymode                      u:object_r:charger_exec:s0
+
 
 # Fpc Fingerprint
 /data/fpc(/.*)?					u:object_r:fpc_data_file:s0
@@ -11,10 +12,6 @@
 /data/gf_data(/.*)?                             u:object_r:gx_fpd_data_file:s0
 /persist/data/gxfp(/.*)?			u:object_r:gx_fpd_data_file:s0
 
-# Firmware
-/firmware                                                     u:object_r:firmware_file:s0
-/bt_firmware                                                  u:object_r:bt_firmware_file:s0
-
 # HALs
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.0-service\.widevine         u:object_r:hal_drm_widevine_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.1-service\.clearkey         u:object_r:hal_drm_clearkey_exec:s0
@@ -24,12 +21,11 @@
 # IR
 /dev/spidev6\.1                  u:object_r:lirc_device:s0
 
-# Input devices
-/(vendor|system/vendor)/usr/idc(/.*)?                         u:object_r:idc_file:s0
-/(vendor|system/vendor)/usr/keylayout(/.*)?                   u:object_r:keylayout_file:s0
-
 # Location
 /data/vendor/location/xtra/socket_hal_xtra    u:object_r:location_socket:s0
+
+# Legacy root dirs
+/firmware(/.*)?                                 u:object_r:firmware_file:s0
 
 # Rild
 /(vendor|system/vendor)/radio/qcril_database/qcril.db			u:object_r:rild_file:s0
