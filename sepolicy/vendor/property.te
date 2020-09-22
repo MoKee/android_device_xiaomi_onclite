@@ -1,4 +1,3 @@
 # Fingerprint
 type fp_prop, property_type;
-
 type vendor_camera_prop, property_type;

@@ -1,0 +1,2 @@
+# Allow Cast Settings to access WFD prop
+get_prop(wfdservice, wfd_debug_prop)

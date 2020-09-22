@@ -3,8 +3,15 @@ sys.post_boot.parsed       u:object_r:vendor_mpctl_prop:s0
 persist.net.doxlat         u:object_r:vendor_xlat_prop:s0
 camera.dual.mode           u:object_r:camera_prop:s0
 persist.camera.            u:object_r:camera_prop:s0
-ctl.imsrcsd		           u:object_r:ctl_vendor_imsrcsservice_prop:s0
-sys.fp.goodix		       u:object_r:fingerprint_prop:s0
-sys.fp.vendor		       u:object_r:fingerprint_prop:s0
-wifi.active.interface      u:object_r:wifi_prop:s0
-persist.vendor.camera.dbglog    u:object_r:vendor_camera_prop:s0
+
+# Fingerprint
+sys.fp.goodix		   u:object_r:fp_prop:s0
+sys.fp.vendor	           u:object_r:fp_prop:s0
+persist.sys.fp.            u:object_r:fp_prop:s0
+persist.vendor.sys.fp.     u:object_r:fp_prop:s0
+
+wifi.active.interface      u:object_r:exported_wifi_prop:s0
+
+# Vendor-camera
+persist.vendor.camera.                       u:object_r:vendor_camera_prop:s0
+persist.vendor.vidhance.dmbr.mode            u:object_r:vendor_camera_prop:s0

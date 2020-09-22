@@ -1,0 +1,6 @@
+allow hal_wifi_supplicant_default self:capability sys_admin;
+
+userdebug_or_eng(`
+  allow hal_wifi_supplicant_default mnt_vendor_file:dir rw_dir_perms;
+')
+dontaudit hal_wifi_supplicant_default mnt_vendor_file:dir rw_dir_perms;

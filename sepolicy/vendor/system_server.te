@@ -1,2 +1,10 @@
-# vibrator
-allow system_server sysfs_vibrator:file read;
+typeattribute system_server system_executes_vendor_violators;
+
+# Input devices
+r_dir_file(system_server, idc_file);
+r_dir_file(system_server, keylayout_file);
+
+# Fingerprint
+get_prop(system_server, fp_prop);
+
+dontaudit system_server vfat:dir r_dir_perms;

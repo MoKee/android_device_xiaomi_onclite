@@ -1,0 +1,6 @@
+userdebug_or_eng(`
+  allow adpl diag_device:chr_file rw_file_perms;
+  allow adpl mnt_vendor_file:dir rw_dir_perms;
+')
+dontaudit adpl diag_device:chr_file rw_file_perms;
+dontaudit adpl mnt_vendor_file:dir rw_dir_perms;

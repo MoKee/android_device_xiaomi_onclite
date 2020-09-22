@@ -1,2 +1,8 @@
 allow rild rild_file:file r_file_perms;
-allow rild qtidataservices_app:binder call;
+
+userdebug_or_eng(`
+  allow rild diag_device:chr_file rw_file_perms;
+  allow rild mnt_vendor_file:dir rw_dir_perms;
+')
+dontaudit rild diag_device:chr_file rw_file_perms;
+dontaudit rild mnt_vendor_file:dir rw_dir_perms;
