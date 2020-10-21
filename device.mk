@@ -135,7 +135,10 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-service \
     libgui_vendor \
     libstdc++.vendor \
-    Snap
+	
+# Google 
+PRODUCT_PACKAGES += \
+    GCamGo
 
 # Display
 PRODUCT_PACKAGES += \
