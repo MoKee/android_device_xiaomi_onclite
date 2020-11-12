@@ -64,7 +64,7 @@ void property_override(char const prop[], char const value[], bool add = true)
     }
 }
 
-void property_over(string prop, string value) {
+void property_set(string prop, string value) {
     auto pi = (prop_info*) __system_property_find(prop.c_str());
 
     if (pi != nullptr)
@@ -73,13 +73,22 @@ void property_over(string prop, string value) {
         __system_property_add(prop.c_str(), prop.size(), value.c_str(), value.size());
 }
 
+void property_override_multifp(char const buildfp[], char const systemfp[],
+	char const bootimagefp[], char const vendorfp[], char const value[])
+{
+    property_override(buildfp, value);
+    property_override(systemfp, value);
+    property_override(vendorfp, value);
+    property_override(bootimagefp, value);
+}
+
 void load_props(string device, string model) {
     string RO_PROP_SOURCES[] = { "", "odm.", "system.", "vendor." };
 
     for (const string &source : RO_PROP_SOURCES) {
-        property_over(string("ro.product.") + source + string("name"), device);
-        property_over(string("ro.product.") + source + string("device"), device);
-        property_over(string("ro.product.") + source + string("model"), model);
+        property_set(string("ro.product.") + source + string("name"), device);
+        property_set(string("ro.product.") + source + string("device"), device);
+        property_set(string("ro.product.") + source + string("model"), model);
     }
 }
 
@@ -108,56 +117,16 @@ void check_device()
     }
 }
 
-/* From Magisk@jni/magiskhide/hide_utils.c */
-static const char *snet_prop_key[] = {
-	"ro.boot.vbmeta.device_state",
-	"ro.boot.verifiedbootstate",
-	"ro.boot.flash.locked",
-	"ro.boot.selinux",
-	"ro.boot.veritymode",
-	"ro.boot.warranty_bit",
-	"ro.warranty_bit",
-	"ro.debuggable",
-	"ro.secure",
-	"ro.build.type",
-	"ro.build.tags",
-	"ro.build.selinux",
-	NULL
-};
-
-static const char *snet_prop_value[] = {
-	"locked",
-	"green",
-	"1",
-	"enforcing",
-	"enforcing",
-	"0",
-	"0",
-	"0",
-	"1",
-	"user",
-	"release-keys",
-	"1",
-	NULL
-};
-
 void set_avoid_gfxaccel_config() {
     struct sysinfo sys;
     sysinfo(&sys);
 
-    if (sys.totalram <= 2048ull * 1024 * 1024) {
+    if (sys.totalram <= 3072ull * 1024 * 1024) {
         // Reduce memory footprint
         property_override("ro.config.avoid_gfx_accel", "true");
     }
 }
 
-static void workaround_snet_properties() {
-
-	// Hide all sensitive props
-	for (int i = 0; snet_prop_key[i]; ++i) {
-		property_override(snet_prop_key[i], snet_prop_value[i]);
-	}
-}
 
 void vendor_load_properties()
 {
@@ -170,6 +139,13 @@ void vendor_load_properties()
     property_override("dalvik.vm.heapminfree", heapminfree);
     property_override("dalvik.vm.heapmaxfree", heapmaxfree);
     
+    // Magisk Hide
+    property_override("ro.boot.verifiedbootstate", "green");
+    property_override("ro.boot.vbmeta.device_state", "locked");
+    property_override("ro.boot.veritymode", "enforcing");
+    property_override("ro.build.type", "user");
+    property_override("ro.build.tags", "release-keys");
+    
     property_override("ro.control_privapp_permissions", "log");
 
     string boot_cert = android::base::GetProperty("ro.boot.product.cert", "");
@@ -179,7 +155,4 @@ void vendor_load_properties()
         load_props("onclite", "Redmi 7");
     else
         load_props("onc", "Redmi Y3");
-	
-	    // Workaround SafetyNet
-    workaround_snet_properties();
 }
