@@ -1250,6 +1250,11 @@ vendor/lib64/libsdm-disp-vndapis.so|b04cd604137e52f4f9bb372db01884106da9834a
 vendor/lib64/libsdmextension.so|a3ac7600ba29ba4a1af2d69f157596de0f9ce497
 vendor/lib64/libtinyxml2_1.so|5eaa71107c3ac981774b523a761246aa18a6a5cf
 
+# HotwordEnrollment | crosshatch RPB3.200720.005-6705141
+-product/priv-app/HotwordEnrollmentXGoogleWCD9340/HotwordEnrollmentXGoogleWCD9340.apk|c96a20be78b43efdadab79e1316b72c9839b4d27
+-product/priv-app/HotwordEnrollmentOKGoogleWCD9340/HotwordEnrollmentOKGoogleWCD9340.apk|abd5ea62af471a19a51096702a5681088a4c19c3
+system_ext/framework/com.android.hotwordenrollment.common.util.jar|714382db8d12aca9f5388dd72060e867e30d88e4
+
 # IOP - from daisy-user-10-QKQ1.191002.002-V11.0.10.0.QDLMIXM-release-keys
 vendor/lib/hw/vendor.qti.hardware.iop@2.0-impl.so|66b6f5fea48c2c27ae489c31a457e99671e3b1c5
 vendor/lib/libqti-iopd-client.so|a36d5e78c79a842b16091f7cad6172e0cecb2e4c
@@ -1391,8 +1396,8 @@ vendor/lib64/hw/vendor.qti.hardware.alarm@1.0-impl.so|c1c19f5f1489309ab08364247f
 vendor/lib64/vendor.qti.hardware.alarm@1.0.so|4d513c26e7c8fb2d583e8391e7e702a40b77a990
 
 # QMI - from daisy-user-10-QKQ1.191002.002-V11.0.10.0.QDLMIXM-release-keys
-etc/permissions/qti_libpermissions.xml|ef3c88495f2f61a2d16e1445113a9d80f8db0e0a
-etc/permissions/qti_permissions.xml|e6ff4572352b1a4f91b6b9d7cbb1cad9924410a0
+etc/permissions/qti_libpermissions.xmL:system_ext/etc/permissions/qti_libpermissions.xml
+etc/permissions/qti_permissions.xml::system_ext/etc/permissions/qti_permissions.xml
 vendor/bin/irsc_util|0a879c2d3ba8b1bf764952ff95fc79090cebb6e9
 vendor/lib/libdiag.so|a4df90578d05cbc64857896a0d180ae88007a371
 vendor/lib/libdsutils.so|b3b83f1f1482007d2808bddf6365f32e03c8c8f6
