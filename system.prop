@@ -5,6 +5,9 @@ audio.offload.min.duration.secs=30
 audio.offload.video=true
 ro.af.client_heap_size_kbyte=7168
 
+# Boot
+sys.vendor.shutdown.waittime=500
+
 # Bluetooth
 vendor.bluetooth.soc=pronto
 
