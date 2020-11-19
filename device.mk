@@ -301,7 +301,11 @@ PRODUCT_PACKAGES += \
     android.system.net.netd@1.0 \
     libandroid_net
 
-# Offline charger
+# NQ Client
+PRODUCT_PACKAGES += \
+    libchrome.vendor
+
+# Offline charger    
 PRODUCT_PACKAGES += \
     charger_res_images \
     product_charger_res_images
