@@ -29,6 +29,9 @@ vendor.qcom.bluetooth.soc=pronto
 ro.vendor.display.cabl=0
 ro.vendor.display.sensortype=2
 
+# Dalvik dex2oat
+dalvik.vm.dex2oat64.enabled=true
+
 # DRM
 drm.service.enabled=true
 
