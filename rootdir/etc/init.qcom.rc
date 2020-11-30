@@ -626,5 +626,14 @@ service energy-awareness /system/vendor/bin/energy-awareness
     group system
     oneshot
 
+# Override the AOSP sensor HAL service definition to add input group access
+service vendor.sensors-hal-1-0 /vendor/bin/hw/android.hardware.sensors@1.0-service
+    override
+    class hal
+    user system
+    group system wakelock uhid input context_hub
+    capabilities BLOCK_SUSPEND
+    rlimit rtprio 10 10
+
 on property:dev.bootcomplete=1
     restart ril-daemon
