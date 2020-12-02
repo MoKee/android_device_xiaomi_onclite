@@ -2689,10 +2689,9 @@ vendor/lib64/libthermalfeature.so
 
 # Time services - from daisy-user-10-QKQ1.191002.002-V11.0.10.0.QDLMIXM-release-keys
 -vendor/app/TimeService/TimeService.apk|27f9b81621c446baa8c37581d9bfbca2fd67b496
-vendor/bin/time_daemon|b76aaf58f5967d46e8384f297f1852194840f8ce
-vendor/etc/init/init.time_daemon.rc|b253ca2a498757e14e1d7a051bf504ae09218f51
-vendor/lib/libtime_genoff.so|d140c8f7772f5218557193058eee8c34a7d0e19a
-vendor/lib64/libtime_genoff.so|253aca0fe9ca844886b0ae80d9816f80017a1880
+vendor/bin/time_daemon|75b8a6a14cfb4424499ccb2bf1cad011df295d0e
+vendor/lib/libtime_genoff.so|a574d287e7e73649685b702f4fe497eb7c6ba727
+vendor/lib64/libtime_genoff.so|06df52867790cdbbcc674a3a28d7ad7c8cc161ac
 
 # Voice - from daisy-user-10-QKQ1.191002.002-V11.0.10.0.QDLMIXM-release-keys
 vendor/lib/vendor.qti.voiceprint@1.0.so|56e9e6acff2f4a1c2aa50fc9e1bd18c0061476e6
