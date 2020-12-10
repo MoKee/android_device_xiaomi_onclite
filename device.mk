@@ -446,7 +446,9 @@ PRODUCT_COPY_FILES += \
 
 # Wi-Fi Display
 PRODUCT_PACKAGES += \
-    libnl
+    libaacwrapper \
+    libnl \
+    libmediaextractorservice
 
 PRODUCT_BOOT_JARS += \
     WfdCommon
