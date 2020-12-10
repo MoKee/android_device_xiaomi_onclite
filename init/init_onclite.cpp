@@ -29,6 +29,8 @@
 
 
 #include <sys/sysinfo.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "vendor_init.h"
 #include "property_service.h"
@@ -93,6 +95,39 @@ void check_device()
     }
 }
 
+/* From Magisk@jni/magiskhide/hide_utils.c */
+static const char *snet_prop_key[] = {
+	"ro.boot.vbmeta.device_state",
+	"ro.boot.verifiedbootstate",
+	"ro.boot.flash.locked",
+	"ro.boot.selinux",
+	"ro.boot.veritymode",
+	"ro.boot.warranty_bit",
+	"ro.warranty_bit",
+	"ro.debuggable",
+	"ro.secure",
+	"ro.build.type",
+	"ro.build.tags",
+	"ro.build.selinux",
+	NULL
+};
+
+static const char *snet_prop_value[] = {
+	"locked",
+	"green",
+	"1",
+	"enforcing",
+	"enforcing",
+	"0",
+	"0",
+	"0",
+	"1",
+	"user",
+	"release-keys",
+	"1",
+	NULL
+};
+
 void set_avoid_gfxaccel_config() {
     struct sysinfo sys;
     sysinfo(&sys);
@@ -101,6 +136,14 @@ void set_avoid_gfxaccel_config() {
         // Reduce memory footprint
         property_set("ro.config.avoid_gfx_accel", "true");
     }
+}
+
+static void workaround_snet_properties() {
+
+	// Hide all sensitive props
+	for (int i = 0; snet_prop_key[i]; ++i) {
+		property_override(snet_prop_key[i], snet_prop_value[i]);
+	}
 }
 
 void vendor_load_properties()
@@ -113,6 +156,8 @@ void vendor_load_properties()
     property_set("dalvik.vm.heaptargetutilization", heaptargetutilization);
     property_set("dalvik.vm.heapminfree", heapminfree);
     property_set("dalvik.vm.heapmaxfree", heapmaxfree);
+	
+	property_override("ro.control_privapp_permissions", "log");
 
     string boot_cert = android::base::GetProperty("ro.boot.product.cert", "");
 
@@ -121,4 +166,7 @@ void vendor_load_properties()
         load_props("onclite", "Redmi 7");
     else
         load_props("onc", "Redmi Y3");
+	
+	    // Workaround SafetyNet
+    workaround_snet_properties();
 }
