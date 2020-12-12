@@ -86,3 +86,5 @@ int main() {
 shutdown:
     // In normal operation, we don't expect the thread pool to shutdown
     LOG(ERROR) << "Touch HAL service is shutting down.";
+	    return 1;
+}
