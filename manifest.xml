@@ -726,7 +726,7 @@
         </interface>
     </hal>
     <hal format="hidl">
-        <name>vendor.mokee.touch</name>
+        <name>vendor.lineage.touch</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
         <interface>
