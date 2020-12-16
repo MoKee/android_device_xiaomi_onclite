@@ -121,15 +121,8 @@ BOARD_USES_QCNE := true
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true
 
-# Dexpreopt
-ifeq ($(HOST_OS),linux)
-  ifneq ($(TARGET_BUILD_VARIANT),eng)
-    ifeq ($(WITH_DEXPREOPT),)
-      WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := false
-      WITH_DEXPREOPT := true
-    endif
-  endif
-endif
+# Enable dexpreopt to speed boot time
+WITH_DEXPREOPT := true
 
 # Display
 TARGET_USES_ION := true
