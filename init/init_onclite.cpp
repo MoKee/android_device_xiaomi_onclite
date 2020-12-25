@@ -1,6 +1,7 @@
 /*
    Copyright (c) 2016, The CyanogenMod Project
-   Copyright (C) 2019 The LineageOS Project.
+   Copyright (C) 2019-2020 The LineageOS Project
+   Copyright (C) 2020 The MoKee Open Source Project
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
@@ -48,16 +49,18 @@ char const *heapminfree;
 char const *heapmaxfree;
 char const *heaptargetutilization;
 
-using android::init::property_set;
+using android::init::property_override;
 using std::string;
 
-void property_override(string prop, string value) {
-    auto pi = (prop_info*) __system_property_find(prop.c_str());
+void property_override(char const prop[], char const value[], bool add = true)
+{
+    auto pi = (prop_info *) __system_property_find(prop);
 
-    if (pi != nullptr)
-        __system_property_update(pi, value.c_str(), value.size());
-    else
-        __system_property_add(prop.c_str(), prop.size(), value.c_str(), value.size());
+    if (pi != nullptr) {
+        __system_property_update(pi, value, strlen(value));
+    } else if (add) {
+        __system_property_add(prop, strlen(prop), value, strlen(value));
+    }
 }
 
 void load_props(string device, string model) {
@@ -134,7 +137,7 @@ void set_avoid_gfxaccel_config() {
 
     if (sys.totalram <= 2048ull * 1024 * 1024) {
         // Reduce memory footprint
-        property_set("ro.config.avoid_gfx_accel", "true");
+        property_override("ro.config.avoid_gfx_accel", "true");
     }
 }
 
@@ -150,14 +153,14 @@ void vendor_load_properties()
 {
     check_device();
 
-    property_set("dalvik.vm.heapstartsize", heapstartsize);
-    property_set("dalvik.vm.heapgrowthlimit", heapgrowthlimit);
-    property_set("dalvik.vm.heapsize", heapsize);
-    property_set("dalvik.vm.heaptargetutilization", heaptargetutilization);
-    property_set("dalvik.vm.heapminfree", heapminfree);
-    property_set("dalvik.vm.heapmaxfree", heapmaxfree);
-	
-	property_override("ro.control_privapp_permissions", "log");
+    property_override("dalvik.vm.heapstartsize", heapstartsize);
+    property_override("dalvik.vm.heapgrowthlimit", heapgrowthlimit);
+    property_override("dalvik.vm.heapsize", heapsize);
+    property_override("dalvik.vm.heaptargetutilization", heaptargetutilization);
+    property_override("dalvik.vm.heapminfree", heapminfree);
+    property_override("dalvik.vm.heapmaxfree", heapmaxfree);
+    
+    property_override("ro.control_privapp_permissions", "log");
 
     string boot_cert = android::base::GetProperty("ro.boot.product.cert", "");
 
