@@ -29,18 +29,19 @@
  */
 
 
+#include <stdlib.h>
+#include <fstream>
+#include <string.h>
 #include <sys/sysinfo.h>
-#include <sys/stat.h>
-#include <sys/types.h>
+#include <unistd.h>
+
+#include <android-base/properties.h>
+#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#include <sys/_system_properties.h>
 
 #include "vendor_init.h"
 #include "property_service.h"
 #include "android/log.h"
-#include <android-base/properties.h>
-
-#include <string>
-#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
-#include <sys/_system_properties.h>
 
 char const *heapstartsize;
 char const *heapgrowthlimit;
@@ -49,7 +50,7 @@ char const *heapminfree;
 char const *heapmaxfree;
 char const *heaptargetutilization;
 
-using android::init::property_override;
+
 using std::string;
 
 void property_override(char const prop[], char const value[], bool add = true)
@@ -63,13 +64,22 @@ void property_override(char const prop[], char const value[], bool add = true)
     }
 }
 
+void property_over(string prop, string value) {
+    auto pi = (prop_info*) __system_property_find(prop.c_str());
+
+    if (pi != nullptr)
+        __system_property_update(pi, value.c_str(), value.size());
+    else
+        __system_property_add(prop.c_str(), prop.size(), value.c_str(), value.size());
+}
+
 void load_props(string device, string model) {
     string RO_PROP_SOURCES[] = { "", "odm.", "system.", "vendor." };
 
     for (const string &source : RO_PROP_SOURCES) {
-        property_override(string("ro.product.") + source + string("name"), device);
-        property_override(string("ro.product.") + source + string("device"), device);
-        property_override(string("ro.product.") + source + string("model"), model);
+        property_over(string("ro.product.") + source + string("name"), device);
+        property_over(string("ro.product.") + source + string("device"), device);
+        property_over(string("ro.product.") + source + string("model"), model);
     }
 }
 
