@@ -1,0 +1,1 @@
+allow sysfs_zram sysfs_zram:dir { search };

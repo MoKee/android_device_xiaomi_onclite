@@ -1,0 +1,1 @@
+allow default_prop default_prop:file { read };
