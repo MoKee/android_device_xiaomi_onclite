@@ -6,4 +6,4 @@ allow qti_init_shell proc_touchpanel:file { getattr setattr };
 allow qti_init_shell bluetooth_data_file:file r_file_perms;
 
 allow qti_init_shell { sysfs sysfs_dm }:file write;
-dontaudit qti_init_shell self:capability dac_override;
+dontaudit qti_init_shell self:capability { dac_override dac_read_search };
