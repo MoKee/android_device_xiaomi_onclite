@@ -1,1 +1,2 @@
 allow vendor_file vendor_file:file { read };
+
