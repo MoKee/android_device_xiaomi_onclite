@@ -1,2 +1,0 @@
-allow hal_memtrack_hwservice hal_memtrack_hwservice:hwservice_manager { find };
-
