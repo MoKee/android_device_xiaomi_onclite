@@ -1340,30 +1340,33 @@ vendor/lib64/libmm-color-convertor.so|468dba5a98ea982fc07977a9d5afba1f3180f23f
 lib/libmmrtpdecoder.so:system_ext/lib/libmmrtpdecoder.so
 lib/libmmrtpencoder.so:system_ext/lib/libmmrtpencoder.so
 
-# Perf - from daisy-user-10-QKQ1.191002.002-V11.0.10.0.QDLMIXM-release-keys
-product/lib/vendor.qti.hardware.perf@2.0.so|bad1efdcaea1cdc68e825472537c492a53accce2
-product/lib64/vendor.qti.hardware.perf@2.0.so|f6afe272ddd739c7b3f83a7a1d6cb14b7d868783
-vendor/bin/energy-awareness|538e9116b19a9baafa4cd1166d17ceba3d9c7323
-vendor/bin/hw/vendor.qti.hardware.perf@2.0-service|c65f6c0771f6f619ff60d15c9b12d6c787478d02
-vendor/bin/msm_irqbalance|13ed8694ff5afe07b6e984e5d4424cdcfaafa126
-vendor/etc/init/vendor.qti.hardware.perf@2.0-service.rc|cc8658db5e19f8e5e575fb986e7d38147e675f8d
-vendor/etc/perf/commonresourceconfigs.xml|1f8b94ca8dcdc0afd66d9e9b0fcef15fdb67f5d0
-vendor/etc/perf/perfboostsconfig.xml|26abcd55b56c4baa14f508dd91482fd3ebe358b7
-vendor/etc/perf/perfconfigstore.xml|2353b4bd18db8ec27302a16cfa97346cb36e6bdf
-vendor/etc/perf/targetconfig.xml|aa20c25397df1455206965737f82d44d44430e45
-vendor/etc/perf/targetresourceconfigs.xml|d9f9815764725df55e748bf4af4829e609dac853
-vendor/lib/libperfconfig.so|4ff0bb2cfa4fbb191e5e914f0f5935a2e2acaf15
-vendor/lib/libperfgluelayer.so|ac0354fdeeea6f936fabd4256dadd7c6e0d36e25
-vendor/lib/libqti-perfd-client.so|d6c5307b1971a350d1ae597a289424fd9591448d
-vendor/lib/libqti-perfd.so|10eab017bf8773c636863c4d0eefbb928f056592
-vendor/lib/libqti-util.so|1f406916a6ddfc38ec61b349240e70cf2cf19921
-vendor/lib/vendor.qti.hardware.perf@2.0.so|c32c1936440776a4e2210837dc1d91399c090b3a
-vendor/lib64/libperfconfig.so|50ce7ccfa6d442332dcd6ae3b8fd2cdfe71b9222
-vendor/lib64/libperfgluelayer.so|8cecf7792a2419d39a079abeb1540dced2af9ffb
-vendor/lib64/libqti-perfd-client.so|86e3d91309827c29bf56e6633fd511b21a7204b8
-vendor/lib64/libqti-perfd.so|700726417968a55ba2a0f2775fc20dd4f8138fb9
-vendor/lib64/libqti-util.so|953aed526a2d1b933f1d2a2cf0ea251f78776ac2
-vendor/lib64/vendor.qti.hardware.perf@2.0.so|9d66ec0350d3907923f81239a5409125d1060600
+# Perf - from LA.UM.9.6.2.r1-02800-89xx.0
+system_ext/lib/vendor.qti.hardware.perf@2.0.so|b61a2a19ff74b9362d16efed038f5eb7c2fe38a1
+system_ext/lib/vendor.qti.hardware.perf@2.1.so|cdf2ce59500193c7d6f09ffb33991663cc4d8adb
+system_ext/lib/vendor.qti.hardware.perf@2.2.so|dcef4218e555dc56e326db400a232922b0cb0b77
+system_ext/lib64/vendor.qti.hardware.perf@2.0.so|36410d136f510ae998641f668c14167ebc8f1d54
+system_ext/lib64/vendor.qti.hardware.perf@2.1.so|75f4f3ab0d2abdf8dab5aa81865707fe82fec0be
+system_ext/lib64/vendor.qti.hardware.perf@2.2.so|3f4ee88be26b872fd6fa170c69d8f923f54477b1
+vendor/bin/hw/vendor.qti.hardware.perf@2.2-service|ee4e94185a8362ee3216ec77d121124cfa4b0ecd
+vendor/etc/init/vendor.qti.hardware.perf@2.2-service.rc|459b4c23550a56ac545f78c6d391f3d7dd9ba45b
+vendor/lib64/libperfgluelayer.so|77c14d1868b52f759f122441b5df7e5fe1e278e1
+vendor/lib64/libperfconfig.so|082055646d2fffcf0120d23ca152d56c903ebd41
+vendor/lib64/libqti-perfd.so|cdd82b3c3a6f305946d8feb35a413f08b00c714f
+vendor/lib64/libqti-perfd-client.so|d6502c16ab4dd7642641b6a8cbb061847ff5cb2d
+vendor/lib64/libqti-util.so|834cc98315887e57a5f229f9ee1a0d20d0d8f4c3
+vendor/lib64/vendor.qti.hardware.perf@1.0.so|befc65637539963c48e3560285d5d330768e245b
+vendor/lib64/vendor.qti.hardware.perf@2.0.so|72b78413ee1d6fbfb38c58942d224c7f8f0cf00b
+vendor/lib64/vendor.qti.hardware.perf@2.1.so|65a22320eace1f7781510de4c7f21185773c7fc3
+vendor/lib64/vendor.qti.hardware.perf@2.2.so|9504a8618f79ceba7f4dad838c80f8804210a806
+vendor/lib/libperfconfig.so|4783a38dd417c9bd9c8ed2257f7ea071870f4089
+vendor/lib/libperfgluelayer.so|5e6c2681cdfda6c33ea788826089bf25d6ae917e
+vendor/lib/libqti-perfd.so|98835705f8ac0409ab5d78b7a52710c3c8d3f327
+vendor/lib/libqti-perfd-client.so|4fec2515f09cf18704e2501da071c7a28d4a61c7
+vendor/lib/libqti-util.so|b90cf5d6dab54445906fd94447d6d624586865ed
+vendor/lib/vendor.qti.hardware.perf@1.0.so|a2bfe4918d6cb6fbeb057148e1db5192a53aafac
+vendor/lib/vendor.qti.hardware.perf@2.0.so|280749be351cb0c26c0c6ee324615b77ea1b15f4
+vendor/lib/vendor.qti.hardware.perf@2.1.so|e7719a0ba123103f06c51cd985f10f3f8c3aa4c3
+vendor/lib/vendor.qti.hardware.perf@2.2.so|4f4f2fd8784bc9e07b432978e0397c02868ac8f6
 
 # Peripheral manager - from daisy-user-10-QKQ1.191002.002-V11.0.10.0.QDLMIXM-release-keys
 vendor/bin/pm-proxy|e32473bdd7f59dba3d59717fe68cb8d49b675369
