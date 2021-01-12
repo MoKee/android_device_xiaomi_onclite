@@ -387,7 +387,7 @@
     </string-array>
 
     <!-- Should the pinner service pin the Camera application? -->
-    <bool name="config_pinnerCameraApp">true</bool>
+    <bool name="config_pinnerCameraApp">false</bool>
 
     <!-- Should the pinner service pin the Home application? -->
     <bool name="config_pinnerHomeApp">true</bool>
@@ -514,6 +514,10 @@
          Off by default, since the framebuffer readback used to implement the
          fading edges is prohibitively expensive on most GPUs. -->
     <bool name="config_ui_enableFadingMarquee">true</bool>
+
+    <!--This fixes nonfunctioning factory reset protection and addresses
+	    numerous PersistentDataBlockService errors during boot up. -->
+    <string name="config_persistentDataPackageName" translatable="false">com.google.android.gms</string>
 
     <!-- The component name, flattened to a string, for the default autofill service
          to  enabled for an user. This service must be trusted, as it can be activated
