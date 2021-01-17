@@ -1,2 +1,1 @@
 vendor.goodix.hardware.fingerprint::IGoodixBiometricsFingerprint			u:object_r:hal_fingerprint_hwservice:s0
-vendor.qti.hardware.perf::IPerfCallback                      u:object_r:hal_perfcallback_hwservice:s0

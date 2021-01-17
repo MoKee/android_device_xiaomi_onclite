@@ -31,7 +31,7 @@
 firmware_directories /vendor/firmware_mnt/image/
 
 # the DIAG device node is not world writable/readable.
-/dev/diag                 0666   system     oem_2901
+/dev/diag                 0660   system     oem_2901
 
 /dev/genlock              0666   system     system
 /dev/wlan                 0660   wifi       wifi
@@ -429,6 +429,3 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/lirc0                0660   system     system
 /dev/peel_ir              0660   system     system
 
-# /dev/sensors only supports an ioctl to get the current SLPI timestamp
-# allow the sensors daemon to perform this as non-root
-/dev/sensors              0660   root       system
