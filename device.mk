@@ -308,6 +308,10 @@ PRODUCT_PACKAGES += \
     se_nq_extn_client \
     libchrome.vendor
 
+# Secure element
+PRODUCT_PACKAGES += \
+    SecureElement
+
 # Offline charger    
 PRODUCT_PACKAGES += \
     charger_res_images \
