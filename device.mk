@@ -256,10 +256,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg
 
-# IPA Manager
+# IPACM
 PRODUCT_PACKAGES += \
     ipacm \
-    IPACM_cfg.xml
+    IPACM_cfg.xml\
+    android.hardware.tetheroffload.config@1.0    
 
 # IR
 PRODUCT_PACKAGES += \
