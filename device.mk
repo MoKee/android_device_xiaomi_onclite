@@ -164,6 +164,7 @@ PRODUCT_PACKAGES += \
     gralloc.msm8953 \
     hwcomposer.msm8953 \
     memtrack.msm8953 \
+	libvulkan \
     libdisplayconfig \
     liboverlay \
     libqdMetaData \
