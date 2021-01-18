@@ -1,0 +1,1 @@
+allow traced_producer_socket traced_producer_socket:sock_file { write };

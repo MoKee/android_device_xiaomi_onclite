@@ -3,3 +3,11 @@ dontaudit gmscore_app firmware_file:filesystem getattr;
 dontaudit gmscore_app hal_memtrack_hwservice:hwservice_manager find;
 
 binder_call(gmscore_app, hal_memtrack_default);
+
+allow gmscore_app adbd_prop:file { open read getattr };
+#allow gmscore_app bg_boot_complete_prop:file { open read getattr };
+#allow gmscore_app vendor_system_prop:file { open read getattr };
+#allow gmscore_app bg_daemon_prop:file { open read getattr };
+allow gmscore_app apexd_prop:file { open getattr };
+allow gmscore_app apk_verity_prop:file { open read getattr };
+allow gmscore_app theme_prop:file { open read getattr };

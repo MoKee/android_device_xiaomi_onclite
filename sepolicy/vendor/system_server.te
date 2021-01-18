@@ -8,3 +8,16 @@ r_dir_file(system_server, keylayout_file);
 get_prop(system_server, fp_prop);
 
 dontaudit system_server vfat:dir r_dir_perms;
+
+allow system_server vendor_keylayout_file:dir r_dir_perms;
+allow system_server vendor_keylayout_file:file r_file_perms;
+allow system_server lirc_device:chr_file rw_file_perms;
+allow system_server sysfs_rtc:file r_file_perms;
+allow system_server userspace_reboot_exported_prop:file { read };
+allow system_server userspace_reboot_exported_prop:file { open };
+allow system_server userspace_reboot_exported_prop:file { getattr };
+allow system_server userspace_reboot_config_prop:file { read };
+allow system_server userspace_reboot_config_prop:file { open };
+allow system_server userspace_reboot_config_prop:file { getattr };
+allow system_server proc:file { getattr };
+get_prop(system_server, persist_camera_prop);
