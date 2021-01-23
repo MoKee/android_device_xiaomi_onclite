@@ -144,11 +144,9 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-service \
     android.hardware.camera.provider@2.5:64 \
     libdng_sdk.vendor \
-    vendor.qti.hardware.camera.device@1.0:64
-	
-# Google 
-PRODUCT_PACKAGES += \
-    GCamGo
+    Camera2 \
+    libwui \
+    vendor.qti.hardware.camera.device@1.0:6
 
 # Component overrides
 PRODUCT_COPY_FILES += \
