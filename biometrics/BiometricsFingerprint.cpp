@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2017 The Android Open Source Project
- * Copyright (C) 2021 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +24,6 @@
 
 #include <inttypes.h>
 #include <unistd.h>
-
-#include <cutils/properties.h>
 
 namespace android {
 namespace hardware {
@@ -214,36 +211,31 @@ IBiometricsFingerprint* BiometricsFingerprint::getInstance() {
     return sInstance;
 }
 
-void setFpVendorProp(const char *fp_vendor) {
-    property_set("persist.vendor.sys.fp.vendor", fp_vendor);
-    property_set("ro.boot.fpsensor", fp_vendor);
-}
-
-fingerprint_device_t* getDeviceForVendor(const char *class_name) {
+fingerprint_device_t* BiometricsFingerprint::openHal() {
     int err;
     const hw_module_t *hw_mdl = nullptr;
     ALOGD("Opening fingerprint hal library...");
-    if (0 != (err = hw_get_module_by_class(FINGERPRINT_HARDWARE_MODULE_ID, class_name, &hw_mdl))) {
-        ALOGE("Can't open fingerprint HW Module, class: %s, error: %d", class_name, err);
+    if (0 != (err = hw_get_module(FINGERPRINT_HARDWARE_MODULE_ID, &hw_mdl))) {
+        ALOGE("Can't open fingerprint HW Module, error: %d", err);
         return nullptr;
     }
 
     if (hw_mdl == nullptr) {
-        ALOGE("No valid fingerprint module, class: %s", class_name);
+        ALOGE("No valid fingerprint module");
         return nullptr;
     }
 
     fingerprint_module_t const *module =
         reinterpret_cast<const fingerprint_module_t*>(hw_mdl);
     if (module->common.methods->open == nullptr) {
-        ALOGE("No valid open method, class: %s", class_name);
+        ALOGE("No valid open method");
         return nullptr;
     }
 
     hw_device_t *device = nullptr;
 
     if (0 != (err = module->common.methods->open(hw_mdl, nullptr, &device))) {
-        ALOGE("Can't open fingerprint methods, class: %s, error: %d", class_name, err);
+        ALOGE("Can't open fingerprint methods, error: %d", err);
         return nullptr;
     }
 
@@ -255,44 +247,6 @@ fingerprint_device_t* getDeviceForVendor(const char *class_name) {
 
     fingerprint_device_t* fp_device =
         reinterpret_cast<fingerprint_device_t*>(device);
-
-    ALOGI("Loaded fingerprint module, class: %s", class_name);
-    return fp_device;
-}
-
-fingerprint_device_t* getFingerprintDevice()
-{
-    fingerprint_device_t *fp_device;
-
-    fp_device = getDeviceForVendor("fpc");
-    if (fp_device == nullptr) {
-        ALOGE("Failed to load fpc fingerprint module");
-    } else {
-        setFpVendorProp("fpc");
-        return fp_device;
-    }
-
-    fp_device = getDeviceForVendor("goodix");
-    if (fp_device == nullptr) {
-        ALOGE("Failed to load goodix fingerprint module");
-    } else {
-        setFpVendorProp("goodix");
-        return fp_device;
-    }
-
-    setFpVendorProp("none");
-
-    return nullptr;
-}
-
-fingerprint_device_t* BiometricsFingerprint::openHal() {
-    int err;
-
-    fingerprint_device_t *fp_device;
-    fp_device = getFingerprintDevice();
-    if (fp_device == nullptr) {
-        return nullptr;
-    }
 
     if (0 != (err =
             fp_device->set_notify(fp_device, BiometricsFingerprint::notify))) {
