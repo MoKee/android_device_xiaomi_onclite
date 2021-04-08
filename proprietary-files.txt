@@ -55,6 +55,9 @@ vendor/lib/libqtigef.so|fbedb509c61ff1a7d6e9c4a099af346ca781430a
 vendor/lib/libsurround_3mic_proc.so|d8c1d2cb7d598eee79ccfe5b7ec83a185c8fef6c
 vendor/lib/libtinycompress_vendor.so|4991b78d9ed12b828ceeaf61e5cde6328eb944b9
 vendor/lib/soundfx/libasphere.so|4d0ccf1c282bb70619d20bf7d79021dc3815a579
+vendor/lib/soundfx/libqcbassboost.so|bc8ae80ff1ade557ff494631494c2f8261028acb
+vendor/lib/soundfx/libqcreverb.so|1b3cef3c4c9145662fddb03c5e1e7dd3a4f25e1e
+vendor/lib/soundfx/libqcvirt.so|41bf71787ffae3f511d9cb3e32b9e721a0a2e385
 vendor/lib64/libacdb-fts.so|662467af62f9607abfd5acb532dfbf69240bcc70
 vendor/lib64/libacdbloader.so|7c49e7d95090e20f6198f03959323359e4b2ed19
 vendor/lib64/libacdbrtac.so|54d114f280eb99f4aa73890c5e9cfbb5b55eb813
@@ -67,6 +70,9 @@ vendor/lib64/libaudio_log_utils.so|3670ed70e68b209f67852cad81b74d2dda2de3cd
 vendor/lib64/libqtigef.so|70df5848c061154e4c33b147e06d4979e2391b5e
 vendor/lib64/libtinycompress_vendor.so|74909f72ee8ebb01c2f4ef717e902055272a5917
 vendor/lib64/soundfx/libasphere.so|f552a053f935299b3fd9be03a596eb4c40dee50e
+vendor/lib64/soundfx/libqcbassboost.so|0d2afd6f2c5b9aa2397f3e1cb3287bf906cf8fb6
+vendor/lib64/soundfx/libqcreverb.so|fbda7d0189603bb8c0c3e9d92563d75b8ab2dbc8
+vendor/lib64/soundfx/libqcvirt.so|bb046694512d412d6a04bd95ccb2b573454d9717
 
 # Audio-ACDB
 vendor/etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb
@@ -992,7 +998,7 @@ product/lib/libdpmtcm.so|b9bc8c5e52b609d97a7e0fe79f3189bdd5bc80a2
 product/lib64/com.qualcomm.qti.dpm.api@1.0.so|a70cfc1be3e06cde6318d6969e114429fe1950bb
 product/lib64/libdpmctmgr.so|7ee0d1d40a8fc7fea924602db13717235ed2c2aa
 product/lib64/libdpmfdmgr.so|cb0157da0ffe6827471662a5b7881e85165cb5aa
-product/lib64/libdpmframework.so|dedfeed9df7531f7eea4f968fc980c6bee3c02e5
+product/lib64/libdpmframework.so|8b2183e4b50a033b10c640cbc0b14a39ed5dca16
 product/lib64/libdpmtcm.so|a98ab3c419ebe49c6f3351ef4fa64ebda65d0e7d
 -product/priv-app/dpmserviceapp/dpmserviceapp.apk|9fd873c5330c03c62dfdeb6540b5984588295319
 vendor/bin/dpmQmiMgr|a43829d478ebc243b5f7307b44aa501a7a3c8211
@@ -1095,6 +1101,7 @@ vendor/firmware/leia_pfp_470.fw
 vendor/firmware/leia_pm4_470.fw
 
 # GPS - from daisy-user-10-QKQ1.191002.002-V11.0.10.0.QDLMIXM-release-keys
+-vendor/app/CACertService/CACertService.apk|69e2e74add9fd8a8110812042408700bcb7a0852
 vendor/bin/garden_app|f0a1f082c2abaf0ffda363e52361587f1c8a7492
 vendor/bin/hw/android.hardware.gnss@2.0-service-qti|7f7006829005658c9b89c61ac02f107d3d6fe470
 vendor/bin/loc_launcher|06793983f836a9b42b5ff3848f8fe177134c1379
@@ -1105,11 +1112,12 @@ vendor/bin/xtwifi-client|7d737eca493d57e29cb44e0bc658dda93fc44fe4
 vendor/bin/xtwifi-inet-agent|58749dc8fc9fdce0c184f3689d50299734b0f988
 vendor/etc/cacert_location.pem|6a05f324e7d9ff584811e62aabeb6d89a5239bbe
 vendor/etc/init/android.hardware.gnss@2.0-service-qti.rc|8e0b0596a13b8d653e6f5415c41d8a53bb12b73a
--vendor/etc/vintf/manifest/android.hardware.gnss@2.0-service-qti.xml|8d7eafd68db9bbe7ec7a5c4d547f026869766081
--vendor/etc/vintf/manifest/vendor.qti.gnss@3.0-service.xml|9b2f6691d6c224bcb9ab9a0d57adfb9e52f1b53e
+vendor/etc/vintf/manifest/android.hardware.gnss@2.0-service-qti.xml|8d7eafd68db9bbe7ec7a5c4d547f026869766081
+vendor/etc/vintf/manifest/vendor.qti.gnss@3.0-service.xml|9b2f6691d6c224bcb9ab9a0d57adfb9e52f1b53e
 vendor/lib64/hw/android.hardware.gnss@2.0-impl-qti.so|02717939c65794f29ab10bb8175081dbcfde0327
 vendor/lib64/hw/vendor.qti.gnss@3.0-impl.so|2328835a0e0221a527c8e55c72e1a0dcef3fcfbe
 vendor/lib64/libbatching.so|d46350976bb1d3dfd1e9d354c176290eb1284a42
+vendor/lib64/libcacertclient.so|daa1332db3b07eb75350dee833628bd248d9f03e
 vendor/lib64/libdataitems.so|0ff60a5f4273cc3eb9f1f8a4d7bd204107375cec
 vendor/lib64/libgdtap.so|f5151c6425312d37c1eeb78cce1f92b71ae79e10
 vendor/lib64/libgeofencing.so|57f23c8de2503824e9b05e9c49fae2aecf3f7e9d
@@ -1137,6 +1145,8 @@ vendor/lib64/vendor.qti.gnss@2.0.so|f6f94bf22b8948c163b84cf092d86fdd25b39850
 vendor/lib64/vendor.qti.gnss@2.1.so|7f69b6098f779f6ed396bbf366b496b0b228c743
 vendor/lib64/vendor.qti.gnss@3.0-service.so|6b3c387f31f4cb91c8907362af4daa3f0cad7911
 vendor/lib64/vendor.qti.gnss@3.0.so|c5ed668d324e7c898ca026fc12dad8829cd8a944
+vendor/lib64/vendor.qti.hardware.cacert@1.0.so|bb56f65d5251057a306a8175daef9571cfd3457b
+vendor/lib/libcacertclient.so|120cce70d1a589b76fff76a3d8c0bc4f4a2e31f2
 vendor/lib/libjnihelper.so|78a8dd816959955b699c0273b9f528b1aecc2e93
 vendor/lib/vendor.qti.gnss@1.0.so|2fbfffb280becb4c890787958d5471c887e0e29e
 vendor/lib/vendor.qti.gnss@1.1.so|3f185bf7c146a8f77fe6c35d57358e7c64b15ac2
@@ -1144,6 +1154,7 @@ vendor/lib/vendor.qti.gnss@1.2.so|020509617283c8323c71c1eec955b7a09d62aa89
 vendor/lib/vendor.qti.gnss@2.0.so|ef5e1e3718cd71a01a4ca7b06f38d56b6aca50aa
 vendor/lib/vendor.qti.gnss@2.1.so|c7eeb37d061f7978624810ccc1d1d7f25e9f95da
 vendor/lib/vendor.qti.gnss@3.0.so|e4f5a7fd2dcdf56f8d69e4d0b27e996812ebd295
+vendor/lib/vendor.qti.hardware.cacert@1.0.so|89d3c343fcad39b2c88a3255866cfd833783caea
 
 # Gatekeeper - from daisy-user-10-QKQ1.191002.002-V11.0.10.0.QDLMIXM-release-keys
 vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti|bea6d682011b465a08b9085f7b5e69b965743eee
@@ -1606,18 +1617,18 @@ vendor/lib64/vendor.qti.hardware.scve.objecttracker@1.0.so|8613a107e2e318f67d278
 vendor/lib64/vendor.qti.hardware.scve.panorama@1.0-adapter-helper.so|1374198e008c0bcc9f09172eb70dddc458f4790b
 vendor/lib64/vendor.qti.hardware.scve.panorama@1.0.so|b7a1fd4813ce3204d140ca8110fda6018c709daa
 
-# Sensors - from onc-user 10 QKQ1.191008.001 V11.0.3.0.QFLINXM release-keys
-vendor/bin/sensors.qti|fc188cb3cd81919a0a30c39382d933b151f85aff
-vendor/lib/hw/activity_recognition.msm8953.so|60ed5922a2d73f1cda71f7da8dbb702f5dd55df0
-vendor/lib/libsensor1.so|432973997776d0d7a88670a9c5d6ac2e44c7903d
-vendor/lib/libsensor_reg.so|ba59e280ae94d491f1f6c19b4e33f477d0bb50c2
-vendor/lib/sensor_calibrate.so|59c6e85c77464209885cfd459e6d780456c861f9
-vendor/lib/sensors.ssc.so|3e8c49cde6e3dffacf1b5e163ff8a158ca7897d8
-vendor/lib64/hw/activity_recognition.msm8953.so|fe295d5a9a8d9aad9f132c2ee40b592e7db68046
-vendor/lib64/libsensor1.so|70255bec42ac093d4c5dc24411843f21e045bcec
-vendor/lib64/libsensor_reg.so|3539a0e7888aa187e3d2bbdd357ff183ae6dfdf3
-vendor/lib64/sensor_calibrate.so|03fefe93d634573f333efc2674dfede9bd0e1867
-vendor/lib64/sensors.ssc.so|db03172dc49188e50eb88f4cf9c43d762cb118a9
+# Sensors
+vendor/bin/sensors.qti
+vendor/lib/hw/activity_recognition.msm8953.so
+vendor/lib/libsensor1.so
+vendor/lib/libsensor_reg.so
+vendor/lib/sensor_calibrate.so
+vendor/lib/sensors.ssc.so
+vendor/lib64/hw/activity_recognition.msm8953.so
+vendor/lib64/libsensor1.so
+vendor/lib64/libsensor_reg.so
+vendor/lib64/sensor_calibrate.so
+vendor/lib64/sensors.ssc.so
 
 # Soter - from daisy-user-10-QKQ1.191002.002-V11.0.10.0.QDLMIXM-release-keys
 product/framework/vendor.qti.hardware.soter-V1.0-java.jar|e0a20a638cac4e369a29157ea4aa44b1e5d60f8f
@@ -1649,6 +1660,7 @@ vendor/lib64/libthermalfeature.so|1c408911610e5b6a11853aff1900860f9e9a861f
 # Time services - from daisy-user-10-QKQ1.191002.002-V11.0.10.0.QDLMIXM-release-keys
 -vendor/app/TimeService/TimeService.apk|27f9b81621c446baa8c37581d9bfbca2fd67b496
 vendor/bin/time_daemon|75b8a6a14cfb4424499ccb2bf1cad011df295d0e
+vendor/etc/init/init.time_daemon.rc|b253ca2a498757e14e1d7a051bf504ae09218f51
 vendor/lib/libtime_genoff.so|a574d287e7e73649685b702f4fe497eb7c6ba727
 vendor/lib64/libtime_genoff.so|06df52867790cdbbcc674a3a28d7ad7c8cc161ac
 
