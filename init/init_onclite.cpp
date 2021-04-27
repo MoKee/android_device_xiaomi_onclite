@@ -1,6 +1,7 @@
 /*
    Copyright (c) 2016, The CyanogenMod Project
    Copyright (C) 2019 The LineageOS Project.
+   Copyright (C) 2020-2021 The MoKee Open Source Project
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
@@ -132,7 +133,7 @@ void set_avoid_gfxaccel_config() {
     struct sysinfo sys;
     sysinfo(&sys);
 
-    if (sys.totalram < 3048ull * 1024 * 1024) {
+    if (sys.totalram <= 3048ull * 1024 * 1024) {
      //Set lowram options and enable traced by default
         property_set("ro.config.low_ram", "true");
 		property_set("ro.vendor.qti.config.swap", "true");
