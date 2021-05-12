@@ -2,7 +2,7 @@
 <!--
      Copyright (C) 2015-2016 The CyanogenMod Project
                    2017 The LineageOS Project
-                   2020 The MoKee Open Source Project
+				   2020-2021 The MoKee Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -18,18 +18,18 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.mokee.settings.doze"
+    android:sharedUserId="android.uid.system"
     android:versionCode="1"
-    android:versionName="1.0"
-    android:sharedUserId="android.uid.system">
+    android:versionName="1.0">
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <protected-broadcast android:name="com.android.systemui.doze.pulse" />
 
     <uses-sdk
         android:minSdkVersion="24"
-        android:targetSdkVersion="24"/>
+        android:targetSdkVersion="24" />
 
     <application
         android:label="@string/device_settings_app_name"
@@ -42,8 +42,9 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".DozeService"
-                 android:permission="XiaomiDozeService">
+        <service
+            android:name=".DozeService"
+            android:permission="XiaomiDozeService">
         </service>
 
         <activity

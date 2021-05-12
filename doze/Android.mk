@@ -22,6 +22,6 @@ LOCAL_RESOURCE_DIR := \
 
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
-include $(BUILD_PACKAGE)
+include frameworks/base/packages/SettingsLib/common.mk
 
-include $(call all-makefiles-under,$(LOCAL_PATH))
+include $(BUILD_PACKAGE)
