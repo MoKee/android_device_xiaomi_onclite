@@ -449,11 +449,11 @@ function sdm660_sched_interactive_dcvs() {
             echo 762 > $cpubw/min_freq
             echo "1525 3143 5859 7759 9887 10327 11863 13763" > $cpubw/bw_hwmon/mbps_zones
             echo 4 > $cpubw/bw_hwmon/sample_ms
-            echo 34 > $cpubw/bw_hwmon/io_percent
+            echo 85 > $cpubw/bw_hwmon/io_percent
             echo 100 > $cpubw/bw_hwmon/decay_rate
             echo 50 > $cpubw/bw_hwmon/bw_step
             echo 20 > $cpubw/bw_hwmon/hist_memory
-            echo 10 > $cpubw/bw_hwmon/hyst_length
+            echo 0 > $cpubw/bw_hwmon/hyst_length
             echo 80 > $cpubw/bw_hwmon/down_thres
             echo 0 > $cpubw/bw_hwmon/low_power_ceil_mbps
             echo 34 > $cpubw/bw_hwmon/low_power_io_percent
@@ -578,15 +578,6 @@ function configure_zram_parameters() {
             echo 1 > /sys/block/zram0/use_dedup
         fi
         echo $zRamSizeBytes > /sys/block/zram0/disksize
-
-        # ZRAM may use more memory than it saves if SLAB_STORE_USER
-        # debug option is enabled.
-        if [ -e /sys/kernel/slab/zs_handle ]; then
-            echo 0 > /sys/kernel/slab/zs_handle/store_user
-        fi
-        if [ -e /sys/kernel/slab/zspage ]; then
-            echo 0 > /sys/kernel/slab/zspage/store_user
-        fi
 
         # ZRAM may use more memory than it saves if SLAB_STORE_USER
         # debug option is enabled.
@@ -726,13 +717,6 @@ else
 
             vmpres_file_min=$((minfree_5 + (minfree_5 - rem_minfree_4)))
             echo $vmpres_file_min > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
-            if [ $MemTotal -gt 3145728 ]; then
-                echo "18432,23040,27648,38708,120640,144768" > /sys/module/lowmemorykiller/parameters/minfree
-            elif [ $MemTotal -gt 2097152 ]; then
-                echo "18432,23040,27648,32256,100640,120640" > /sys/module/lowmemorykiller/parameters/minfree
-            else
-                echo "18432,23040,27648,32256,69010,100640" > /sys/module/lowmemorykiller/parameters/minfree
-            fi
         else
             # Set LMK series, vmpressure_file_min for 32 bit non-go targets.
             # Disable Core Control, enable KLMK for non-go 8909.
@@ -1302,7 +1286,6 @@ case "$target" in
         # HMP scheduler settings for 8916, 8936, 8939, 8929
         echo 3 > /proc/sys/kernel/sched_window_stats_policy
         echo 3 > /proc/sys/kernel/sched_ravg_hist_size
-	echo 9 > /proc/sys/kernel/sched_upmigrate_min_nice
 
         # Apply governor settings for 8916
         case "$soc_id" in
@@ -2754,7 +2737,6 @@ case "$target" in
             # cpuset settings
             echo 0-3 > /dev/cpuset/background/cpus
             echo 0-3 > /dev/cpuset/system-background/cpus
-            echo 0-3 > /dev/cpuset/restricted/cpus
 
             #if the kernel version >=4.14,use the schedutil governor
             KernelVersionStr=`cat /proc/sys/kernel/osrelease`
