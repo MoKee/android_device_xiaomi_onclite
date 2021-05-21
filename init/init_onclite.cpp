@@ -132,9 +132,10 @@ void set_avoid_gfxaccel_config() {
     struct sysinfo sys;
     sysinfo(&sys);
 
-    if (sys.totalram <= 2048ull * 1024 * 1024) {
-        // Reduce memory footprint
-        property_set("ro.config.avoid_gfx_accel", "true");
+    if (sys.totalram < 3048ull * 1024 * 1024) {
+     //Set lowram options and enable traced by default
+        property_set("ro.config.low_ram", "true");
+		property_set("ro.vendor.qti.config.swap", "true");
     }
 }
 
