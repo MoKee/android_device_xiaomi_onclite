@@ -129,13 +129,21 @@ static const char *snet_prop_value[] = {
 	NULL
 };
 
-void set_avoid_gfxaccel_config() {
+void set_go_config() {
     struct sysinfo sys;
     sysinfo(&sys);
 
-    if (sys.totalram <= 3048ull * 1024 * 1024) {
-     //Set lowram options and enable traced by default
+	// set rest of Go tweaks for 2 GB
+    if (sys.totalram < 2048ull * 1024 * 1024) {
+        // set lowram options and enable traced by default
         property_set("ro.config.low_ram", "true");
+        property_set("persist.traced.enable", "true");
+        property_set("ro.statsd.enable", "true");
+        // set threshold to filter unused apps
+        property_set("pm.dexopt.downgrade_after_inactive_days", "10");
+        // set the compiler filter for shared apks to quicken
+        property_set("pm.dexopt.shared", "quicken");
+		// set swap options
 		property_set("ro.vendor.qti.config.swap", "true");
     }
 }
@@ -158,6 +166,12 @@ void vendor_load_properties()
     property_set("dalvik.vm.heaptargetutilization", heaptargetutilization);
     property_set("dalvik.vm.heapminfree", heapminfree);
     property_set("dalvik.vm.heapmaxfree", heapmaxfree);
+		
+	// Workaround SafetyNet
+    workaround_snet_properties();
+	
+	//Set low RAM
+	set_go_config();
 	
 	property_override("ro.control_privapp_permissions", "log");
 
@@ -168,7 +182,5 @@ void vendor_load_properties()
         load_props("onclite", "Redmi 7");
     else
         load_props("onc", "Redmi Y3");
-	
-	    // Workaround SafetyNet
-    workaround_snet_properties();
+
 }
