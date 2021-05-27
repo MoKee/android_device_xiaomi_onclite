@@ -29,6 +29,8 @@
  */
 
 
+#include <fcntl.h>
+#include <stdlib.h>
 #include <sys/sysinfo.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -51,15 +53,6 @@ char const *heaptargetutilization;
 
 using android::init::property_set;
 using std::string;
-
-void property_override(string prop, string value) {
-    auto pi = (prop_info*) __system_property_find(prop.c_str());
-
-    if (pi != nullptr)
-        __system_property_update(pi, value.c_str(), value.size());
-    else
-        __system_property_add(prop.c_str(), prop.size(), value.c_str(), value.size());
-}
 
 void load_props(string device, string model) {
     string RO_PROP_SOURCES[] = { "", "odm.", "system.", "vendor." };
@@ -86,6 +79,8 @@ void check_device()
         heapminfree = "8m";
         heapmaxfree = "16m";
     } else {
+		// set different Davlik heap properties for 3 GB
+    if (sys.totalram > 2048ull * 1024 * 1024) {
         // from - phone-xhdpi-2048-dalvik-heap.mk
         heapstartsize = "8m";
         heapgrowthlimit = "192m";
@@ -93,45 +88,17 @@ void check_device()
         heaptargetutilization = "0.75";
         heapminfree = "512k";
         heapmaxfree = "8m";
+    } else {
+        // from go_defaults_common.prop
+        // from - phone-xhdpi-2048-dalvik-heap.mk
+        heapstartsize = "8m";
+        heapgrowthlimit = "128m";
+        heapsize = "256m";
+        heaptargetutilization = "0.75";
+        heapminfree = "512k";
+        heapmaxfree = "8m";
     }
-}
-
-/* From Magisk@jni/magiskhide/hide_utils.c */
-static const char *snet_prop_key[] = {
-	"ro.boot.vbmeta.device_state",
-	"ro.boot.verifiedbootstate",
-	"ro.boot.flash.locked",
-	"ro.boot.selinux",
-	"ro.boot.veritymode",
-	"ro.boot.warranty_bit",
-	"ro.warranty_bit",
-	"ro.debuggable",
-	"ro.secure",
-	"ro.build.type",
-	"ro.build.tags",
-	"ro.build.selinux",
-	NULL
-};
-
-static const char *snet_prop_value[] = {
-	"locked",
-	"green",
-	"1",
-	"enforcing",
-	"enforcing",
-	"0",
-	"0",
-	"0",
-	"1",
-	"user",
-	"release-keys",
-	"1",
-	NULL
-};
-
-void set_go_config() {
-    struct sysinfo sys;
-    sysinfo(&sys);
+	}
 
 	// set rest of Go tweaks for 2 GB
     if (sys.totalram < 2048ull * 1024 * 1024) {
@@ -148,14 +115,6 @@ void set_go_config() {
     }
 }
 
-static void workaround_snet_properties() {
-
-	// Hide all sensitive props
-	for (int i = 0; snet_prop_key[i]; ++i) {
-		property_override(snet_prop_key[i], snet_prop_value[i]);
-	}
-}
-
 void vendor_load_properties()
 {
     check_device();
@@ -166,15 +125,7 @@ void vendor_load_properties()
     property_set("dalvik.vm.heaptargetutilization", heaptargetutilization);
     property_set("dalvik.vm.heapminfree", heapminfree);
     property_set("dalvik.vm.heapmaxfree", heapmaxfree);
-		
-	// Workaround SafetyNet
-    workaround_snet_properties();
-	
-	//Set low RAM
-	set_go_config();
-	
-	property_override("ro.control_privapp_permissions", "log");
-
+				
     string boot_cert = android::base::GetProperty("ro.boot.product.cert", "");
 
     if (boot_cert == "M1810F6LG" || boot_cert == "M1810F6LH" || boot_cert == "M1810F6LI"
