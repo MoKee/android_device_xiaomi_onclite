@@ -54,6 +54,15 @@ char const *heaptargetutilization;
 using android::init::property_set;
 using std::string;
 
+void property_override(string prop, string value) {
+    auto pi = (prop_info*) __system_property_find(prop.c_str());
+
+    if (pi != nullptr)
+        __system_property_update(pi, value.c_str(), value.size());
+    else
+        __system_property_add(prop.c_str(), prop.size(), value.c_str(), value.size());
+}
+
 void load_props(string device, string model) {
     string RO_PROP_SOURCES[] = { "", "odm.", "system.", "vendor." };
 
