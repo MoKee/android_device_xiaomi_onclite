@@ -135,6 +135,9 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-service \
     libgui_vendor \
     libstdc++.vendor \
+
+# SafetyNet
+PRODUCT_SAFETYNET_MODEL_HACK := true
 	
 # Google 
 PRODUCT_PACKAGES += \
